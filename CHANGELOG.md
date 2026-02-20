@@ -1,12 +1,10 @@
-
+# Changelog
 
 ## [0.3.7](https://github.com/Mircooo/starter/compare/v0.3.6...v0.3.7) (2026-02-20)
 
 ### 🐛 Bug Fixes
 
 * **release:** move changelog fix to before:release hook ([bc3f332](https://github.com/Mircooo/starter/commit/bc3f33235bfbc341eadf8aad2039c0eab346c0ab))
-
-# Changelog
 
 ## [0.3.6](https://github.com/Mircooo/starter/compare/v0.3.5...v0.3.6) (2026-02-20)
 

@@ -31,9 +31,8 @@ On n'installe rien "parce que ça pourrait servir". Chaque package a une raison 
 
 | Package | Version | Pourquoi |
 |---|---|---|
-| `tailwindcss` | ^3.4.14 | Framework CSS utility-first — styling rapide et cohérent |
-| `postcss` | ^8.5.6 | Pipeline CSS nécessaire pour Tailwind |
-| `autoprefixer` | ^10.4.23 | Ajoute automatiquement les préfixes navigateur (`-webkit-`, etc.) |
+| `tailwindcss` | ^4.2.0 | Framework CSS utility-first v4 — config CSS-first, plus rapide |
+| `@tailwindcss/vite` | ^4.2.0 | Plugin Vite natif pour Tailwind v4 (remplace PostCSS + autoprefixer) |
 
 ### Qualité de code
 

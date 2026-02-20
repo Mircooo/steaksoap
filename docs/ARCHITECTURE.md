@@ -30,7 +30,7 @@ cdn/
 │   ├── styles/           → Styles globaux
 │   ├── types/            → Types TypeScript partagés
 │   └── utils/            → Fonctions utilitaires pures
-└── [configs]             → vite, tailwind, tsconfig, eslint, prettier…
+└── [configs]             → vite, tsconfig, eslint, prettier, vercel…
 ```
 
 ---
@@ -94,17 +94,15 @@ Utile pour les sites vitrines où le contenu est hardcodé (pas de CMS).
 Pour les **features complexes** qui méritent leur propre dossier :
 
 ```
-src/features/gallery/
-├── Gallery.tsx          → Composant principal
-├── GalleryGrid.tsx      → Sous-composant
-├── types.ts             → Types spécifiques
-├── constants.ts         → Constantes spécifiques
-├── hooks/
-│   └── useGallery.ts    → Hooks spécifiques
-└── index.ts             → Barrel export
+src/features/counter/        ← exemple inclus dans le starter
+├── Counter.tsx              → Composant principal
+├── useCounter.ts            → Hook spécifique
+├── types.ts                 → Types spécifiques
+└── index.ts                 → Barrel export
 ```
 
 > **Règle** : une feature a son propre dossier quand elle a **3+ fichiers liés**.
+> L'exemple `counter/` est un modèle de référence — à supprimer quand tu démarres un vrai projet.
 
 ### `src/hooks/`
 
@@ -124,11 +122,10 @@ Objectif : **isoler** les dépendances pour qu'un changement de lib ne touche qu
 ### `src/styles/`
 
 Styles globaux :
-- `tokens.css` → Design tokens (variables CSS : couleurs, fonts, spacing, z-index)
 - `fonts.css` → Déclarations `@font-face`
 - `animations.css` → Keyframes globaux
 
-> **Règle** : ces tokens sont la **source de vérité** du design. Synchronisés avec `tailwind.config.js`.
+> **Règle** : les design tokens (couleurs, fonts) sont définis dans `@theme` de `src/index.css`. C'est la **source de vérité** du design system (Tailwind v4 CSS-first).
 
 ### `src/types/`
 

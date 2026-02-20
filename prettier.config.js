@@ -9,4 +9,5 @@ export default {
   bracketSpacing: true,
   arrowParens: 'avoid',
   endOfLine: 'lf',
+  plugins: ['prettier-plugin-tailwindcss'],
 };
