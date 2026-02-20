@@ -17,6 +17,9 @@
     ["cn\\(([^)]*)\\)", "`([^`]*)`"]
   ],
 
+  // Git — use inline input box instead of opening COMMIT_EDITMSG file
+  "git.useEditorAsCommitInput": false,
+
   // Files
   "files.eol": "\n",
   "files.insertFinalNewline": true,
