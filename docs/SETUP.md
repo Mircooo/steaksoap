@@ -39,19 +39,10 @@ gh auth login
 git clone https://github.com/Mircooo/starter.git
 cd starter
 
-# 2. Installer les dépendances
-pnpm install
-# → Installe aussi Husky automatiquement (script "prepare")
+# 2. Setup automatique (installe, crée .env.local, valide)
+pnpm install && pnpm setup
 
-# 3. Configurer les variables d'environnement
-# Linux/macOS :
-cp .env.example .env.local
-# Windows (PowerShell) :
-# Copy-Item .env.example .env.local
-# → Ouvrir .env.local et remplir les valeurs :
-#   VITE_CLOUDINARY_CLOUD_NAME=ton_cloud_name
-#   VITE_APP_NAME=Nom du projet
-#   VITE_APP_URL=http://localhost:5173
+# 3. Remplir .env.local avec les vraies valeurs
 
 # 4. Lancer le dev server
 pnpm dev
@@ -74,6 +65,8 @@ pnpm dev
 | `pnpm test` | Lance les tests unitaires (Vitest) |
 | `pnpm test:watch` | Lance les tests en mode watch |
 | `pnpm validate` | Lint + typecheck + tests + build — **la commande de vérification finale** |
+| `pnpm setup` | Setup automatique : install + .env.local + validate |
+| `pnpm setup:update` | Pull les mises à jour du starter template |
 | `pnpm release` | Release interactive : bump + CHANGELOG + tag + GitHub Release |
 | `pnpm release:patch` | Force un bump patch (0.1.0 → 0.1.1) |
 | `pnpm release:minor` | Force un bump minor (0.1.0 → 0.2.0) |
@@ -111,24 +104,21 @@ pnpm dev               # → serveur démarre sans erreur
 ## Adapter pour un nouveau client
 
 ```bash
-# 1. Cloner ce repo comme base
+# 1. Cloner le starter
 git clone https://github.com/Mircooo/starter.git nom-du-client
 cd nom-du-client
 
-# 2. Supprimer l'historique git et repartir à zéro
-# Linux/macOS :
-rm -rf .git
-# Windows (PowerShell) :
-# Remove-Item -Recurse -Force .git
-git init
-git add -A
-git commit -m "chore: initial scaffold from cdn template"
+# 2. Renommer le remote "origin" en "template" (pour garder le lien)
+git remote rename origin template
 
-# 3. Configurer le nouveau remote
+# 3. Créer le repo client sur GitHub et l'ajouter comme origin
 git remote add origin https://github.com/Mircooo/nom-du-client.git
 git push -u origin main
 
-# 4. Adapter :
+# 4. Setup automatique
+pnpm setup
+
+# 5. Adapter les fichiers du client :
 #    - package.json → "name"
 #    - .env.local → Cloudinary cloud name, nom de l'app, URL
 #    - src/config/site.ts → contact, réseaux sociaux, SEO defaults
@@ -137,3 +127,16 @@ git push -u origin main
 #    - public/robots.txt → URL du sitemap
 #    - public/images/og-image.jpg → image de partage réseaux sociaux
 ```
+
+## Mettre à jour depuis le starter
+
+Si le starter a été amélioré (nouvelle config, fix, upgrade), tu peux pull les changements :
+
+```bash
+pnpm setup:update
+# → Fetch + merge les mises à jour du starter template
+# → En cas de conflit, résous manuellement puis git commit
+```
+
+Cela fonctionne parce que le remote `template` pointe vers le repo starter.
+Git merge intelligemment les changements du starter avec ton code client.
