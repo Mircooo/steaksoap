@@ -1,5 +1,3 @@
-import './styles/tokens.css';
-import './styles/fonts.css';
 import './index.css';
 
 import { StrictMode } from 'react';
