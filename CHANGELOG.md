@@ -1,3 +1,15 @@
+
+
+## [0.4.1](https://github.com/Mircooo/starter/compare/v0.4.0...v0.4.1) (2026-02-20)
+
+### 🐛 Bug Fixes
+
+* **release:** clean changelog header from v0.4.0 release ([306cc07](https://github.com/Mircooo/starter/commit/306cc0774dd35f5ad16b66458872c7ff3afa36ba))
+
+### 🔧 Chores
+
+* **docs:** sync docs with tailwind v4 and migrate animations to [@utility](https://github.com/utility) ([d5bc4ee](https://github.com/Mircooo/starter/commit/d5bc4ee180b19404be65b405e4f793d4f5737d22))
+
 # Changelog
 
 ## [0.4.0](https://github.com/Mircooo/starter/compare/v0.3.7...v0.4.0) (2026-02-20)
