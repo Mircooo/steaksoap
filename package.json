@@ -1,5 +1,5 @@
 {
-  "name": "project-name",
+  "name": "starter",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -11,7 +11,9 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "typecheck": "tsc --noEmit",
-    "validate": "pnpm lint && pnpm typecheck && pnpm build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "prepare": "husky",
     "release": "GITHUB_TOKEN=$(gh auth token) release-it",
     "release:patch": "GITHUB_TOKEN=$(gh auth token) release-it patch",
@@ -47,7 +49,8 @@
     "release-it": "^19.2.4",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.9.3",
-    "vite": "^7.2.4"
+    "vite": "^7.2.4",
+    "vitest": "^4.0.18"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
