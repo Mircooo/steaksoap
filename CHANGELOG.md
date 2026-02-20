@@ -1,3 +1,11 @@
+
+
+## [0.3.5](https://github.com/Mircooo/starter/compare/v0.3.4...v0.3.5) (2026-02-20)
+
+### 🐛 Bug Fixes
+
+* **release:** prevent duplicate header in changelog ([dc12260](https://github.com/Mircooo/starter/commit/dc12260564903303f9d36aade5f9517c836aab20))
+
 # Changelog
 
 All notable changes to this project are documented here.
