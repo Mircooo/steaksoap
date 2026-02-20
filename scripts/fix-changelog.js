@@ -2,12 +2,14 @@
 
 /* ═══════════════════════════════════════════════════════════════
    FIX-CHANGELOG — deduplicate "# Changelog" header
-   Called automatically by release-it after:bump hook.
+   Called automatically by release-it before:release hook.
 
    conventional-changelog sometimes duplicates the header.
-   This script ensures exactly ONE "# Changelog" at the top.
+   This script ensures exactly ONE "# Changelog" at the top,
+   then re-stages the file so the fix is included in the commit.
    ═══════════════════════════════════════════════════════════════ */
 
+import { execSync } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 
 const file = 'CHANGELOG.md';
@@ -20,3 +22,6 @@ content = content.replace(/^# Changelog\s*/gm, '');
 content = '# Changelog\n\n' + content.trimStart();
 
 writeFileSync(file, content);
+
+// Re-stage so the fix is included in the release commit
+execSync(`git add ${file}`);
