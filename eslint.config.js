@@ -26,7 +26,10 @@ export default defineConfig([
         ecmaFeatures: { jsx: true },
         sourceType: 'module',
       },
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        __APP_VERSION__: 'readonly',
+      },
     },
     plugins: {
       '@typescript-eslint': tseslint,

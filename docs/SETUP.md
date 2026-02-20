@@ -65,6 +65,7 @@ pnpm dev
 | `pnpm test` | Lance les tests unitaires (Vitest) |
 | `pnpm test:watch` | Lance les tests en mode watch |
 | `pnpm validate` | Lint + typecheck + tests + build — **la commande de vérification finale** |
+| `pnpm init:project` | **Nouveau projet** : script interactif qui configure tout |
 | `pnpm setup` | Setup automatique : install + .env.local + validate |
 | `pnpm setup:update` | Pull les mises à jour du starter template |
 | `pnpm release` | Release interactive : bump + CHANGELOG + tag + GitHub Release |
@@ -101,32 +102,33 @@ pnpm dev               # → serveur démarre sans erreur
 
 ---
 
-## Adapter pour un nouveau client
+## Nouveau projet client
 
 ```bash
 # 1. Cloner le starter
 git clone https://github.com/Mircooo/starter.git nom-du-client
 cd nom-du-client
 
-# 2. Renommer le remote "origin" en "template" (pour garder le lien)
-git remote rename origin template
-
-# 3. Créer le repo client sur GitHub et l'ajouter comme origin
-git remote add origin https://github.com/Mircooo/nom-du-client.git
-git push -u origin main
-
-# 4. Setup automatique
-pnpm setup
-
-# 5. Adapter les fichiers du client :
-#    - package.json → "name"
-#    - .env.local → Cloudinary cloud name, nom de l'app, URL
-#    - src/config/site.ts → contact, réseaux sociaux, SEO defaults
-#    - src/styles/tokens.css → couleurs, fonts du client
-#    - tailwind.config.js → si tokens changent
-#    - public/robots.txt → URL du sitemap
-#    - public/images/og-image.jpg → image de partage réseaux sociaux
+# 2. Lancer le script interactif (tout est automatisé)
+node scripts/init.js
 ```
+
+Le script `init.js` fait tout automatiquement :
+- Demande le nom du projet + nom d'affichage
+- Renomme le remote `origin` → `template` (garde le lien pour les updates)
+- Crée le repo GitHub privé + l'ajoute comme `origin` (via `gh`)
+- Met à jour `package.json` avec le nom du projet
+- Crée `.env.local` avec le nom d'affichage
+- Installe les dépendances
+- Valide (lint + typecheck + tests + build)
+- Commit initial + push
+
+Ensuite, adapter les fichiers du client :
+- `.env.local` → Cloudinary cloud name, URL de prod
+- `src/config/site.ts` → contact, réseaux sociaux, SEO defaults
+- `src/styles/tokens.css` → couleurs, fonts du client
+- `public/robots.txt` → URL du sitemap
+- `public/images/og-image.jpg` → image de partage réseaux sociaux
 
 ## Mettre à jour depuis le starter
 

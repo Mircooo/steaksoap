@@ -3,10 +3,28 @@
 @tailwind utilities;
 
 /* Smooth scroll global */
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 /* Sélection texte */
 ::selection {
   background: var(--color-accent);
   color: var(--color-bg);
+}
+
+/* Blink cursor animation */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@layer utilities {
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
 }

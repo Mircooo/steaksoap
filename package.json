@@ -15,6 +15,7 @@
     "test:watch": "vitest",
     "validate": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "prepare": "husky",
+    "init:project": "node scripts/init.js",
     "setup": "node scripts/setup.js",
     "setup:update": "node scripts/update.js",
     "release": "node scripts/release.js",
