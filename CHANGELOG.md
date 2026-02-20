@@ -5,6 +5,12 @@ All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com) · Versioning: [Semantic Versioning](https://semver.org)
 
 
+## [0.3.0](https://github.com/Mircooo/starter/compare/v0.2.1...v0.3.0) (2026-02-20)
+
+### ✨ Features
+
+* **seo:** add automatic sitemap + robots.txt generation ([bf5c518](https://github.com/Mircooo/starter/commit/bf5c518761e92e942fdf5b5734a789997f69b932))
+
 ## [0.2.1](https://github.com/Mircooo/starter/compare/v0.2.0...v0.2.1) (2026-02-20)
 
 ### 🐛 Bug Fixes
