@@ -5,6 +5,17 @@ All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com) · Versioning: [Semantic Versioning](https://semver.org)
 
 
+## [0.2.1](https://github.com/Mircooo/starter/compare/v0.2.0...v0.2.1) (2026-02-20)
+
+### 🐛 Bug Fixes
+
+* **dx:** graceful env fallback in dev and update readme ([9b6422d](https://github.com/Mircooo/starter/commit/9b6422d53e12659cb47ba73596eb06724bf7d867))
+
+### 📚 Documentation
+
+* **claude:** add standard workflow and simplify instructions ([2af8d30](https://github.com/Mircooo/starter/commit/2af8d30405dc56e291749666d70712a7a7e09d9a))
+* **claude:** enforce mandatory release after every session ([9736f4d](https://github.com/Mircooo/starter/commit/9736f4dc963c6dd2f67386b240124a77fbe49161))
+
 ## [0.2.0](https://github.com/Mircooo/starter/compare/v0.1.0...v0.2.0) (2026-02-20)
 
 ### ✨ Features
