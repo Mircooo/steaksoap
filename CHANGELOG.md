@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.4](https://github.com/Mircooo/starter/compare/v0.4.3...v0.4.4) (2026-02-20)
+
+### 🔧 Chores
+
+* **dx:** remove double tsc, fix eslint flags, add engines ([06bcf5b](https://github.com/Mircooo/starter/commit/06bcf5bd11e10e4c559143d297f1026808a00f90))
+
 ## [0.4.3](https://github.com/Mircooo/starter/compare/v0.4.2...v0.4.3) (2026-02-20)
 
 ### 🔧 Chores
