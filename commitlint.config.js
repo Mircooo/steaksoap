@@ -12,6 +12,7 @@ export default {
       'docs',
       'perf',
       'test',
+      'merge',
     ]],
     // Scope obligatoire (warning si absent)
     'scope-empty': [1, 'never'],
