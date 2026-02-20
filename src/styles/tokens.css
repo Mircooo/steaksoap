@@ -1,0 +1,46 @@
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS — source de vérité du design system
+   Sync avec tailwind.config.js > theme.extend
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─── Couleurs ─────────────────────────────────────────── */
+  --color-bg:      #0a0a0a;
+  --color-fg:      #f5f5f5;
+  --color-accent:  #ffffff;
+  --color-muted:   #666666;
+
+  /* ─── Typographie ──────────────────────────────────────── */
+  --font-sans: 'YourFont', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+
+  /* ─── Spacing ──────────────────────────────────────────── */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  32px;
+  --space-xl:  64px;
+  --space-2xl: 128px;
+
+  /* ─── Radius ───────────────────────────────────────────── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ─── Transitions ──────────────────────────────────────── */
+  --transition-fast:   150ms ease;
+  --transition-base:   300ms ease;
+  --transition-slow:   600ms ease;
+
+  /* ─── Z-index scale ─────────────────────────────────────── */
+  --z-below:   -1;
+  --z-base:     0;
+  --z-raised:   10;
+  --z-overlay:  100;
+  --z-modal:    200;
+  --z-toast:    300;
+  --z-cursor:   9999;
+}
