@@ -5,6 +5,19 @@ All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com) · Versioning: [Semantic Versioning](https://semver.org)
 
 
+## [0.3.3](https://github.com/Mircooo/starter/compare/v0.3.2...v0.3.3) (2026-02-20)
+
+### 🐛 Bug Fixes
+
+* **release:** show all commit types in changelog and github releases ([907db57](https://github.com/Mircooo/starter/commit/907db57e2f66f7839303022efc1855f189a00a0a))
+
+# Changelog
+
+All notable changes to this project are documented here.
+
+Format: [Keep a Changelog](https://keepachangelog.com) · Versioning: [Semantic Versioning](https://semver.org)
+
+
 ## [0.3.2](https://github.com/Mircooo/starter/compare/v0.3.1...v0.3.2) (2026-02-20)
 
 ### 🔧 Chores
