@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0](https://github.com/Mircooo/starter/compare/v0.6.1...v0.7.0) (2026-02-21)
+
+### ✨ Features
+
+* **data:** add showcase landing page content ([e2211af](https://github.com/Mircooo/starter/commit/e2211afca6a1672cb0307231fd9937a2c0163158))
+* **home:** add showcase sections below hero ([fbb0f4e](https://github.com/Mircooo/starter/commit/fbb0f4e91d96597d66209c66c8b4323f32f2129c))
+* **hooks:** add scroll-triggered animation hook ([ef552f3](https://github.com/Mircooo/starter/commit/ef552f3c219318b3f4ec583503a127bb9bd433cc))
+* **layout:** add site-wide footer with version and credits ([9126a60](https://github.com/Mircooo/starter/commit/9126a6009778d2cac94fcc041f6689e1f10db97c))
+* **ui:** add section, feature card, code block, tech badge components ([acb733b](https://github.com/Mircooo/starter/commit/acb733b51d15607bed401744d2bd3e95386a38ff))
+
+### 🐛 Bug Fixes
+
+* **styles:** scope cursor-hidden to hero section only ([e598b2a](https://github.com/Mircooo/starter/commit/e598b2a38653ab2db7b609c5300f62b70a1f51c9))
+
 ## [0.6.1](https://github.com/Mircooo/starter/compare/v0.6.0...v0.6.1) (2026-02-21)
 
 ### 📚 Documentation
