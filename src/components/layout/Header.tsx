@@ -72,7 +72,10 @@ export const Header = ({
     >
       <nav className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3 md:px-8">
         {/* Logo */}
-        <a href="/" className="text-fg font-mono text-sm font-semibold">
+        <a
+          href="/"
+          className="text-fg focus-visible:ring-accent rounded-sm font-mono text-sm font-semibold focus-visible:ring-2 focus-visible:outline-none"
+        >
           {logo ?? siteConfig.name}
         </a>
 
@@ -82,7 +85,7 @@ export const Header = ({
             <a
               key={item.href}
               href={item.href}
-              className="text-muted hover:text-fg text-sm transition-colors duration-200"
+              className="text-muted hover:text-fg focus-visible:ring-accent rounded-sm text-sm transition-colors duration-200 focus-visible:ring-2 focus-visible:outline-none"
             >
               {item.label}
             </a>
@@ -128,7 +131,7 @@ export const Header = ({
               key={item.href}
               href={item.href}
               onClick={closeMenu}
-              className="text-muted hover:bg-surface hover:text-fg rounded-md px-3 py-2 text-sm transition-colors duration-200"
+              className="text-muted hover:bg-surface hover:text-fg focus-visible:ring-accent rounded-md px-3 py-2 text-sm transition-colors duration-200 focus-visible:ring-2 focus-visible:outline-none"
             >
               {item.label}
             </a>

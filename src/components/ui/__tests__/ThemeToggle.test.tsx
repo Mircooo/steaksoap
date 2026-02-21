@@ -2,6 +2,7 @@ import { ThemeProvider } from '@context/ThemeContext';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { ThemeToggle } from '../ThemeToggle';
 
@@ -41,5 +42,10 @@ describe('ThemeToggle', () => {
       </ThemeProvider>,
     );
     expect(screen.getByRole('button')).toHaveClass('custom-class');
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = renderToggle();
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

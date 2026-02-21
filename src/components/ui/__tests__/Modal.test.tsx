@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { Modal } from '../Modal';
 
@@ -67,5 +68,14 @@ describe('Modal', () => {
       </Modal>,
     );
     expect(screen.getByLabelText('Close')).toBeInTheDocument();
+  });
+
+  it('has no accessibility violations when open', async () => {
+    const { container } = render(
+      <Modal isOpen onClose={vi.fn()} title="Accessible Modal">
+        <p>Modal content</p>
+      </Modal>,
+    );
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

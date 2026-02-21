@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { Card } from '../Card';
 
@@ -27,5 +28,10 @@ describe('Card', () => {
   it('accepts className override', () => {
     const { container } = render(<Card className="shadow-lg">Content</Card>);
     expect(container.firstChild).toHaveClass('shadow-lg');
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Card>Card content</Card>);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });
