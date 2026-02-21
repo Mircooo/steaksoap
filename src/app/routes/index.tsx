@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
    Pattern: const PageName = lazy(() => import('@pages/PageName'))
    ──────────────────────────────────────────────────────────── */
 const Home = lazy(() => import('@pages/Home'));
+const Showcase = lazy(() => import('@pages/Showcase'));
 const NotFound = lazy(() => import('@pages/NotFound'));
 
 /* ─── Loading fallback ────────────────────────────────────────── */
@@ -26,6 +27,7 @@ export default function AppRoutes() {
         {/* Root layout — wraps all pages */}
         <Route element={<RootLayout />}>
           <Route path={ROUTES.HOME} element={<Home />} />
+          <Route path={ROUTES.SHOWCASE} element={<Showcase />} />
           {/* Add routes here: */}
           {/* <Route path={ROUTES.ABOUT} element={<About />} /> */}
           {/* <Route path={ROUTES.PROJECT} element={<ProjectDetail />} /> */}
