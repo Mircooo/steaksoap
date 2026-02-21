@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.0](https://github.com/Mircooo/starter/compare/v1.0.0...v1.1.0) (2026-02-21)
+
+### ✨ Features
+
+* **ai:** add multi-ai workflow support and slash commands ([6ee42e4](https://github.com/Mircooo/starter/commit/6ee42e47b067d6086827e28d95ee9662a20e855f))
+* **deploy:** add deploy buttons, netlify config, and rewrite readme ([3b85dec](https://github.com/Mircooo/starter/commit/3b85decb768d7af00c49889af0b2a0d61f8f29ee))
+* **setup:** unified interactive wizard with 3 modes ([fb30f96](https://github.com/Mircooo/starter/commit/fb30f96f12b881fc178ba8ccf034e470d795ce29))
+
+### ♻️  Refactoring
+
+* **core:** make all env vars optional and remove dead code ([49475e3](https://github.com/Mircooo/starter/commit/49475e3a7d1c89c27b11e6b880926e3d31604981))
+
+### 📚 Documentation
+
+* **open-source:** add dependabot, update contributing and setup guide ([ed433e2](https://github.com/Mircooo/starter/commit/ed433e2dd331a3df8d5f73d1375bec8b3f0da383))
+
+### ✅ Tests
+
+* **env:** add env fallback tests and fix empty string handling ([9e4efa3](https://github.com/Mircooo/starter/commit/9e4efa3d901a831f1bbbb731cafa6e0951c748f4))
+
 ## [1.0.0](https://github.com/Mircooo/starter/compare/v0.7.0...v1.0.0) (2026-02-21)
 
 ### ♻️  Refactoring
