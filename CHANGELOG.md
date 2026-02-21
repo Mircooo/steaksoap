@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.1](https://github.com/Mircooo/starter/compare/v0.6.0...v0.6.1) (2026-02-21)
+
+### 📚 Documentation
+
+* **claude:** switch from mandatory release to batch release strategy ([2e4ed6b](https://github.com/Mircooo/starter/commit/2e4ed6b1d63e71338bbd6f395bcaa8f07fc5e619))
+* **community:** add governance files and improve github templates ([b0e77f9](https://github.com/Mircooo/starter/commit/b0e77f9b8299258220db756679dc2983fcab10e8))
+* **i18n:** translate all documentation and code to english ([130c894](https://github.com/Mircooo/starter/commit/130c89456c7868e6e24b33ac6b6de24b0b57b385))
+
+### 🔧 Chores
+
+* **release:** consolidate 20 releases into 6 logical batches ([c6cb63b](https://github.com/Mircooo/starter/commit/c6cb63b5b41b8ecc24ed29b993031be205d209ee))
+
 ## [0.6.0](https://github.com/Mircooo/starter/compare/v0.5.0...v0.6.0) (2026-02-21)
 
 ### ✨ Features
