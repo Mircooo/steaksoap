@@ -37,7 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (import.meta.env.DEV) {
       console.error('[ErrorBoundary]', error, info.componentStack);
     }
-    // TODO: Send to error tracking service (Sentry, etc.) in production
+    // Add your error tracking service here (Sentry, etc.) for production
   }
 
   private handleReset = () => {
