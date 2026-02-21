@@ -11,6 +11,10 @@ jobs:
     name: Lint · Typecheck · Test · Build
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [20, 22]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,10 +24,10 @@ jobs:
         with:
           version: 10
 
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: pnpm
 
       - name: Install dependencies
