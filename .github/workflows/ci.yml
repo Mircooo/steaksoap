@@ -35,3 +35,35 @@ jobs:
 
       - name: Validate (lint + typecheck + test + build)
         run: pnpm validate
+
+      - name: Check bundle size
+        run: |
+          BUILD_SIZE=$(du -sk dist/ | cut -f1)
+          echo "📦 Total bundle size: ${BUILD_SIZE}KB"
+
+          # Warn if bundle exceeds 500KB
+          if [ "$BUILD_SIZE" -gt 500 ]; then
+            echo "::warning::Bundle size (${BUILD_SIZE}KB) exceeds 500KB threshold"
+          fi
+
+          # List largest files
+          echo "📊 Largest files:"
+          find dist/ -type f -exec du -sk {} \; | sort -rn | head -10
+
+      - name: Accessibility checks
+        run: |
+          # Check for images without alt in components
+          echo "🔍 Checking for images without alt..."
+          MISSING_ALT=$(grep -rn "<img" src/ --include="*.tsx" | grep -v 'alt=' | wc -l)
+          if [ "$MISSING_ALT" -gt 0 ]; then
+            echo "::warning::Found $MISSING_ALT images without alt attribute"
+            grep -rn "<img" src/ --include="*.tsx" | grep -v 'alt='
+          fi
+
+          # Check for inline cursor:none in components (not CSS utility definitions)
+          echo "🔍 Checking for cursor:none in components..."
+          CURSOR_NONE=$(grep -rn "cursor.*none\|cursor-none" src/ --include="*.tsx" | wc -l)
+          if [ "$CURSOR_NONE" -gt 0 ]; then
+            echo "::warning::Found cursor:none usage in components — ensure a custom cursor replacement exists"
+            grep -rn "cursor.*none\|cursor-none" src/ --include="*.tsx"
+          fi
