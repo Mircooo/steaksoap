@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { Textarea } from '../Textarea';
 
@@ -36,5 +37,10 @@ describe('Textarea', () => {
   it('defaults to 4 rows', () => {
     render(<Textarea label="Content" />);
     expect(screen.getByLabelText('Content')).toHaveAttribute('rows', '4');
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Textarea label="Message" />);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

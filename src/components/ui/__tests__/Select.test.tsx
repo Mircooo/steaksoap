@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { Select } from '../Select';
 
@@ -35,5 +36,10 @@ describe('Select', () => {
   it('accepts className override', () => {
     render(<Select label="Language" options={options} className="custom" />);
     expect(screen.getByLabelText('Language')).toHaveClass('custom');
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Select label="Language" options={options} />);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

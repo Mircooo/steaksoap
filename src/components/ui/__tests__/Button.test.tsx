@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { Button } from '../Button';
 
@@ -30,5 +31,10 @@ describe('Button', () => {
   it('accepts className override', () => {
     render(<Button className="custom-class">Styled</Button>);
     expect(screen.getByRole('button')).toHaveClass('custom-class');
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Button>Click me</Button>);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

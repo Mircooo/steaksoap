@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { Avatar } from '../Avatar';
 
@@ -29,5 +30,10 @@ describe('Avatar', () => {
   it('accepts className override', () => {
     const { container } = render(<Avatar alt="Test" className="border-2" />);
     expect(container.firstChild).toHaveClass('border-2');
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Avatar alt="John Doe" fallback="JD" />);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

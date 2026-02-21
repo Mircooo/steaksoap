@@ -61,6 +61,7 @@
 
 /* ─── Global styles ────────────────────────────────────────── */
 
+/* a11y: cursor-hidden is showcase-only, removed by pnpm setup */
 .cursor-hidden,
 .cursor-hidden * {
   cursor: none !important;

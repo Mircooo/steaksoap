@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { Badge } from '../Badge';
 
@@ -27,5 +28,10 @@ describe('Badge', () => {
   it('accepts className override', () => {
     const { container } = render(<Badge className="ml-2">Tag</Badge>);
     expect(container.firstChild).toHaveClass('ml-2');
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Badge>Active</Badge>);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

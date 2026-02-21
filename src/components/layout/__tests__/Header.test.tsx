@@ -2,6 +2,7 @@ import { ThemeProvider } from '@context/ThemeContext';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { Header } from '../Header';
 
@@ -61,5 +62,10 @@ describe('Header', () => {
   it('hides theme toggle when showThemeToggle is false', () => {
     renderHeader({ showThemeToggle: false });
     expect(screen.queryByLabelText(/switch to (light|dark) mode/i)).not.toBeInTheDocument();
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = renderHeader();
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

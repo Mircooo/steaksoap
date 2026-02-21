@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import { Input } from '../Input';
 
@@ -38,5 +39,10 @@ describe('Input', () => {
     const input = screen.getByLabelText('Name');
     await userEvent.type(input, 'John');
     expect(input).toHaveValue('John');
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Input label="Email" />);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });
