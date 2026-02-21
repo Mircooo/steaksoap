@@ -78,41 +78,70 @@ Tu es un développeur senior. Tu prends les décisions techniques, tu exécutes,
 6. MERGE         → git checkout main && git merge --no-ff <branche>
 7. PUSH          → git push origin main
 8. NETTOYER      → git branch -d <branche>
-9. RELEASE       → pnpm release:patch/minor/major --ci (OBLIGATOIRE)
-10. RÉSUMER      → Expliquer ce qui a été fait + version publiée
+9. ÉVALUER       → Vérifier si une release est pertinente (voir règles ci-dessous)
+10. RÉSUMER      → Expliquer ce qui a été fait + état des commits non releasés
 ```
 
-### ⚠️ RÈGLE ABSOLUE : TOUJOURS RELEASE
+### ⚠️ RÈGLE DE RELEASE : RELEASES PAR BATCH
 
-**C'est le point central de toute la structure. NON NÉGOCIABLE.**
+**Les releases sont le journal de bord du projet. Chacune doit avoir du CONTENU.**
 
-Le CHANGELOG + les GitHub Releases = le journal de bord du projet.
+Le CHANGELOG + les GitHub Releases = l'historique lisible du projet.
 Si Mirco revient dans 2 mois, il DOIT pouvoir lire l'historique complet
 et comprendre chaque évolution, chaque fix, chaque décision.
 
-**Règles :**
-- **JAMAIS** de commits orphelins sur main sans release
-- Chaque session de travail se termine par une release
-- Chaque release a un CHANGELOG auto-généré qui documente TOUT
-- Le type de release est choisi automatiquement par l'IA :
+**Principe : PAS de release pour chaque petit changement.**
+Une release regroupe un **batch logique** de travail. Pas 1 commit = 1 release.
 
-| Commits depuis dernière release | Type | Exemple |
+### Quand l'IA déclenche une release
+
+L'IA **évalue** à la fin de chaque tâche si une release est pertinente.
+
+**OUI, release maintenant :**
+- Au moins 1 `feat` + quelques `fix`/`chore` accumulés
+- Un batch de 5+ commits cohérents (même sans feat)
+- Un fix critique qui doit être livré immédiatement
+- Mirco dit explicitement "release"
+- Fin d'une grosse session de travail avec beaucoup de changements
+
+**NON, on accumule :**
+- 1 seul petit fix ou chore isolé
+- Un changement de docs mineur
+- Un refactor interne sans impact visible
+- Moins de 3 commits depuis la dernière release (sauf fix critique)
+
+### Type de release (choix automatique par l'IA)
+
+| Commits accumulés depuis dernière release | Type | Exemple |
 |---|---|---|
-| Que des `fix`, `docs`, `chore`, `refactor` | `patch` | 0.2.0 → 0.2.1 |
-| Au moins un `feat` | `minor` | 0.2.0 → 0.3.0 |
-| Breaking change | `major` | 0.2.0 → 1.0.0 |
+| Que des `fix`, `docs`, `chore`, `refactor` | `patch` | 0.6.0 → 0.6.1 |
+| Au moins un `feat` | `minor` | 0.6.0 → 0.7.0 |
+| Breaking change | `major` | 0.6.0 → 1.0.0 |
 
-**Workflow release (l'IA fait tout) :**
+### Workflow release (l'IA fait tout)
+
 ```bash
-# 1. Vérifier qu'il y a des commits non releasés
+# 1. Vérifier les commits non releasés
 git log v$(node -p "require('./package.json').version")..HEAD --oneline
 
-# 2. Analyser les types de commits → choisir patch/minor/major
+# 2. Évaluer : assez de contenu pour une release ? (voir règles ci-dessus)
 
-# 3. Lancer la release
+# 3. Si oui → analyser les types de commits → choisir patch/minor/major
+
+# 4. Lancer la release
 GITHUB_TOKEN=$(gh auth token) npx release-it <type> --ci
 
-# 4. Confirmer à Mirco : "Release v0.2.1 publiée — 3 fix, 1 doc"
+# 5. Confirmer à Mirco : "Release v0.7.0 publiée — 2 feat, 3 fix, 1 chore"
+```
+
+### Fin de session — résumé obligatoire
+
+À la fin de chaque session, l'IA doit **toujours** résumer l'état :
+```
+RÉSUMÉ SESSION :
+- Commits depuis dernière release : X (lister les types)
+- Release faite : oui v0.7.0 / non — pas assez de contenu
+- Prochaine release estimée : quand Y sera terminé
 ```
 
 **CHANGELOG — TOUS les types visibles :**
@@ -127,8 +156,8 @@ GITHUB_TOKEN=$(gh auth token) npx release-it <type> --ci
 
 | Il dit | Tu fais |
 |---|---|
-| "ajoute X" | Branche → code → validate → commit → merge → push → **RELEASE** |
-| "corrige X" | Branche → code → validate → commit → merge → push → **RELEASE** |
+| "ajoute X" | Branche → code → validate → commit → merge → push → **évaluer release** |
+| "corrige X" | Branche → code → validate → commit → merge → push → **évaluer release** |
 | "commit" | `git add` + `git commit` avec le bon message conventionnel |
 | "push" | `git push origin main` (ou la branche active) |
 | "release" | Release immédiate avec le bon type |
@@ -142,7 +171,6 @@ GITHUB_TOKEN=$(gh auth token) npx release-it <type> --ci
 - Décider du type de release
 - Résoudre des conflits de merge
 - Lancer des commandes de validation
-- Se souvenir de faire une release (c'est AUTOMATIQUE)
 
 **Tu fais tout ça pour lui. Automatiquement. Sans demander.**
 
@@ -266,7 +294,7 @@ Format strict :
 
 - **Branche** : Avant toute modification. Annoncer : "Je te mets sur `feat/hero-section`."
 - **Commit** : Dès qu'un changement logique est terminé et fonctionnel. Pas d'accumulation.
-- **Push** : Après chaque session. Rappeler à Mirco s'il oublie.
+- **Push** : Après chaque session ou tâche terminée.
 - **Merge** : Quand la branche est terminée + `pnpm validate` passe. Toujours `--no-ff`.
 
 ---
