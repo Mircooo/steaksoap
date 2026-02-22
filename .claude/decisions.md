@@ -30,3 +30,4 @@ This file tracks key technical decisions. Read this before any architecture choi
 - **Neural flow particles**: signature visual effect, disabled on mobile.
 - **Morphing logo**: organic blob in Header, all pages.
 - **Custom cursor**: coral dot + light halo, desktop only, all pages.
+- **MCP awareness**: Claude Code recommends MCP servers when it detects a need beyond its native capabilities. Registry in `registry/mcp-servers.json`, same pattern as extensions. `/discover` searches both extensions and MCP servers. `/connect` installs MCP servers.
