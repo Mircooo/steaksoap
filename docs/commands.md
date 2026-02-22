@@ -158,7 +158,7 @@ See [recipes/add-extension.md](recipes/add-extension.md) for the full list of av
 | Command | Arguments | What it does |
 |---|---|---|
 | `/review` | — | Code review of recent changes |
-| `/audit` | — | Bundle size + accessibility + performance analysis |
+| `/lighthouse` | `[page path]` | Full quality audit: performance, bundle, a11y, SEO, responsive |
 | `/test` | `[file or feature]` | Run tests + find coverage gaps |
 | `/theme` | `"description of changes"` | Modify design tokens interactively |
 | `/responsive-check` | `[page or component]` | Verify all breakpoints (320px to 1440px) |
@@ -176,17 +176,21 @@ Claude Code:
   5. Validates → pnpm validate passes
 ```
 
-### Example: Running an audit
+### Example: Running a lighthouse audit
 
 ```
-You: /audit
+You: /lighthouse
 
 Claude Code:
-  Bundle: 265kb (gzip: 85kb) — ✓ under budget
-  Lighthouse: Performance 97, A11y 100, SEO 100, BP 100
-  Images: 0 unoptimized
-  Unused CSS: none detected
-  Recommendation: "Bundle is healthy. No action needed."
+  Performance:    9/10   (bundle 272kb, no chunk > 200kb)
+  Accessibility:  10/10  (all checks pass)
+  SEO:            9/10   (missing OG image)
+  Responsive:     10/10  (320px to 1440px verified)
+  Best Practices: 10/10
+
+  🔴 MUST FIX: none
+  🟡 SHOULD FIX: add OG image meta tag
+  🟢 NICE TO HAVE: consider code splitting for Playground
 ```
 
 ## Sub-agents

@@ -12,6 +12,9 @@ $ARGUMENTS — Optional: specific page path. Default: all pages.
 2. Check each category:
 
 ### Performance
+- [ ] Bundle: total dist/ size reported
+- [ ] No single chunk > 200KB
+- [ ] Largest files identified
 - [ ] Images: loading="lazy" below fold
 - [ ] Routes: all lazy loaded
 - [ ] Deps: none > 50kb unjustified
