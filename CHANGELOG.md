@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0](https://github.com/Mircooo/steaksoap/compare/v1.9.0...v2.0.0) (2026-02-22)
+
+### ✨ Features
+
+* **ui:** link version badge to github releases ([9f5b183](https://github.com/Mircooo/steaksoap/commit/9f5b1838cf74356bbb6fc1c2fa9261191248b033))
+
 ## [1.9.0](https://github.com/Mircooo/steaksoap/compare/v1.8.0...v1.9.0) (2026-02-22)
 
 ### ✨ Features
