@@ -42,7 +42,7 @@
     "validate": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
-    "setup": "node scripts/setup.js",
+    "setup": "node scripts/setup-bootstrap.js",
     "setup:update": "node scripts/setup.js --update",
     "release": "node scripts/release.js",
     "release:patch": "node scripts/release.js patch",
