@@ -43,11 +43,28 @@ Claude Code creates:
 
 | Command | Arguments | What it does |
 |---|---|---|
+| `/spec` | `"description"` | Generate a structured spec before coding |
 | `/status` | — | Git status, validation report, dependency health |
 | `/deploy` | — | Validate, build, deploy to Vercel or Netlify |
 | `/release` | — | Analyze commits, version bump, changelog, git tag |
 | `/update-deps` | — | Safe dependency updates with validation after each |
 | `/fix` | `"description of bug"` | Systematic bug diagnosis and fix |
+
+### Example: Speccing a feature
+
+```
+You: /spec "a contact form that sends emails"
+
+Claude Code:
+  1. Reads decisions.md + registry/extensions.json
+  2. Generates structured spec:
+     - What: contact form with name, email, message fields
+     - Components: ContactForm (new), Input/Textarea/Button (existing)
+     - Extensions needed: Resend (resend-email from registry)
+     - Manual steps: create Resend account, add API key
+  3. Saves spec to docs/specs/contact-form.md
+  4. Asks: "Want me to proceed with this plan?"
+```
 
 ### Example: Checking status
 
