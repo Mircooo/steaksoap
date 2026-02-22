@@ -26,7 +26,7 @@ There are hundreds of React + Vite + Tailwind starters. Here's what makes this o
 
 | | steaksoap | Typical React Starter |
 |---|---|---|
-| **AI workflow** | 19 slash commands, 4 sub-agents | None or afterthought |
+| **AI workflow** | 20 slash commands, 4 sub-agents | None or afterthought |
 | **Setup** | One interactive wizard | Clone + manual config |
 | **UI components** | 10 accessible atoms ready to use | Empty src/ |
 | **Git workflow** | Conventional commits + auto changelog | Manual |
@@ -75,6 +75,7 @@ Open Claude Code and type these commands:
 | `/release` | Evaluate commits → version bump → changelog → tag |
 | `/update-deps` | Safe dependency updates with validation |
 | `/fix "button doesn't work"` | Systematic bug diagnosis and fix |
+| `/migrate "../old-project"` | Analyze existing project → structured migration plan |
 
 ### Discovery
 | Command | What it does |
@@ -155,7 +156,7 @@ Already have a project? Install steaksoap as a Claude Code plugin to get all com
 claude plugin marketplace add Mircooo/steaksoap
 ```
 
-This gives you access to all 19 slash commands and 4 sub-agents in your existing project.
+This gives you access to all 20 slash commands and 4 sub-agents in your existing project.
 
 ## Stay Updated
 

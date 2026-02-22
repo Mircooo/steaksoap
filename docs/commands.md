@@ -49,6 +49,7 @@ Claude Code creates:
 | `/release` | — | Analyze commits, version bump, changelog, git tag |
 | `/update-deps` | — | Safe dependency updates with validation after each |
 | `/fix` | `"description of bug"` | Systematic bug diagnosis and fix |
+| `/migrate` | `path or description` | Analyze existing project → structured migration plan |
 
 ### Example: Speccing a feature
 
@@ -92,6 +93,23 @@ Claude Code:
   5. Proves → writes test that fails without fix
   6. Validates → pnpm validate passes
   7. Commits → fix(modal): close on backdrop click
+```
+
+### Example: Migrating an existing project
+
+```
+You: /migrate "../my-portfolio"
+
+Claude Code:
+  1. Scans → reads package.json, file structure, styles
+  2. Compares → maps components to steaksoap equivalents
+  3. Generates migration plan:
+     - 4 pages to recreate via /new-page
+     - 6 components to port to TypeScript + tokens
+     - Design tokens to extract (accent, bg, fonts)
+     - Estimated: 2 hours with AI assistance
+  4. Asks: "Want me to start with step 1?"
+  5. Executes step by step → validate → commit after each group
 ```
 
 ## Discovery
