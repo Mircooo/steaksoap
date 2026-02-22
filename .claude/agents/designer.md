@@ -23,6 +23,26 @@ Also read DESIGN_SYSTEM.md at the project root for the full visual reference.
 - Borders are subtle: dark = white/10 feel, light = black/20 feel (via border token)
 - Cards hover with scale-[1.02] and duration-500
 
+### Mobile-First Mandate
+Every visual decision has TWO versions: desktop and mobile.
+Before implementing ANY effect, state your mobile strategy:
+- "KEEP on mobile — lightweight enough"
+- "SIMPLIFY on mobile — reducing [X] because [Y]"
+- "REPLACE on mobile — using [alternative] instead because hover/cursor doesn't exist"
+- "DISABLE on mobile — hidden md:block, fallback is [X]"
+
+Never leave this implicit. State it explicitly for every effect.
+
+Also read `.claude/rules/responsive.md` for the complete responsive framework.
+
+### Component awareness
+Before creating ANY new UI element, check what already exists:
+```bash
+ls src/components/ui/
+```
+If a component already handles the need (Button, Card, Toast, Tabs, Spinner, Badge, etc.),
+USE IT. Don't recreate. If it needs a variant, ADD a variant to the existing component.
+
 ## Design Principles
 
 ### 1. Mobile-first, always
