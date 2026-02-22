@@ -24,9 +24,11 @@ export default function AppRoutes() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-        {/* Root layout — wraps all pages */}
+        {/* WHY: Home has its own inline nav — no global Header/Footer */}
+        <Route path={ROUTES.HOME} element={<Home />} />
+
+        {/* Root layout — wraps all other pages with Header + Footer */}
         <Route element={<RootLayout />}>
-          <Route path={ROUTES.HOME} element={<Home />} />
           <Route path={ROUTES.PLAYGROUND} element={<Playground />} />
           {/* Add routes here: */}
           {/* <Route path={ROUTES.ABOUT} element={<About />} /> */}

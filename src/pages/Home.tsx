@@ -1,156 +1,59 @@
 import { SeoHead } from '@components/features/SeoHead';
-import { CodeBlock } from '@components/ui/CodeBlock';
-import { FeatureCard } from '@components/ui/FeatureCard';
 import Noise from '@components/ui/Noise';
-import { Section } from '@components/ui/Section';
-import { TechBadge } from '@components/ui/TechBadge';
-import { features, quickStartSteps, techStack } from '@data/showcase';
-import { useEffect, useRef, useState } from 'react';
+import { featuredCommands, features, quickStartLines } from '@data/showcase';
+import { useInView } from '@hooks/useInView';
+import { useMediaQuery } from '@hooks/useMediaQuery';
+import { cn } from '@utils/cn';
+import { FlaskConical, GitBranch, Github, Shield, Smartphone, Terminal, Zap } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-/* ─── Data ────────────────────────────────────────────────────── */
+import type { Feature } from '../data/showcase';
 
-const stackLinks = [
-  { label: 'React 19', href: 'https://react.dev' },
-  { label: 'TypeScript', href: 'https://www.typescriptlang.org' },
-  { label: 'Vite 7', href: 'https://vitejs.dev' },
-  { label: 'Tailwind CSS 4', href: 'https://tailwindcss.com' },
-] as const;
+/* ─── Icon resolver ────────────────────────────────────────────── */
 
-const terminalLines = [
-  { cmd: 'git clone starter && cd starter', out: null, delay: 0 },
-  { cmd: 'pnpm install', out: '✓ 661 packages installed', delay: 600 },
-  { cmd: 'pnpm dev', out: 'VITE v7.3 ready in 258ms', delay: 500 },
-  { cmd: 'pnpm validate', out: '✓ lint ✓ types ✓ 18 tests ✓ build', delay: 700 },
-  { cmd: 'pnpm release', out: '✓ v0.6.0 published', delay: 600 },
-] as const;
+const iconMap: Record<Feature['iconName'], typeof Zap> = {
+  Zap,
+  Terminal,
+  Shield,
+  FlaskConical,
+  Smartphone,
+  GitBranch,
+};
 
-type TypewriterStep = { text: string; pause: number; correction?: boolean };
+/* ─── Cursor Glow (desktop only) ──────────────────────────────── */
 
-const typewriterSequence: TypewriterStep[] = [
-  { text: 'vibing', pause: 3500 },
-  { text: 'pondr', pause: 500, correction: true },
-  { text: 'pondering', pause: 3200 },
-  { text: 'cogitating', pause: 3000 },
-  { text: 'noodling', pause: 2800 },
-  { text: 'percolat', pause: 600, correction: true },
-  { text: 'percolating', pause: 3500 },
-  { text: 'simmering', pause: 3000 },
-  { text: 'brewing', pause: 2800 },
-  { text: 'manifesting', pause: 3200 },
-  { text: 'channel', pause: 500, correction: true },
-  { text: 'channeling', pause: 3000 },
-  { text: 'compiling', pause: 3400 },
-  { text: 'iterating', pause: 2600 },
-  { text: 'shipping', pause: 3000 },
-  { text: 'deploying', pause: 2800 },
-  { text: 'marinating', pause: 3200 },
-  { text: 'fermenti', pause: 400, correction: true },
-  { text: 'fermenting', pause: 3000 },
-  { text: 'gestating', pause: 2600 },
-  { text: 'crafting', pause: 3500 },
-];
-
-/* ─── Hooks ───────────────────────────────────────────────────── */
-
-function useTypewriter(sequence: TypewriterStep[]) {
-  const [displayed, setDisplayed] = useState('');
-  const [showCursor, setShowCursor] = useState(true);
-  const state = useRef({
-    seqIndex: 0,
-    charIndex: 0,
-    isDeleting: false,
-    isCorrecting: Boolean(sequence[0]?.correction),
-  });
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const s = state.current;
-
-    function tick() {
-      const current = sequence[s.seqIndex % sequence.length]!;
-
-      if (!s.isDeleting) {
-        const target = s.isCorrecting ? current.text.slice(0, -1) : current.text;
-
-        if (s.charIndex <= target.length) {
-          setDisplayed(target.slice(0, s.charIndex));
-          s.charIndex++;
-          const delay = Math.random() < 0.1 ? 400 + Math.random() * 350 : 140 + Math.random() * 160;
-          timeoutRef.current = setTimeout(tick, delay);
-        } else if (s.isCorrecting) {
-          s.isCorrecting = false;
-          s.isDeleting = true;
-          timeoutRef.current = setTimeout(tick, 500 + Math.random() * 400);
-        } else {
-          timeoutRef.current = setTimeout(() => {
-            s.isDeleting = true;
-            tick();
-          }, current.pause);
-        }
-      } else {
-        const current2 = sequence[s.seqIndex % sequence.length]!;
-        if (s.charIndex > 0) {
-          s.charIndex--;
-          setDisplayed(current2.text.slice(0, s.charIndex));
-          timeoutRef.current = setTimeout(tick, 35 + Math.random() * 25);
-        } else {
-          s.isDeleting = false;
-          s.seqIndex = (s.seqIndex + 1) % sequence.length;
-          const next = sequence[s.seqIndex]!;
-          s.isCorrecting = Boolean(next.correction);
-          timeoutRef.current = setTimeout(tick, 400 + Math.random() * 500);
-        }
-      }
-    }
-
-    tick();
-
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [sequence]);
-
-  useEffect(() => {
-    const blink = setInterval(() => setShowCursor(prev => !prev), 530);
-    return () => clearInterval(blink);
-  }, []);
-
-  return { displayed, showCursor };
-}
-
-function useCursorGlow() {
+function useCursorGlow(enabled: boolean) {
   const [pos, setPos] = useState({ x: -200, y: -200 });
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (!enabled) return;
     const move = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY });
       if (!visible) setVisible(true);
     };
     window.addEventListener('mousemove', move);
     return () => window.removeEventListener('mousemove', move);
-  }, [visible]);
+  }, [enabled, visible]);
 
-  return { pos, visible };
+  return { pos, visible: enabled && visible };
 }
-
-/* ─── Components ──────────────────────────────────────────────── */
 
 function CursorGlow({ pos, visible }: { pos: { x: number; y: number }; visible: boolean }) {
   if (!visible) return null;
 
   return (
     <>
-      {/* Glow halo */}
       <div
-        className="pointer-events-none fixed top-0 left-0 z-[9990] mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 z-9990 mix-blend-difference"
         style={{
           transform: `translate3d(${pos.x - 200}px, ${pos.y - 200}px, 0)`,
           transition: 'transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1)',
         }}
       >
         <div
-          className="h-[400px] w-[400px] rounded-full"
+          className="h-100 w-100 rounded-full"
           style={{
             background: 'radial-gradient(circle, rgba(212, 255, 0, 0.5) 0%, transparent 55%)',
             filter: 'blur(50px)',
@@ -158,10 +61,8 @@ function CursorGlow({ pos, visible }: { pos: { x: number; y: number }; visible: 
           }}
         />
       </div>
-
-      {/* Yellow dot */}
       <div
-        className="pointer-events-none fixed top-0 left-0 z-[10000] flex items-center justify-center"
+        className="pointer-events-none fixed top-0 left-0 z-10000 flex items-center justify-center"
         style={{
           transform: `translate(${pos.x}px, ${pos.y}px) translate(-50%, -50%)`,
           transition: 'transform 75ms ease-out',
@@ -178,248 +79,352 @@ function CursorGlow({ pos, visible }: { pos: { x: number; y: number }; visible: 
   );
 }
 
-function AnimatedTerminal() {
-  const [hovering, setHovering] = useState(false);
-  const [visibleLines, setVisibleLines] = useState(0);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+/* ─── Scroll-aware nav ─────────────────────────────────────────── */
+
+function useScrolled(threshold = 20) {
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    if (hovering) {
-      setVisibleLines(0);
-      let i = 0;
+    const onScroll = () => setScrolled(window.scrollY > threshold);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [threshold]);
 
-      function showNext() {
-        i++;
-        setVisibleLines(i);
-        if (i < terminalLines.length) {
-          const nextDelay = terminalLines[i]?.delay ?? 500;
-          timeoutRef.current = setTimeout(showNext, nextDelay);
-        }
-      }
+  return scrolled;
+}
 
-      timeoutRef.current = setTimeout(showNext, 200);
-    } else {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      setVisibleLines(0);
-    }
+/* ─── Staggered fade-in wrapper ────────────────────────────────── */
 
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [hovering]);
+function FadeIn({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const { ref, isInView } = useInView<HTMLDivElement>({ threshold: 0.1 });
 
   return (
     <div
-      className="border-border bg-surface/50 h-[220px] w-full max-w-sm overflow-hidden rounded-lg border backdrop-blur-sm transition-all duration-500"
-      style={{
-        borderColor: hovering ? 'rgba(212,255,0,0.15)' : undefined,
-        boxShadow: hovering
-          ? '0 0 30px rgba(212,255,0,0.04), 0 0 60px rgba(212,255,0,0.02)'
-          : 'none',
-      }}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
+      ref={ref}
+      className={cn(
+        'transition-all duration-700 ease-out',
+        isInView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0',
+        className,
+      )}
+      style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="border-border flex items-center gap-1.5 border-b px-3 py-1.5">
-        <div
-          className="h-1.5 w-1.5 rounded-full transition-colors duration-500"
-          style={{ backgroundColor: hovering ? 'rgba(239,68,68,0.8)' : 'rgba(239,68,68,0.35)' }}
-        />
-        <div
-          className="h-1.5 w-1.5 rounded-full transition-colors duration-500"
-          style={{ backgroundColor: hovering ? 'rgba(234,179,8,0.8)' : 'rgba(234,179,8,0.35)' }}
-        />
-        <div
-          className="h-1.5 w-1.5 rounded-full transition-colors duration-500"
-          style={{ backgroundColor: hovering ? 'rgba(34,197,94,0.8)' : 'rgba(34,197,94,0.35)' }}
-        />
-        <span className="text-muted/50 ml-2 font-mono text-[9px]">~/steaksoap</span>
-      </div>
-      <div className="space-y-1 px-3 py-2.5 font-mono text-[11px]">
-        {terminalLines.map((line, i) => {
-          const show = hovering && i < visibleLines;
-          const idle = !hovering;
-
-          return (
-            <div key={i}>
-              {/* Command */}
-              <div
-                className="flex items-center gap-2 transition-opacity duration-300"
-                style={{ opacity: idle ? 0.4 : show ? 1 : 0.15 }}
-              >
-                <span className="text-accent/80">$</span>
-                <span className="text-fg/80">{line.cmd}</span>
-              </div>
-              {/* Output */}
-              {line.out && (
-                <div
-                  className="ml-4 overflow-hidden transition-all duration-300"
-                  style={{
-                    opacity: show ? 0.5 : 0,
-                    maxHeight: show ? '18px' : '0px',
-                  }}
-                >
-                  <span className="text-accent/60 text-[10px]">{line.out}</span>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+      {children}
     </div>
   );
 }
 
-/* ─── Page ─────────────────────────────────────────────────────── */
+/* ─── Section label ────────────────────────────────────────────── */
+
+function SectionLabel({ number, title }: { number: string; title: string }) {
+  return (
+    <div className="mb-12 flex items-baseline gap-3 md:mb-16">
+      <span className="text-accent font-mono text-[10px] tracking-[0.2em] uppercase">{number}</span>
+      <span className="text-muted/60 font-mono text-[10px] tracking-[0.2em] uppercase">
+        // {title}
+      </span>
+    </div>
+  );
+}
+
+/* ─── Smooth scroll helper ─────────────────────────────────────── */
+
+function scrollTo(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/* ═══  HOME PAGE  ══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════ */
 
 export default function Home() {
-  const { displayed, showCursor } = useTypewriter(typewriterSequence);
-  const { pos, visible } = useCursorGlow();
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const { pos, visible } = useCursorGlow(isDesktop);
+  const scrolled = useScrolled();
 
-  /* Hide cursor glow when scrolling past the hero */
   const heroRef = useRef<HTMLElement>(null);
   const [heroInView, setHeroInView] = useState(true);
+
+  const handleHeroObserver = useCallback(
+    ([entry]: IntersectionObserverEntry[]) => setHeroInView(entry?.isIntersecting ?? false),
+    [],
+  );
 
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => setHeroInView(entry?.isIntersecting ?? false),
-      {
-        threshold: 0.1,
-      },
-    );
+    const obs = new IntersectionObserver(handleHeroObserver, { threshold: 0.1 });
     obs.observe(el);
     return () => obs.disconnect();
-  }, []);
+  }, [handleHeroObserver]);
 
   return (
     <>
       <SeoHead
         title="steaksoap"
-        description="AI-first React starter kit for vibe coders. Zero config. Type-safe."
+        description="The AI-native React system for solo builders. 22 commands, 10 rules, 18 extensions."
       />
 
-      {/* ── HERO (full viewport) ─────────────────────────────────── */}
+      {/* ─── Skip to content ───────────────────────────────── */}
+      <a
+        href="#features"
+        className="focus:bg-accent focus:text-bg sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-md focus:px-4 focus:py-2 focus:shadow-lg"
+      >
+        Skip to content
+      </a>
+
+      {/* ─── NAV (fixed, appears on scroll) ────────────────── */}
+      <nav
+        className={cn(
+          'fixed top-0 right-0 left-0 z-50 transition-all duration-500',
+          scrolled ? 'bg-bg/80 border-b border-white/6 backdrop-blur-md' : 'bg-transparent',
+        )}
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-8">
+          <a
+            href="/"
+            className="text-fg/90 focus-visible:ring-accent rounded-sm font-mono text-sm font-medium focus-visible:ring-2 focus-visible:outline-none"
+          >
+            steaksoap
+          </a>
+
+          <div className="flex items-center gap-5">
+            <a
+              href="/playground"
+              className="text-muted hover:text-fg text-sm transition-colors duration-300"
+            >
+              Playground
+            </a>
+            <a
+              href="https://github.com/Mircooo/steaksoap"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-fg/70 hover:text-fg flex items-center gap-2 rounded-full border border-white/10 px-3.5 py-1.5 font-mono text-xs transition-all duration-300 hover:border-white/20"
+            >
+              <Github size={14} strokeWidth={1.5} />
+              GitHub
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      {/* ── HERO (100vh) ───────────────────────────────────── */}
       <section
         ref={heroRef}
-        className="cursor-hidden bg-bg text-fg relative h-screen overflow-hidden"
+        className={cn(
+          'bg-bg text-fg relative flex h-screen flex-col overflow-hidden',
+          isDesktop && 'cursor-hidden',
+        )}
       >
         <Noise />
         {heroInView && <CursorGlow pos={pos} visible={visible} />}
 
-        <div className="relative z-10 flex h-full flex-col px-4 py-6 md:px-8 md:py-8">
-          {/* Top */}
-          <header className="flex items-start justify-between">
-            <div className="flex flex-col gap-1">
-              <span className="text-fg/90 font-mono text-sm">🥩🧼 steaksoap</span>
-              <span className="text-fg/40 font-mono text-[11px]">
-                Production-ready React boilerplate
-              </span>
-            </div>
+        <div className="relative z-10 flex flex-1 flex-col px-6 pt-20 md:px-8">
+          {/* Center content */}
+          <div className="flex flex-1 flex-col items-center justify-center text-center">
+            <FadeIn delay={0}>
+              <h1 className="leading-[1.1]" style={{ fontSize: 'clamp(2rem, 5vw, 4.5rem)' }}>
+                <span className="text-fg font-medium">The AI-native React system</span>
+                <br />
+                <span className="text-accent font-medium">for solo builders.</span>
+              </h1>
+            </FadeIn>
 
-            <nav className="flex flex-wrap justify-end gap-2">
-              {stackLinks.map(({ label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border-accent/10 bg-accent/3 text-fg/50 hover:border-accent/40 hover:text-accent rounded-full border px-3 py-1 font-mono text-[10px] transition-all duration-300 hover:shadow-[0_0_12px_rgba(212,255,0,0.15)]"
-                >
-                  {label}
-                </a>
-              ))}
-            </nav>
-          </header>
+            <FadeIn delay={150}>
+              <p className="text-muted mt-6 max-w-lg text-base leading-relaxed md:text-lg">
+                You describe it. The AI builds it.
+              </p>
+            </FadeIn>
 
-          {/* Center — "Ready to [word]" */}
-          <div className="flex flex-1 items-center">
-            <h1 className="leading-none" style={{ fontSize: 'clamp(2rem, 6vw, 5rem)' }}>
-              <span className="text-fg/80 font-medium">Ready to </span>
-              <span className="text-accent font-medium">
-                {displayed}
-                <span
-                  className="bg-accent ml-0.5 inline-block"
-                  style={{
-                    width: 'clamp(2px, 0.3vw, 4px)',
-                    height: '0.85em',
-                    opacity: showCursor ? 1 : 0,
-                    verticalAlign: 'baseline',
-                    transform: 'translateY(2px)',
-                  }}
-                />
-              </span>
-            </h1>
+            <FadeIn delay={250}>
+              <p className="text-muted/60 mt-2 font-mono text-xs md:text-sm">
+                22 commands · 10 rules · 18 extensions
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={400} className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <a
+                href="https://github.com/Mircooo/steaksoap"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-accent text-bg border-accent/50 hover:border-accent inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 font-mono text-sm font-medium transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,255,0,0.15)] active:scale-[0.98]"
+              >
+                View on GitHub
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+              <button
+                type="button"
+                onClick={() => scrollTo('features')}
+                className="text-fg inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-transparent px-6 py-3 font-mono text-sm backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/5 active:scale-[0.98]"
+              >
+                Get started
+                <span aria-hidden="true">&darr;</span>
+              </button>
+            </FadeIn>
           </div>
 
-          {/* Bottom */}
-          <footer className="mb-4 flex items-end justify-between gap-6">
-            <AnimatedTerminal />
-
-            <div className="flex shrink-0 items-center gap-4">
-              <p className="text-fg/25 hidden font-mono text-[10px] md:block">
-                Clone. Build. Ship.
-              </p>
+          {/* Footer micro */}
+          <div className="flex items-end justify-between pb-6">
+            <span className="text-muted/30 font-mono text-[10px]">v{__APP_VERSION__}</span>
+            <span className="text-muted/30 font-mono text-[10px]">
+              MIT · by{' '}
               <a
                 href="https://github.com/Mircooo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-accent/60 hover:text-accent transition-all duration-300 hover:drop-shadow-[0_0_16px_rgba(212,255,0,0.6)]"
-                aria-label="GitHub profile"
+                className="hover:text-muted/50 transition-colors duration-300"
               >
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-                </svg>
+                Mircooo
               </a>
-            </div>
-          </footer>
+            </span>
+          </div>
         </div>
       </section>
 
-      {/* ── SHOWCASE SECTIONS ────────────────────────────────────── */}
-      <div className="bg-bg text-fg">
-        {/* What you get */}
-        <Section
-          id="features"
-          title="What you get"
-          subtitle="Everything configured. Nothing to figure out."
-        >
+      {/* ── FEATURES ───────────────────────────────────────── */}
+      <section id="features" className="bg-bg text-fg px-6 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <FadeIn>
+            <SectionLabel number="01" title="features" />
+          </FadeIn>
+
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map(feature => (
-              <FeatureCard key={feature.title} {...feature} />
-            ))}
+            {features.map((feature, i) => {
+              const Icon = iconMap[feature.iconName];
+              return (
+                <FadeIn key={feature.title} delay={i * 100}>
+                  <div className="group hover:border-accent/20 rounded-lg border border-white/6 bg-white/2 p-6 backdrop-blur-sm transition-all duration-500 hover:bg-white/4 hover:shadow-[0_0_40px_rgba(212,255,0,0.03)]">
+                    <Icon
+                      size={20}
+                      strokeWidth={1.5}
+                      className="text-accent mb-4"
+                      aria-hidden="true"
+                    />
+                    <h3 className="text-fg font-mono text-sm font-medium tracking-wide uppercase">
+                      {feature.title}
+                    </h3>
+                    <p className="text-muted mt-2 text-sm leading-relaxed">{feature.description}</p>
+                  </div>
+                </FadeIn>
+              );
+            })}
           </div>
-        </Section>
+        </div>
+      </section>
 
-        {/* Quick start */}
-        <Section id="quickstart" title="Quick start" subtitle="Three commands. That's it.">
-          <div className="space-y-6">
-            {quickStartSteps.map(step => (
-              <CodeBlock key={step.step} {...step} />
-            ))}
-          </div>
-        </Section>
+      {/* ── AI WORKFLOW ─────────────────────────────────────── */}
+      <section className="bg-bg text-fg px-6 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <FadeIn>
+            <SectionLabel number="02" title="ai workflow" />
+          </FadeIn>
 
-        {/* Built with */}
-        <Section
-          id="stack"
-          title="Built with"
-          subtitle="Battle-tested tools. No experimental stuff."
-        >
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-            {techStack.map(tech => (
-              <TechBadge key={tech.name} {...tech} />
+          <FadeIn delay={50}>
+            <p className="text-muted mb-12 max-w-lg text-base leading-relaxed">
+              You talk to the AI. The AI follows the rules.
+            </p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {featuredCommands.map((cmd, i) => (
+              <FadeIn key={cmd.name} delay={i * 80}>
+                <div className="group hover:border-accent/15 rounded-lg border border-white/6 bg-transparent p-5 transition-all duration-300">
+                  <span className="text-accent font-mono text-sm">{cmd.name}</span>
+                  <p className="text-muted mt-1 text-sm">{cmd.description}</p>
+                </div>
+              </FadeIn>
             ))}
           </div>
-        </Section>
-      </div>
+
+          <FadeIn delay={600}>
+            <p className="text-muted/50 mt-8 font-mono text-xs">
+              and 16 more commands{' '}
+              <a
+                href="https://github.com/Mircooo/steaksoap"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent/60 hover:text-accent transition-colors duration-300"
+              >
+                &rarr;
+              </a>
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── GET STARTED ────────────────────────────────────── */}
+      <section className="bg-bg text-fg px-6 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <FadeIn>
+            <SectionLabel number="03" title="get started" />
+          </FadeIn>
+
+          <FadeIn delay={100}>
+            <div className="bg-surface/30 overflow-x-auto rounded-lg border border-white/6 p-6 font-mono text-xs backdrop-blur-sm md:text-sm">
+              {quickStartLines.map((line, i) => (
+                <div key={i} className="flex gap-2">
+                  <span className="text-accent shrink-0">{line.prompt}</span>
+                  <code className="text-fg/80">{line.command}</code>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={250} className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <a
+              href="https://github.com/Mircooo/steaksoap"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-accent text-bg border-accent/50 hover:border-accent inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 font-mono text-sm font-medium transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,255,0,0.15)] active:scale-[0.98]"
+            >
+              View on GitHub
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+            <a
+              href="https://vercel.com/new/clone?repository-url=https://github.com/Mircooo/steaksoap"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-fg inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-transparent px-6 py-3 font-mono text-sm backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/5 active:scale-[0.98]"
+            >
+              Deploy on Vercel
+            </a>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── FOOTER ─────────────────────────────────────────── */}
+      <footer className="bg-bg border-border border-t">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-8 sm:flex-row sm:justify-between md:px-8">
+          <span className="text-muted/50 font-mono text-[10px]">
+            Built with{' '}
+            <a
+              href="https://claude.ai/code"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-muted transition-colors duration-300"
+            >
+              Claude Code
+            </a>
+          </span>
+          <span className="text-muted/50 font-mono text-[10px]">steaksoap v{__APP_VERSION__}</span>
+          <a
+            href="https://github.com/Mircooo/steaksoap"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted/50 hover:text-muted flex items-center gap-1.5 font-mono text-[10px] transition-colors duration-300"
+          >
+            <Github size={12} strokeWidth={1.5} />
+            GitHub
+          </a>
+        </div>
+      </footer>
     </>
   );
 }

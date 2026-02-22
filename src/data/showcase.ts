@@ -4,103 +4,85 @@
    ═══════════════════════════════════════════════════════════════ */
 
 export interface Feature {
-  icon: string;
+  /** Lucide icon name — resolved and rendered in the component */
+  iconName: 'Zap' | 'Terminal' | 'Shield' | 'FlaskConical' | 'Smartphone' | 'GitBranch';
   title: string;
   description: string;
 }
 
-export interface QuickStartStep {
-  step: number;
-  label: string;
-  command: string;
-  output?: string;
+export interface FeaturedCommand {
+  name: string;
+  description: string;
 }
 
-export interface TechItem {
-  name: string;
-  role: string;
-  href: string;
+export interface QuickStartLine {
+  prompt: string;
+  command: string;
 }
 
 export const features: Feature[] = [
   {
-    icon: '⚡',
+    iconName: 'Zap',
     title: 'Zero config',
-    description: 'Clone, install, dev. ESLint, Prettier, Husky, and Vitest are pre-configured.',
+    description: 'Clone, install, dev. TypeScript, ESLint, Prettier, Vitest — preconfigured.',
   },
   {
-    icon: '🤖',
-    title: 'AI-ready',
-    description: 'CLAUDE.md instructs any AI agent. Vibe code from day one.',
+    iconName: 'Terminal',
+    title: '22 AI commands',
+    description: 'Slash commands, 4 agents, 10 contextual rules. Your AI knows your codebase.',
   },
   {
-    icon: '🔒',
+    iconName: 'Shield',
     title: 'Type-safe',
-    description: 'Strict TypeScript. No any. Path aliases everywhere.',
+    description: 'Strict TypeScript. No any, no as. Path aliases everywhere.',
   },
   {
-    icon: '🧪',
-    title: 'Tested',
-    description: 'Vitest + Testing Library. Example tests included as patterns to follow.',
+    iconName: 'FlaskConical',
+    title: 'Tested by default',
+    description: 'Vitest + Testing Library + vitest-axe. Every component ships with tests.',
   },
   {
-    icon: '📱',
+    iconName: 'Smartphone',
     title: 'Mobile-first',
-    description: 'Tailwind CSS 4 with responsive utilities. Every component works on every screen.',
+    description: 'Tailwind 4 CSS-native. Responsive rule enforces dual desktop/mobile variants.',
   },
   {
-    icon: '🚀',
+    iconName: 'GitBranch',
     title: 'Pro workflow',
-    description: 'Conventional commits, automated releases, changelog generation, GitHub Releases.',
+    description: 'Conventional commits, automated releases, changelog generation, CI/CD.',
   },
 ];
 
-export const quickStartSteps: QuickStartStep[] = [
+export const featuredCommands: FeaturedCommand[] = [
   {
-    step: 1,
-    label: 'Clone the repo',
-    command: 'git clone https://github.com/Mircooo/steaksoap.git my-project',
-    output: "Cloning into 'my-project'...",
+    name: '/spec',
+    description: 'Plan before you code. Structured thinking, not vibe coding chaos.',
   },
   {
-    step: 2,
-    label: 'Initialize your project',
-    command: 'cd my-project && pnpm install && pnpm setup',
-    output: '✓ Dependencies installed\n✓ Project configured',
+    name: '/new-page',
+    description: 'Page + route + lazy loading + test. One command, zero config.',
   },
   {
-    step: 3,
-    label: 'Start building',
-    command: 'pnpm dev',
-    output: 'VITE v7 ready in 258ms → http://localhost:5173',
+    name: '/review',
+    description: 'Senior-level code review. TypeScript, a11y, performance, security.',
+  },
+  {
+    name: '/migrate',
+    description: 'Port an existing project. 6-phase guided migration with before/after report.',
+  },
+  {
+    name: '/lighthouse',
+    description:
+      'Quality audit. Performance, accessibility, SEO, responsive — scored and actionable.',
+  },
+  {
+    name: '/changelog-client',
+    description: 'Human-readable updates for your clients. Zero jargon, ready to send.',
   },
 ];
 
-export const techStack: TechItem[] = [
-  { name: 'React 19', role: 'UI framework', href: 'https://react.dev' },
-  {
-    name: 'TypeScript',
-    role: 'Type safety',
-    href: 'https://www.typescriptlang.org',
-  },
-  { name: 'Vite 7', role: 'Build tool', href: 'https://vitejs.dev' },
-  {
-    name: 'Tailwind CSS 4',
-    role: 'Styling',
-    href: 'https://tailwindcss.com',
-  },
-  { name: 'Vitest', role: 'Testing', href: 'https://vitest.dev' },
-  { name: 'ESLint', role: 'Linting', href: 'https://eslint.org' },
-  { name: 'Prettier', role: 'Formatting', href: 'https://prettier.io' },
-  {
-    name: 'Husky',
-    role: 'Git hooks',
-    href: 'https://typicode.github.io/husky',
-  },
-  {
-    name: 'release-it',
-    role: 'Releases',
-    href: 'https://github.com/release-it/release-it',
-  },
-  { name: 'pnpm', role: 'Package manager', href: 'https://pnpm.io' },
+export const quickStartLines: QuickStartLine[] = [
+  { prompt: '$', command: 'git clone https://github.com/Mircooo/steaksoap.git my-project' },
+  { prompt: '$', command: 'cd my-project && pnpm install && pnpm setup' },
+  { prompt: '$', command: 'pnpm dev' },
 ];
