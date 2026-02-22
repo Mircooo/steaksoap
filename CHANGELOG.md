@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/Mircooo/steaksoap/compare/v1.3.0...v1.4.0) (2026-02-22)
+
+### ✨ Features
+
+* **dx:** add pnpm doctor for environment health check ([c6a76d6](https://github.com/Mircooo/steaksoap/commit/c6a76d62ca9f896016909b1cdfc95b70ca05f2be))
+* **dx:** add pnpm done for structural coherence check ([7798966](https://github.com/Mircooo/steaksoap/commit/7798966799170cf34a0d2171f3d71dc70ac54f54))
+
 ## [1.3.0](https://github.com/Mircooo/steaksoap/compare/v1.2.0...v1.3.0) (2026-02-21)
 
 ### ✨ Features
