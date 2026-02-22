@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.8.0](https://github.com/Mircooo/steaksoap/compare/v1.7.0...v1.8.0) (2026-02-22)
+
+### ✨ Features
+
+* **home:** redesign landing page with brutaliste swiss aesthetic ([2f7101e](https://github.com/Mircooo/steaksoap/commit/2f7101e3092138e1ced66b85a7a6db739a2caef1))
+* **ui:** custom select dropdown, replace native select ([2cec605](https://github.com/Mircooo/steaksoap/commit/2cec6053e7579e3ba144abfa1c6ece92d6a7bd46))
+* **ui:** floating bar nav, coral accent, neutral light mode ([10cb3e9](https://github.com/Mircooo/steaksoap/commit/10cb3e9c59ce79eb3b8f86f962a4435eba569c34)), closes [#D4FF00](https://github.com/Mircooo/steaksoap/issues/D4FF00) [#FF6B6B](https://github.com/Mircooo/steaksoap/issues/FF6B6B) [#DC2626](https://github.com/Mircooo/steaksoap/issues/DC2626) [#B91C1C](https://github.com/Mircooo/steaksoap/issues/B91C1C) [#B8B8B8](https://github.com/Mircooo/steaksoap/issues/B8B8B8)
+* **ui:** polish form fields and buttons hover states ([713304e](https://github.com/Mircooo/steaksoap/commit/713304e58e5b065b38061e011dc81d7018a80ccc))
+* **ui:** unified nav, tokens, devkit copy, cursor fix ([36b769f](https://github.com/Mircooo/steaksoap/commit/36b769f8ddfe91260ad4e5e6c81c74d38a9bc69f))
+
+### 🐛 Bug Fixes
+
+* **rules:** enforce workflow compliance — ai must always follow rules ([9efb6fb](https://github.com/Mircooo/steaksoap/commit/9efb6fbb296ce3224a4b4f895e61c7e1a2882fd0))
+* **tokens:** replace old neon lime gradient with coral in 404 page ([af1c58c](https://github.com/Mircooo/steaksoap/commit/af1c58c27775907a994327e388395a88f7e6ccf2))
+* **ui:** replace white page loader with themed transition ([575482b](https://github.com/Mircooo/steaksoap/commit/575482b2df309f90138f6eee6bb8a3968f9862f0))
+
+### ♻️  Refactoring
+
+* **commands:** /fix now delegates to debugger agent instead of duplicating it ([11047b0](https://github.com/Mircooo/steaksoap/commit/11047b0e58befa0b17b17cbc331c1878a2a057dc))
+* **commands:** merge /audit into /lighthouse, remove duplicate ([e22fff6](https://github.com/Mircooo/steaksoap/commit/e22fff622f7666cfbc53cd89a5708b36e4ebee51))
+* **scripts:** centralize path constants in scripts/utils/paths.js ([9907f94](https://github.com/Mircooo/steaksoap/commit/9907f947aaa84996d130f74d6c791119f808fb6e))
+* **ui:** rework components for classe2 aesthetic ([31886c4](https://github.com/Mircooo/steaksoap/commit/31886c4902d294206cfb4100ea6acf735317c6e3))
+* **ui:** unified header, single nav for all pages, accent cleanup ([5c80859](https://github.com/Mircooo/steaksoap/commit/5c8085975019680e9ab913d40daef6ba90955cbe))
+
+### 📚 Documentation
+
+* **decisions:** document architecture decisions from patches 3a-ui ([2af0212](https://github.com/Mircooo/steaksoap/commit/2af0212d737b8b4f1e7e55ad5941f4e61f8de15c))
+* **design:** update tokens with new colors and status palette ([31f3c84](https://github.com/Mircooo/steaksoap/commit/31f3c846a9d2e8306c7ad8982a58db63ad647f7f))
+* **readme:** sync counts and paths with actual repo state ([4033a36](https://github.com/Mircooo/steaksoap/commit/4033a368b9ec6b05773e85ec64f9114d6757baab))
+
+### 🔧 Chores
+
+* **types:** remove empty types/index.ts ([7b55a04](https://github.com/Mircooo/steaksoap/commit/7b55a0449906e9a869c236dabaad8d316eaa1bf4))
+* **ui:** save in-progress work before branch switch ([9ff8079](https://github.com/Mircooo/steaksoap/commit/9ff807957a8a0a87a27577212cee732a94fed91b))
+
+### ✅ Tests
+
+* **components:** add missing tests for cursorglow, home, notfound, playground ([99923f3](https://github.com/Mircooo/steaksoap/commit/99923f32324864d416e01e2aa9b85b685f3f2123))
+
 ## [1.7.0](https://github.com/Mircooo/steaksoap/compare/v1.6.2...v1.7.0) (2026-02-22)
 
 ### ✨ Features
