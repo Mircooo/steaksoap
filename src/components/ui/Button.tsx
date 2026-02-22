@@ -11,12 +11,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<NonNullable<ButtonProps['variant']>, string> = {
   primary:
-    'bg-accent text-bg border border-accent/50 hover:border-accent hover:shadow-[0_0_20px_rgba(255,107,107,0.15)]',
+    'bg-accent text-bg border border-accent/50 hover:border-accent hover:shadow-[0_0_20px_rgba(255,107,107,0.15)] hover:brightness-110 active:scale-[0.97]',
   secondary:
-    'bg-transparent text-fg border border-border backdrop-blur-md hover:border-accent/30 hover:bg-accent/5',
-  ghost: 'bg-transparent text-muted hover:text-fg',
+    'bg-transparent text-fg border border-border backdrop-blur-md hover:border-accent/30 hover:bg-accent/5 active:scale-[0.97]',
+  ghost: 'bg-transparent text-muted hover:text-fg hover:bg-white/5 active:scale-[0.97]',
   danger:
-    'bg-danger/10 text-danger border border-danger/30 hover:bg-danger/20 hover:border-danger/50',
+    'bg-danger/10 text-danger border border-danger/30 hover:bg-danger/20 hover:border-danger/50 active:scale-[0.97]',
 };
 
 const sizeStyles: Record<NonNullable<ButtonProps['size']>, string> = {

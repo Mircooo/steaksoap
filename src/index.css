@@ -122,3 +122,20 @@
 .animate-noise {
   animation: noise 0.35s steps(2) infinite;
 }
+
+/* ─── Native select dropdown ─────────────────────────────────── */
+
+select option {
+  background-color: var(--color-surface);
+  color: var(--color-fg);
+  padding: 8px 12px;
+}
+
+select option:checked {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+select option:hover {
+  background-color: var(--color-accent);
+}

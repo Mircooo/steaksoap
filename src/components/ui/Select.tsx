@@ -31,8 +31,8 @@ export const Select = ({ label, options, placeholder, error, className, ...rest 
             'transition-all duration-300',
             'focus:ring-1 focus:outline-none',
             error
-              ? 'border-danger focus:border-danger focus:ring-danger'
-              : 'border-border focus:border-accent focus:ring-accent',
+              ? 'border-danger hover:border-danger/80 focus:border-danger focus:ring-danger'
+              : 'border-border hover:border-accent/30 focus:border-accent focus:ring-accent',
             className,
           )}
           aria-invalid={error ? true : undefined}
