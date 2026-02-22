@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.0](https://github.com/Mircooo/steaksoap/compare/v1.6.2...v1.7.0) (2026-02-22)
+
+### ✨ Features
+
+* **ui:** redesign home page with brutaliste swiss aesthetic ([8ea520c](https://github.com/Mircooo/steaksoap/commit/8ea520c071841cd69d0eda6c028c80e7085d8ebd))
+
 ## [1.6.2](https://github.com/Mircooo/steaksoap/compare/v1.6.1...v1.6.2) (2026-02-22)
 
 ### ✨ Features
