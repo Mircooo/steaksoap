@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.5.1](https://github.com/Mircooo/steaksoap/compare/v1.5.0...v1.5.1) (2026-02-22)
+
+### ✨ Features
+
+* **commands:** add /migrate for structured project migration ([39ab977](https://github.com/Mircooo/steaksoap/commit/39ab97799f2c4f9732d27faef8533ec451f16bc4))
+* **hooks:** add usemediaquery, usecopytoclipboard, usedebounce ([5e98097](https://github.com/Mircooo/steaksoap/commit/5e98097f16a1dcc531b0cdfa0fe5e8d5795cb463))
+* **playground:** add toast, tabs, and spinner demos ([855471c](https://github.com/Mircooo/steaksoap/commit/855471c1ae2de3b9bad0d7a6ff222a0478052da3))
+* **rules:** add // why: comment convention for non-obvious decisions ([0e7ddd0](https://github.com/Mircooo/steaksoap/commit/0e7ddd08eafaa78893aa0506fe569bfbe3789d0e))
+* **rules:** add plain english component headers for human readability ([33b5777](https://github.com/Mircooo/steaksoap/commit/33b57774dded3a2c3cb8d86a1387a96ce10a4264))
+* **rules:** enforce identical accent color across dark and light mode ([f3517de](https://github.com/Mircooo/steaksoap/commit/f3517de2d20777c11c1e137bfcbe005342ef73e1))
+* **ui:** add accessible tabs component with keyboard navigation ([2fbb265](https://github.com/Mircooo/steaksoap/commit/2fbb2653478400365d2e5095fb190a15367add35))
+* **ui:** add spinner component and integrate with button isloading ([14a274f](https://github.com/Mircooo/steaksoap/commit/14a274f6567405f52fa51f5e6b180b32824ade18))
+* **ui:** add toast notification system with usetoast hook ([3f0cb94](https://github.com/Mircooo/steaksoap/commit/3f0cb94fc1a1b92996ecbd33e5d35a57ab1dc19c))
+
+### 🐛 Bug Fixes
+
+* **plugin:** sync plugin version with package.json ([4f3e739](https://github.com/Mircooo/steaksoap/commit/4f3e739a4c3d155146735e116bb0df823f47cc03))
+* **theme:** darken light mode background from near-white to warm gray ([ce74976](https://github.com/Mircooo/steaksoap/commit/ce749768846200f1fbc5b927aa24b2f8f8a1cd78)), closes [#f4f4f0](https://github.com/Mircooo/steaksoap/issues/f4f4f0) [#e8e8e4](https://github.com/Mircooo/steaksoap/issues/e8e8e4) [#deded8](https://github.com/Mircooo/steaksoap/issues/deded8) [#c8c8c2](https://github.com/Mircooo/steaksoap/issues/c8c8c2)
+* **tokens:** darker warm gray for light mode background ([dc8c8f0](https://github.com/Mircooo/steaksoap/commit/dc8c8f0137f5135eb5e4ed46770eed2f860d22dd)), closes [#e8e8e4](https://github.com/Mircooo/steaksoap/issues/e8e8e4) [#d8d8d0](https://github.com/Mircooo/steaksoap/issues/d8d8d0) [#c8c8c0](https://github.com/Mircooo/steaksoap/issues/c8c8c0) [#b8b8b0](https://github.com/Mircooo/steaksoap/issues/b8b8b0)
+* **tokens:** replace raw white values with design system tokens ([30ad658](https://github.com/Mircooo/steaksoap/commit/30ad658e1589774fb8b2e3388ed4debd89e663df))
+
+### 📚 Documentation
+
+* **deps:** rewrite dependencies.md as complete project registry ([fb913fe](https://github.com/Mircooo/steaksoap/commit/fb913fe7bc933bd036c84f12018b5a202ef5e6df))
+* **onboarding:** add handoff.md for developer onboarding without ai context ([91c9fcb](https://github.com/Mircooo/steaksoap/commit/91c9fcbeb1c8ec886c91cf00ea6cf2caed0ad120))
+* **readme:** sharpen positioning and update component counts ([7ebe59f](https://github.com/Mircooo/steaksoap/commit/7ebe59f668e20b546de299c00903a2a6e58405c4))
+
+### ✅ Tests
+
+* **components:** add missing tests for footer, seohead, errorboundary ([9aa0700](https://github.com/Mircooo/steaksoap/commit/9aa07002a3d3f5eab175ea0165b2e1cbe81f02cf))
+
 ## [1.5.0](https://github.com/Mircooo/steaksoap/compare/v1.4.0...v1.5.0) (2026-02-22)
 
 ### ✨ Features
