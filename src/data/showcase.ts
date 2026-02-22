@@ -29,7 +29,7 @@ export const features: Feature[] = [
   {
     iconName: 'Terminal',
     title: '22 AI commands',
-    description: 'Slash commands, 4 agents, 10 contextual rules. Your AI knows your codebase.',
+    description: 'Slash commands, 4 agents, 12 contextual rules. Your AI knows your codebase.',
   },
   {
     iconName: 'Shield',

@@ -81,7 +81,7 @@ export default function Home() {
     <>
       <SeoHead
         title="steaksoap"
-        description="The AI-native React system for solo builders. 22 commands, 11 rules, 18 extensions."
+        description="The AI-native React system for solo builders. 22 commands, 12 rules, 18 extensions."
       />
 
       {/* ── HERO (100vh) ───────────────────────────────────── */}
@@ -114,7 +114,7 @@ export default function Home() {
                 </span>
                 <span className="text-muted/30">·</span>
                 <span>
-                  <span className="text-accent font-bold">11</span>{' '}
+                  <span className="text-accent font-bold">12</span>{' '}
                   <span className="text-muted">rules</span>
                 </span>
                 <span className="text-muted/30">·</span>
@@ -206,8 +206,12 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn delay={50}>
-            <p className="text-muted mb-12 max-w-lg text-base leading-relaxed">
+            <p className="text-muted mb-4 max-w-lg text-base leading-relaxed">
               You talk to the AI. The AI follows the rules.
+            </p>
+            <p className="text-muted/60 mb-12 max-w-lg text-sm leading-relaxed">
+              Smart tool detection — Claude recommends the right MCP server when you need databases,
+              GitHub, Figma, or monitoring.
             </p>
           </FadeIn>
 
