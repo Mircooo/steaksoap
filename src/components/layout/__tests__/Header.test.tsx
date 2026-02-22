@@ -6,34 +6,28 @@ import { axe } from 'vitest-axe';
 
 import { Header } from '../Header';
 
-const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-];
-
 function renderHeader(props: Partial<Parameters<typeof Header>[0]> = {}) {
   return render(
     <ThemeProvider>
-      <Header navItems={navItems} {...props} />
+      <Header {...props} />
     </ThemeProvider>,
   );
 }
 
 describe('Header', () => {
-  it('renders project name by default', () => {
+  it('renders project name', () => {
     renderHeader();
     expect(screen.getByText('steaksoap')).toBeInTheDocument();
   });
 
-  it('renders custom logo', () => {
-    renderHeader({ logo: <span>MyLogo</span> });
-    expect(screen.getByText('MyLogo')).toBeInTheDocument();
+  it('shows Playground link', () => {
+    renderHeader();
+    expect(screen.getAllByText('Playground').length).toBeGreaterThan(0);
   });
 
-  it('shows nav items', () => {
+  it('shows GitHub link', () => {
     renderHeader();
-    expect(screen.getAllByText('Home').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('About').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('GitHub').length).toBeGreaterThan(0);
   });
 
   it('has navigation landmark', () => {
@@ -54,14 +48,9 @@ describe('Header', () => {
     expect(hamburger).toHaveAttribute('aria-expanded', 'true');
   });
 
-  it('shows theme toggle by default', () => {
+  it('shows theme toggle', () => {
     renderHeader();
     expect(screen.getAllByLabelText(/switch to (light|dark) mode/i).length).toBeGreaterThan(0);
-  });
-
-  it('hides theme toggle when showThemeToggle is false', () => {
-    renderHeader({ showThemeToggle: false });
-    expect(screen.queryByLabelText(/switch to (light|dark) mode/i)).not.toBeInTheDocument();
   });
 
   it('has no accessibility violations', async () => {

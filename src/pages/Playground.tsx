@@ -11,10 +11,35 @@ import { Spinner } from '@components/ui/Spinner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/Tabs';
 import { Textarea } from '@components/ui/Textarea';
 import { Tooltip } from '@components/ui/Tooltip';
+import { useCopyToClipboard } from '@hooks/useCopyToClipboard';
 import { useToast } from '@hooks/useToast';
 import { ArrowRight, Check, Copy, Heart, Moon, Plus, Search, Sun, Zap } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
+
+/* ─── Copyable chip — click to copy, used everywhere ──────── */
+
+function Copyable({ text, className }: { text: string; className?: string }) {
+  const { copy, copied } = useCopyToClipboard();
+
+  return (
+    <button
+      onClick={() => void copy(text)}
+      className={`inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 font-mono text-[10px] transition-all duration-300 ${
+        copied
+          ? 'bg-success/15 text-success'
+          : 'bg-surface/50 text-muted hover:bg-surface hover:text-accent'
+      } ${className ?? ''}`}
+    >
+      {copied ? 'copied' : text}
+      {copied ? (
+        <Check size={10} strokeWidth={2} aria-hidden="true" />
+      ) : (
+        <Copy size={10} strokeWidth={1.5} aria-hidden="true" />
+      )}
+    </button>
+  );
+}
 
 /* ─── DevKit Section ────────────────────────────────────────── */
 
@@ -42,6 +67,16 @@ function Section({
   );
 }
 
+/* ─── Sub-label ─────────────────────────────────────────────── */
+
+function SubLabel({ children }: { children: ReactNode }) {
+  return (
+    <span className="text-muted mb-4 block font-mono text-[10px] tracking-[0.2em] uppercase">
+      {children}
+    </span>
+  );
+}
+
 /* ─── Color Swatch ──────────────────────────────────────────── */
 
 function Swatch({
@@ -61,11 +96,14 @@ function Swatch({
         className="border-border h-10 w-10 shrink-0 rounded-sm border"
         style={{ backgroundColor: `var(--color-${token})` }}
       />
-      <div>
+      <div className="space-y-1">
         <p className="text-fg text-sm font-medium">{name}</p>
-        <p className="text-muted font-mono text-[10px]">
-          {dark} / {light}
-        </p>
+        <div className="flex flex-wrap gap-1">
+          <Copyable text={`bg-${token}`} />
+          <Copyable text={`text-${token}`} />
+          <Copyable text={dark} />
+          <Copyable text={light} />
+        </div>
       </div>
     </div>
   );
@@ -75,9 +113,9 @@ function Swatch({
 
 function IconItem({ name, children }: { name: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="border-border/50 hover:border-accent/20 flex items-center gap-3 rounded-lg border px-3 py-2 transition-all duration-300">
       <div className="text-fg">{children}</div>
-      <span className="text-muted font-mono text-[10px] tracking-widest uppercase">{name}</span>
+      <Copyable text={name} />
     </div>
   );
 }
@@ -94,7 +132,7 @@ export default function Playground() {
         title="playground"
         description="design system devkit — all components, tokens, and typography."
       />
-      <div className="bg-bg text-fg min-h-screen px-4 py-12 md:px-8">
+      <div className="bg-bg text-fg min-h-screen px-6 py-12 md:px-8">
         <div className="mx-auto max-w-5xl space-y-16">
           {/* Header */}
           <div>
@@ -103,125 +141,162 @@ export default function Playground() {
             </span>
             <h1 className="text-fg mt-3 text-4xl font-medium tracking-tight md:text-6xl">devkit</h1>
             <p className="text-muted mt-4 max-w-lg text-base leading-relaxed">
-              every token, every component, every state. the visual reference for this design
-              system.
+              every token, every component, every state. click any chip to copy.
             </p>
             <div className="bg-accent mt-6 h-px w-12" />
           </div>
 
           {/* 01 — Typography */}
           <Section number="01" title="typography">
-            <div className="space-y-8">
-              <div className="grid gap-2 md:grid-cols-[160px_1fr]">
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                  display xl
-                </span>
+            <div className="space-y-6">
+              <div className="border-border/50 hover:border-accent/20 space-y-2 rounded-lg border p-4 transition-all duration-300">
                 <p className="text-fg text-5xl font-bold md:text-7xl">headlines</p>
+                <Copyable text="text-5xl font-bold md:text-7xl" />
               </div>
-              <div className="grid gap-2 md:grid-cols-[160px_1fr]">
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                  display l
-                </span>
+              <div className="border-border/50 hover:border-accent/20 space-y-2 rounded-lg border p-4 transition-all duration-300">
                 <p className="text-fg text-4xl font-medium md:text-6xl">page titles</p>
+                <Copyable text="text-4xl font-medium md:text-6xl" />
               </div>
-              <div className="grid gap-2 md:grid-cols-[160px_1fr]">
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                  heading
-                </span>
+              <div className="border-border/50 hover:border-accent/20 space-y-2 rounded-lg border p-4 transition-all duration-300">
                 <p className="text-fg text-2xl font-medium md:text-4xl">section titles</p>
+                <Copyable text="text-2xl font-medium md:text-4xl" />
               </div>
-              <div className="grid gap-2 md:grid-cols-[160px_1fr]">
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                  body
-                </span>
+              <div className="border-border/50 hover:border-accent/20 space-y-2 rounded-lg border p-4 transition-all duration-300">
                 <p className="text-fg text-base leading-relaxed md:text-xl">
                   the quick brown fox jumps over the lazy dog. space grotesk renders beautifully at
                   all sizes.
                 </p>
+                <Copyable text="text-base leading-relaxed md:text-xl" />
               </div>
-              <div className="grid gap-2 md:grid-cols-[160px_1fr]">
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                  label
-                </span>
+              <div className="border-border/50 hover:border-accent/20 space-y-2 rounded-lg border p-4 transition-all duration-300">
                 <p className="text-fg text-xs font-bold tracking-widest uppercase">
                   buttons and ctas
                 </p>
+                <Copyable text="text-xs font-bold tracking-widest uppercase" />
               </div>
-              <div className="grid gap-2 md:grid-cols-[160px_1fr]">
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                  mono micro
-                </span>
-                <p className="text-muted font-mono text-[10px] tracking-widest uppercase">
+              <div className="border-border/50 hover:border-accent/20 space-y-2 rounded-lg border p-4 transition-all duration-300">
+                <p className="text-muted font-mono text-[10px] tracking-[0.2em] uppercase">
                   metadata and ui labels
                 </p>
+                <Copyable text="font-mono text-[10px] tracking-[0.2em] uppercase" />
               </div>
             </div>
           </Section>
 
           {/* 02 — Colors */}
           <Section number="02" title="colors">
-            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <Swatch name="accent" token="accent" dark="#D4FF00" light="#D4FF00" />
-              <Swatch name="background" token="bg" dark="#0A0A0A" light="#D8D8D0" />
+              <Swatch name="background" token="bg" dark="#0A0A0A" light="#C0C0B8" />
               <Swatch name="foreground" token="fg" dark="#F0F0F0" light="#1A1A1A" />
-              <Swatch name="muted" token="muted" dark="#666666" light="#5C5C56" />
-              <Swatch name="surface" token="surface" dark="#141414" light="#C8C8C0" />
-              <Swatch name="border" token="border" dark="#262626" light="#B8B8B0" />
-              <Swatch name="success" token="success" dark="#4ADE80" light="#16A34A" />
-              <Swatch name="warning" token="warning" dark="#EAB308" light="#CA8A04" />
-              <Swatch name="danger" token="danger" dark="#F87171" light="#DC2626" />
-              <Swatch name="info" token="info" dark="#60A5FA" light="#2563EB" />
+              <Swatch name="muted" token="muted" dark="#8A8A8A" light="#4F4F49" />
+              <Swatch name="surface" token="surface" dark="#141414" light="#B0B0A8" />
+              <Swatch name="border" token="border" dark="#262626" light="#A0A098" />
+              <Swatch name="success" token="success" dark="#6AFF8A" light="#00C853" />
+              <Swatch name="warning" token="warning" dark="#FFD60A" light="#E6A800" />
+              <Swatch name="danger" token="danger" dark="#FF5B5B" light="#E53935" />
+              <Swatch name="info" token="info" dark="#52B0FF" light="#1E88E5" />
             </div>
           </Section>
 
-          {/* 03 — UI Elements */}
-          <Section number="03" title="ui elements">
-            {/* Buttons */}
+          {/* 03 — Buttons */}
+          <Section number="03" title="buttons">
             <div className="space-y-8">
+              {/* Variants */}
               <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  buttons
-                </span>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="primary">primary</Button>
-                  <Button variant="secondary">secondary</Button>
-                  <Button variant="ghost">ghost</Button>
-                  <Button variant="danger">danger</Button>
+                <SubLabel>variants</SubLabel>
+                <div className="space-y-3">
+                  {(
+                    [
+                      ['primary', 'bg-accent, glow hover'],
+                      ['secondary', 'glass border, accent hover'],
+                      ['ghost', 'transparent, text-only'],
+                      ['danger', 'glass red, destructive'],
+                    ] as const
+                  ).map(([variant, desc]) => (
+                    <div
+                      key={variant}
+                      className="border-border/50 hover:border-accent/20 flex flex-wrap items-center gap-4 rounded-lg border p-4 transition-all duration-300"
+                    >
+                      <Button variant={variant}>{variant}</Button>
+                      <Copyable text={`variant="${variant}"`} />
+                      <span className="text-muted text-xs">{desc}</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="mt-3 flex flex-wrap items-center gap-3">
-                  <Button size="sm">small</Button>
-                  <Button size="md">medium</Button>
-                  <Button size="lg">large</Button>
-                  <Button size="icon" aria-label="icon button">
-                    <Plus size={20} strokeWidth={1.5} aria-hidden="true" />
-                  </Button>
+              </div>
+
+              {/* Sizes */}
+              <div>
+                <SubLabel>sizes</SubLabel>
+                <div className="space-y-3">
+                  {(
+                    [
+                      ['sm', 'px-3 py-1.5 text-sm'],
+                      ['md', 'px-4 py-2 text-base'],
+                      ['lg', 'px-6 py-3 text-lg'],
+                    ] as const
+                  ).map(([size, classes]) => (
+                    <div
+                      key={size}
+                      className="border-border/50 hover:border-accent/20 flex flex-wrap items-center gap-4 rounded-lg border p-4 transition-all duration-300"
+                    >
+                      <Button size={size}>{size}</Button>
+                      <Copyable text={`size="${size}"`} />
+                      <Copyable text={classes} />
+                    </div>
+                  ))}
+                  <div className="border-border/50 hover:border-accent/20 flex flex-wrap items-center gap-4 rounded-lg border p-4 transition-all duration-300">
+                    <Button size="icon" aria-label="icon button">
+                      <Plus size={20} strokeWidth={1.5} aria-hidden="true" />
+                    </Button>
+                    <Copyable text='size="icon"' />
+                    <span className="text-muted text-xs">h-10 w-10</span>
+                  </div>
                 </div>
-                <div className="mt-3 flex flex-wrap items-center gap-3">
+              </div>
+
+              {/* States */}
+              <div>
+                <SubLabel>states</SubLabel>
+                <div className="flex flex-wrap gap-3">
                   <Button isLoading>loading</Button>
                   <Button disabled>disabled</Button>
                 </div>
               </div>
+            </div>
+          </Section>
 
-              {/* Badges */}
-              <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  badges
-                </span>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Badge>default</Badge>
-                  <Badge variant="outline">outline</Badge>
-                  <Badge variant="success">success</Badge>
-                  <Badge variant="warning">warning</Badge>
-                  <Badge variant="danger">danger</Badge>
-                  <Badge variant="info">info</Badge>
+          {/* 04 — Badges */}
+          <Section number="04" title="badges">
+            <div className="space-y-3">
+              {(
+                [
+                  ['default', 'bg-accent text-bg'],
+                  ['outline', 'border-border'],
+                  ['success', 'bg-success/15 text-success'],
+                  ['warning', 'bg-warning/15 text-warning'],
+                  ['danger', 'bg-danger/15 text-danger'],
+                  ['info', 'bg-info/15 text-info'],
+                ] as const
+              ).map(([variant, classes]) => (
+                <div
+                  key={variant}
+                  className="border-border/50 hover:border-accent/20 flex flex-wrap items-center gap-4 rounded-lg border p-3 transition-all duration-300"
+                >
+                  <Badge variant={variant}>{variant}</Badge>
+                  <Copyable text={`variant="${variant}"`} />
+                  <Copyable text={classes} />
                 </div>
-              </div>
+              ))}
+            </div>
+          </Section>
 
-              {/* Inputs */}
+          {/* 05 — Form inputs */}
+          <Section number="05" title="form inputs">
+            <div className="space-y-8">
               <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  inputs
-                </span>
+                <SubLabel>input</SubLabel>
                 <div className="grid max-w-md gap-4">
                   <Input label="default" placeholder="type something..." />
                   <Input label="with helper" helperText="this is a helper text" />
@@ -229,21 +304,15 @@ export default function Playground() {
                 </div>
               </div>
 
-              {/* Textarea */}
               <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  textarea
-                </span>
+                <SubLabel>textarea</SubLabel>
                 <div className="grid max-w-md gap-4">
                   <Textarea label="message" placeholder="write your message..." />
                 </div>
               </div>
 
-              {/* Select */}
               <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  select
-                </span>
+                <SubLabel>select</SubLabel>
                 <div className="grid max-w-md gap-4">
                   <Select
                     label="language"
@@ -256,34 +325,36 @@ export default function Playground() {
                   />
                 </div>
               </div>
+            </div>
+          </Section>
 
-              {/* Cards */}
-              <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  cards
-                </span>
-                <div className="grid gap-4 sm:grid-cols-3">
-                  <Card hover padding="lg">
-                    <p className="text-fg text-sm font-medium">hover card</p>
-                    <p className="text-muted mt-1 text-xs">with scale effect</p>
-                  </Card>
-                  <Card padding="md">
-                    <p className="text-fg text-sm font-medium">default card</p>
-                    <p className="text-muted mt-1 text-xs">medium padding</p>
-                  </Card>
-                  <Card padding="sm">
-                    <p className="text-fg text-sm font-medium">compact card</p>
-                    <p className="text-muted mt-1 text-xs">small padding</p>
-                  </Card>
-                </div>
-              </div>
+          {/* 06 — Cards */}
+          <Section number="06" title="cards">
+            <div className="grid gap-4 sm:grid-cols-3">
+              <Card hover padding="lg">
+                <p className="text-fg text-sm font-medium">hover card</p>
+                <p className="text-muted mt-1 text-xs">scale + glow on hover</p>
+                <Copyable text="hover padding='lg'" className="mt-3" />
+              </Card>
+              <Card padding="md">
+                <p className="text-fg text-sm font-medium">default card</p>
+                <p className="text-muted mt-1 text-xs">glass + backdrop-blur</p>
+                <Copyable text="padding='md'" className="mt-3" />
+              </Card>
+              <Card padding="sm">
+                <p className="text-fg text-sm font-medium">compact card</p>
+                <p className="text-muted mt-1 text-xs">small padding</p>
+                <Copyable text="padding='sm'" className="mt-3" />
+              </Card>
+            </div>
+          </Section>
 
-              {/* Avatar */}
+          {/* 07 — Avatars + Skeleton */}
+          <Section number="07" title="avatars & skeleton">
+            <div className="space-y-8">
               <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  avatars
-                </span>
-                <div className="flex items-center gap-4">
+                <SubLabel>avatars</SubLabel>
+                <div className="flex flex-wrap items-center gap-4">
                   <Avatar alt="small" size="sm" />
                   <Avatar alt="medium" fallback="AB" size="md" />
                   <Avatar alt="large" size="lg" />
@@ -291,11 +362,8 @@ export default function Playground() {
                 </div>
               </div>
 
-              {/* Skeleton */}
               <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  skeleton
-                </span>
+                <SubLabel>skeleton loading</SubLabel>
                 <div className="max-w-sm space-y-3">
                   <Skeleton variant="text" />
                   <Skeleton variant="text" width="60%" />
@@ -308,13 +376,15 @@ export default function Playground() {
                   </div>
                 </div>
               </div>
+            </div>
+          </Section>
 
-              {/* Tooltip */}
+          {/* 08 — Tooltip + Modal */}
+          <Section number="08" title="overlays">
+            <div className="space-y-8">
               <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  tooltip
-                </span>
-                <div className="flex flex-wrap items-center gap-4">
+                <SubLabel>tooltip</SubLabel>
+                <div className="flex flex-wrap gap-3">
                   <Tooltip content="top tooltip" position="top">
                     <Button variant="secondary" size="sm">
                       top
@@ -338,11 +408,8 @@ export default function Playground() {
                 </div>
               </div>
 
-              {/* Modal */}
               <div>
-                <span className="text-muted mb-3 block font-mono text-[10px] tracking-widest uppercase">
-                  modal
-                </span>
+                <SubLabel>modal</SubLabel>
                 <Button onClick={() => setModalOpen(true)}>open modal</Button>
                 <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title="example modal">
                   <p className="text-muted text-sm">focus trap, escape to close, backdrop click.</p>
@@ -359,140 +426,115 @@ export default function Playground() {
             </div>
           </Section>
 
-          {/* 04 — Toast */}
-          <Section number="04" title="toast">
-            <div className="flex flex-wrap gap-3">
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={() =>
-                  toast({ variant: 'success', message: 'action completed successfully.' })
-                }
-              >
-                success
-              </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() =>
-                  toast({ variant: 'error', title: 'error', message: 'something went wrong.' })
-                }
-              >
-                error
-              </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => toast({ variant: 'warning', message: 'careful with that action.' })}
-              >
-                warning
-              </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() =>
-                  toast({ variant: 'info', message: 'new version available for download.' })
-                }
-              >
-                info
-              </Button>
+          {/* 09 — Toast */}
+          <Section number="09" title="toast">
+            <div className="space-y-3">
+              {(
+                [
+                  ['success', 'action completed successfully.'],
+                  ['error', 'something went wrong.'],
+                  ['warning', 'careful with that action.'],
+                  ['info', 'new version available for download.'],
+                ] as const
+              ).map(([variant, msg]) => (
+                <div
+                  key={variant}
+                  className="border-border/50 hover:border-accent/20 flex flex-wrap items-center gap-4 rounded-lg border p-3 transition-all duration-300"
+                >
+                  <Button
+                    variant={variant === 'success' ? 'primary' : 'secondary'}
+                    size="sm"
+                    onClick={() =>
+                      toast({
+                        variant: variant === 'error' ? 'error' : variant,
+                        message: msg,
+                      })
+                    }
+                  >
+                    {variant}
+                  </Button>
+                  <Copyable text={`variant="${variant}"`} />
+                </div>
+              ))}
             </div>
           </Section>
 
-          {/* 05 — Icons */}
-          <Section number="05" title="icons">
+          {/* 10 — Icons */}
+          <Section number="10" title="icons">
             <div className="space-y-8">
-              {/* Common icons */}
               <div>
-                <span className="text-muted mb-4 block font-mono text-[10px] tracking-widest uppercase">
-                  common icons — lucide react
-                </span>
-                <div className="flex flex-wrap items-end gap-8">
-                  <IconItem name="search">
+                <SubLabel>common icons — lucide react</SubLabel>
+                <div className="flex flex-wrap gap-3">
+                  <IconItem name="Search">
                     <Search size={18} strokeWidth={1.5} />
                   </IconItem>
-                  <IconItem name="arrow-right">
+                  <IconItem name="ArrowRight">
                     <ArrowRight size={18} strokeWidth={1.5} />
                   </IconItem>
-                  <IconItem name="check">
+                  <IconItem name="Check">
                     <Check size={18} strokeWidth={1.5} />
                   </IconItem>
-                  <IconItem name="copy">
+                  <IconItem name="Copy">
                     <Copy size={18} strokeWidth={1.5} />
                   </IconItem>
-                  <IconItem name="zap">
+                  <IconItem name="Zap">
                     <Zap size={18} strokeWidth={1.5} />
                   </IconItem>
-                  <IconItem name="heart">
+                  <IconItem name="Heart">
                     <Heart size={18} strokeWidth={1.5} />
                   </IconItem>
-                  <IconItem name="sun">
+                  <IconItem name="Sun">
                     <Sun size={18} strokeWidth={1.5} />
                   </IconItem>
-                  <IconItem name="moon">
+                  <IconItem name="Moon">
                     <Moon size={18} strokeWidth={1.5} />
                   </IconItem>
                 </div>
               </div>
 
-              {/* Sizes */}
               <div>
-                <span className="text-muted mb-4 block font-mono text-[10px] tracking-widest uppercase">
-                  sizes
-                </span>
-                <div className="flex items-end gap-8">
-                  <div className="flex flex-col items-center gap-2">
+                <SubLabel>sizes</SubLabel>
+                <div className="flex flex-wrap gap-3">
+                  <div className="border-border/50 hover:border-accent/20 flex items-center gap-3 rounded-lg border px-3 py-2 transition-all duration-300">
                     <Zap size={14} strokeWidth={1.5} />
-                    <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                      14 inline
-                    </span>
+                    <Copyable text="size={14}" />
+                    <span className="text-muted text-xs">inline</span>
                   </div>
-                  <div className="flex flex-col items-center gap-2">
+                  <div className="border-border/50 hover:border-accent/20 flex items-center gap-3 rounded-lg border px-3 py-2 transition-all duration-300">
                     <Zap size={18} strokeWidth={1.5} />
-                    <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                      18 standard
-                    </span>
+                    <Copyable text="size={18}" />
+                    <span className="text-muted text-xs">standard</span>
                   </div>
-                  <div className="flex flex-col items-center gap-2">
+                  <div className="border-border/50 hover:border-accent/20 flex items-center gap-3 rounded-lg border px-3 py-2 transition-all duration-300">
                     <Zap size={24} strokeWidth={1.5} />
-                    <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                      24 large
-                    </span>
+                    <Copyable text="size={24}" />
+                    <span className="text-muted text-xs">large</span>
                   </div>
                 </div>
               </div>
 
-              {/* Stroke width comparison */}
               <div>
-                <span className="text-muted mb-4 block font-mono text-[10px] tracking-widest uppercase">
-                  stroke weight
-                </span>
-                <div className="flex items-end gap-8">
-                  <div className="flex flex-col items-center gap-2">
+                <SubLabel>stroke weight</SubLabel>
+                <div className="flex flex-wrap gap-3">
+                  <div className="border-border/50 flex items-center gap-3 rounded-lg border px-3 py-2 transition-all duration-300">
                     <Heart size={20} strokeWidth={2} />
-                    <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                      2 default
-                    </span>
+                    <span className="text-muted font-mono text-[10px]">2 default</span>
                   </div>
-                  <div className="flex flex-col items-center gap-2">
-                    <Heart size={20} strokeWidth={1.5} />
-                    <span className="text-accent font-mono text-[10px] tracking-widest uppercase">
-                      1.5 classe2
-                    </span>
+                  <div className="border-accent/30 flex items-center gap-3 rounded-lg border px-3 py-2 transition-all duration-300">
+                    <Heart size={20} strokeWidth={1.5} className="text-accent" />
+                    <span className="text-accent font-mono text-[10px]">1.5 classe2</span>
                   </div>
-                  <div className="flex flex-col items-center gap-2">
+                  <div className="border-border/50 flex items-center gap-3 rounded-lg border px-3 py-2 transition-all duration-300">
                     <Heart size={20} strokeWidth={1} />
-                    <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                      1 thin
-                    </span>
+                    <span className="text-muted font-mono text-[10px]">1 thin</span>
                   </div>
                 </div>
               </div>
             </div>
           </Section>
 
-          {/* 06 — Tabs */}
-          <Section number="06" title="tabs">
+          {/* 11 — Tabs */}
+          <Section number="11" title="tabs">
             <Tabs defaultValue="design">
               <TabsList>
                 <TabsTrigger value="design">design</TabsTrigger>
@@ -520,43 +562,34 @@ export default function Playground() {
             </Tabs>
           </Section>
 
-          {/* 07 — Spinner */}
-          <Section number="07" title="spinner">
-            <div className="flex items-center gap-6">
-              <div className="flex flex-col items-center gap-2">
-                <Spinner size="sm" />
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                  sm
-                </span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <Spinner size="md" />
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                  md
-                </span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <Spinner size="lg" />
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
-                  lg
-                </span>
-              </div>
+          {/* 12 — Spinner */}
+          <Section number="12" title="spinner">
+            <div className="flex flex-wrap gap-3">
+              {(['sm', 'md', 'lg'] as const).map(size => (
+                <div
+                  key={size}
+                  className="border-border/50 hover:border-accent/20 flex items-center gap-3 rounded-lg border px-4 py-3 transition-all duration-300"
+                >
+                  <Spinner size={size} />
+                  <Copyable text={`size="${size}"`} />
+                </div>
+              ))}
             </div>
           </Section>
 
-          {/* 08 — Widgets */}
-          <Section number="08" title="widgets">
-            <div className="grid gap-6 md:grid-cols-2">
+          {/* 13 — Widgets */}
+          <Section number="13" title="widgets">
+            <div className="grid gap-4 md:grid-cols-2">
               {/* Stat card */}
-              <Card padding="lg">
-                <span className="text-muted font-mono text-[10px] tracking-widest uppercase">
+              <Card hover padding="lg">
+                <span className="text-muted font-mono text-[10px] tracking-[0.2em] uppercase">
                   total users
                 </span>
                 <p className="text-fg mt-2 text-3xl font-bold">12,847</p>
                 <p className="text-success mt-1 text-xs font-medium">+14.2% from last month</p>
               </Card>
               {/* Profile card */}
-              <Card padding="lg">
+              <Card hover padding="lg">
                 <div className="flex items-center gap-4">
                   <Avatar src="https://i.pravatar.cc/150?u=profile" alt="profile" size="lg" />
                   <div>

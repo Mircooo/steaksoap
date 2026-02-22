@@ -1,28 +1,32 @@
 import { ThemeToggle } from '@components/ui/ThemeToggle';
 import { siteConfig } from '@config/site';
 import { cn } from '@utils/cn';
-import type { ReactNode } from 'react';
+import { Github, Menu, X } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-interface NavItem {
-  label: string;
-  href: string;
+/* ─── Scroll-aware hook ──────────────────────────────────── */
+
+function useScrolled(threshold = 20) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > threshold);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [threshold]);
+
+  return scrolled;
 }
 
+/* ─── Header ─────────────────────────────────────────────── */
+
 interface HeaderProps {
-  logo?: ReactNode;
-  navItems?: readonly NavItem[];
-  showThemeToggle?: boolean;
   className?: string;
 }
 
-/** Responsive header with mobile hamburger menu and optional theme toggle. */
-export const Header = ({
-  logo,
-  navItems = siteConfig.navItems,
-  showThemeToggle = true,
-  className,
-}: HeaderProps) => {
+/** Fixed header bar — classe2 style, scroll-aware, matches Home nav. */
+export const Header = ({ className }: HeaderProps) => {
+  const scrolled = useScrolled();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
@@ -66,32 +70,40 @@ export const Header = ({
   return (
     <header
       className={cn(
-        'border-border bg-bg/80 sticky top-0 z-40 border-b backdrop-blur-sm',
+        'fixed top-0 right-0 left-0 z-50 transition-all duration-500',
+        scrolled
+          ? 'bg-bg/80 border-border/50 border-b backdrop-blur-md'
+          : 'bg-bg/60 backdrop-blur-sm',
         className,
       )}
     >
-      <nav className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3 md:px-8">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-8">
         {/* Logo */}
         <a
           href="/"
-          className="text-fg focus-visible:ring-accent rounded-sm font-mono text-sm font-semibold focus-visible:ring-2 focus-visible:outline-none"
+          className="text-fg/90 focus-visible:ring-accent rounded-sm font-mono text-sm font-medium focus-visible:ring-2 focus-visible:outline-none"
         >
-          {logo ?? siteConfig.name}
+          {siteConfig.name}
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-6 md:flex">
-          {navItems.map(item => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-muted hover:text-fg focus-visible:ring-accent rounded-sm text-sm transition-colors duration-200 focus-visible:ring-2 focus-visible:outline-none"
-            >
-              {item.label}
-            </a>
-          ))}
-
-          {showThemeToggle && <ThemeToggle />}
+        <div className="hidden items-center gap-5 md:flex">
+          <a
+            href="/playground"
+            className="text-muted hover:text-fg text-sm transition-colors duration-300"
+          >
+            Playground
+          </a>
+          <a
+            href="https://github.com/Mircooo/steaksoap"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-fg/70 hover:text-fg border-border/50 hover:border-accent/30 flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-xs transition-all duration-300"
+          >
+            <Github size={14} strokeWidth={1.5} />
+            GitHub
+          </a>
+          <ThemeToggle />
         </div>
 
         {/* Mobile hamburger */}
@@ -101,19 +113,13 @@ export const Header = ({
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
           onClick={() => setIsMenuOpen(prev => !prev)}
-          className="text-muted hover:text-fg focus-visible:ring-accent rounded-md p-1.5 transition-colors duration-200 focus-visible:ring-2 md:hidden"
+          className="text-muted hover:text-fg focus-visible:ring-accent rounded-md p-1.5 transition-colors duration-300 focus-visible:ring-2 md:hidden"
         >
-          <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            {isMenuOpen ? (
-              <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-            ) : (
-              <path
-                fillRule="evenodd"
-                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 5A.75.75 0 012.75 9h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 9.75zm0 5a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z"
-                clipRule="evenodd"
-              />
-            )}
-          </svg>
+          {isMenuOpen ? (
+            <X size={20} strokeWidth={1.5} aria-hidden="true" />
+          ) : (
+            <Menu size={20} strokeWidth={1.5} aria-hidden="true" />
+          )}
         </button>
       </nav>
 
@@ -121,23 +127,31 @@ export const Header = ({
       <div
         ref={menuRef}
         className={cn(
-          'border-border overflow-hidden border-t transition-all duration-200 md:hidden',
+          'border-border/50 overflow-hidden border-t transition-all duration-300 md:hidden',
           isMenuOpen ? 'max-h-96' : 'max-h-0 border-t-0',
         )}
       >
-        <div className="flex flex-col gap-1 px-4 py-3">
-          {navItems.map(item => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={closeMenu}
-              className="text-muted hover:bg-surface hover:text-fg focus-visible:ring-accent rounded-md px-3 py-2 text-sm transition-colors duration-200 focus-visible:ring-2 focus-visible:outline-none"
-            >
-              {item.label}
-            </a>
-          ))}
-
-          {showThemeToggle && <ThemeToggle />}
+        <div className="flex flex-col gap-1 px-6 py-3">
+          <a
+            href="/playground"
+            onClick={closeMenu}
+            className="text-muted hover:text-fg hover:bg-surface/50 rounded-md px-3 py-2 text-sm transition-all duration-300"
+          >
+            Playground
+          </a>
+          <a
+            href="https://github.com/Mircooo/steaksoap"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeMenu}
+            className="text-muted hover:text-fg hover:bg-surface/50 flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-all duration-300"
+          >
+            <Github size={14} strokeWidth={1.5} />
+            GitHub
+          </a>
+          <div className="px-3 py-2">
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>

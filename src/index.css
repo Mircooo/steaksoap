@@ -12,33 +12,33 @@
   --color-bg: #0a0a0a;
   --color-fg: #f0f0f0;
   --color-accent: #d4ff00;
-  --color-muted: #666666;
+  --color-muted: #8a8a8a;
   --color-surface: #141414;
   --color-border: #262626;
 
-  /* Semantic status colors */
-  --color-success: #4ade80;
-  --color-warning: #eab308;
-  --color-danger: #f87171;
-  --color-info: #60a5fa;
+  /* Semantic status colors — fluorescent */
+  --color-success: #6aff8a;
+  --color-warning: #ffd60a;
+  --color-danger: #ff5b5b;
+  --color-info: #52b0ff;
 
   --font-family-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* Light mode override (classe2 "Paper" — warm gray, not cold white) */
+/* Light mode override (classe2 "Concrete" — mid gray, not white) */
 [data-theme='light'] {
-  --color-bg: #d8d8d0;
+  --color-bg: #c0c0b8;
   --color-fg: #1a1a1a;
   --color-accent: #d4ff00;
-  --color-muted: #5c5c56;
-  --color-surface: #c8c8c0;
-  --color-border: #b8b8b0;
+  --color-muted: #4f4f49;
+  --color-surface: #b0b0a8;
+  --color-border: #a0a098;
 
-  --color-success: #16a34a;
-  --color-warning: #ca8a04;
-  --color-danger: #dc2626;
-  --color-info: #2563eb;
+  --color-success: #00c853;
+  --color-warning: #e6a800;
+  --color-danger: #e53935;
+  --color-info: #1e88e5;
 }
 
 /* ═══════════════════════════════════════════════════════════════
