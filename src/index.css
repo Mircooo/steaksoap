@@ -11,7 +11,7 @@
   /* Dark mode — DEFAULT (classe2 "brutaliste suisse") */
   --color-bg: #0a0a0a;
   --color-fg: #f0f0f0;
-  --color-accent: #d4ff00;
+  --color-accent: #ff6b6b;
   --color-muted: #8a8a8a;
   --color-surface: #141414;
   --color-border: #262626;
@@ -19,25 +19,25 @@
   /* Semantic status colors — fluorescent */
   --color-success: #6aff8a;
   --color-warning: #ffd60a;
-  --color-danger: #ff5b5b;
+  --color-danger: #dc2626;
   --color-info: #52b0ff;
 
   --font-family-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* Light mode override (classe2 "Concrete" — mid gray, not white) */
+/* Light mode override (neutral gray — no warm tones) */
 [data-theme='light'] {
-  --color-bg: #c0c0b8;
+  --color-bg: #b8b8b8;
   --color-fg: #1a1a1a;
-  --color-accent: #d4ff00;
-  --color-muted: #4f4f49;
-  --color-surface: #b0b0a8;
-  --color-border: #a0a098;
+  --color-accent: #ff6b6b;
+  --color-muted: #525252;
+  --color-surface: #adadad;
+  --color-border: #9e9e9e;
 
   --color-success: #00c853;
   --color-warning: #e6a800;
-  --color-danger: #e53935;
+  --color-danger: #b91c1c;
   --color-info: #1e88e5;
 }
 

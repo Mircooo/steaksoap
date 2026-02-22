@@ -186,15 +186,15 @@ export default function Playground() {
           {/* 02 — Colors */}
           <Section number="02" title="colors">
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              <Swatch name="accent" token="accent" dark="#D4FF00" light="#D4FF00" />
-              <Swatch name="background" token="bg" dark="#0A0A0A" light="#C0C0B8" />
+              <Swatch name="accent" token="accent" dark="#FF6B6B" light="#FF6B6B" />
+              <Swatch name="background" token="bg" dark="#0A0A0A" light="#B8B8B8" />
               <Swatch name="foreground" token="fg" dark="#F0F0F0" light="#1A1A1A" />
-              <Swatch name="muted" token="muted" dark="#8A8A8A" light="#4F4F49" />
-              <Swatch name="surface" token="surface" dark="#141414" light="#B0B0A8" />
-              <Swatch name="border" token="border" dark="#262626" light="#A0A098" />
+              <Swatch name="muted" token="muted" dark="#8A8A8A" light="#525252" />
+              <Swatch name="surface" token="surface" dark="#141414" light="#ADADAD" />
+              <Swatch name="border" token="border" dark="#262626" light="#9E9E9E" />
               <Swatch name="success" token="success" dark="#6AFF8A" light="#00C853" />
               <Swatch name="warning" token="warning" dark="#FFD60A" light="#E6A800" />
-              <Swatch name="danger" token="danger" dark="#FF5B5B" light="#E53935" />
+              <Swatch name="danger" token="danger" dark="#DC2626" light="#B91C1C" />
               <Swatch name="info" token="info" dark="#52B0FF" light="#1E88E5" />
             </div>
           </Section>

@@ -1,6 +1,5 @@
 import { ThemeProvider } from '@context/ThemeContext';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { axe } from 'vitest-axe';
 
@@ -22,12 +21,12 @@ describe('Header', () => {
 
   it('shows Playground link', () => {
     renderHeader();
-    expect(screen.getAllByText('Playground').length).toBeGreaterThan(0);
+    expect(screen.getByText('Playground')).toBeInTheDocument();
   });
 
   it('shows GitHub link', () => {
     renderHeader();
-    expect(screen.getAllByText('GitHub').length).toBeGreaterThan(0);
+    expect(screen.getByText('GitHub')).toBeInTheDocument();
   });
 
   it('has navigation landmark', () => {
@@ -35,22 +34,19 @@ describe('Header', () => {
     expect(screen.getByRole('navigation')).toBeInTheDocument();
   });
 
-  it('has hamburger button with aria-expanded', () => {
+  it('has navigation aria-label', () => {
     renderHeader();
-    const hamburger = screen.getByLabelText('Toggle menu');
-    expect(hamburger).toHaveAttribute('aria-expanded', 'false');
-  });
-
-  it('toggles hamburger aria-expanded on click', async () => {
-    renderHeader();
-    const hamburger = screen.getByLabelText('Toggle menu');
-    await userEvent.click(hamburger);
-    expect(hamburger).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByLabelText('Main navigation')).toBeInTheDocument();
   });
 
   it('shows theme toggle', () => {
     renderHeader();
-    expect(screen.getAllByLabelText(/switch to (light|dark) mode/i).length).toBeGreaterThan(0);
+    expect(screen.getByLabelText(/switch to (light|dark) mode/i)).toBeInTheDocument();
+  });
+
+  it('applies custom className', () => {
+    renderHeader({ className: 'custom-class' });
+    expect(screen.getByRole('navigation')).toHaveClass('custom-class');
   });
 
   it('has no accessibility violations', async () => {
