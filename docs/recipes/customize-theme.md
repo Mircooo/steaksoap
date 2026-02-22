@@ -14,19 +14,19 @@
 
 ```css
 @theme {
-  /* Dark mode — DEFAULT */
+  /* Dark mode — DEFAULT (classe2 "brutaliste suisse") */
   --color-bg: #0a0a0a;
-  --color-fg: #e0e0e0;
-  --color-accent: #d4ff00;
-  --color-muted: #666666;
+  --color-fg: #f0f0f0;
+  --color-accent: #ff6b6b;
+  --color-muted: #8a8a8a;
   --color-surface: #141414;
   --color-border: #262626;
 
   /* Semantic status colors */
-  --color-success: #4ade80;
-  --color-warning: #eab308;
-  --color-danger: #f87171;
-  --color-info: #60a5fa;
+  --color-success: #6aff8a;
+  --color-warning: #ffd60a;
+  --color-danger: #dc2626;
+  --color-info: #52b0ff;
 }
 ```
 
@@ -34,17 +34,17 @@ And the light mode override right below:
 
 ```css
 [data-theme='light'] {
-  --color-bg: #fafafa;
-  --color-fg: #18181b;
-  --color-accent: #4d7c0f;
-  --color-muted: #71717a;
-  --color-surface: #f4f4f5;
-  --color-border: #e4e4e7;
+  --color-bg: #b8b8b8;
+  --color-fg: #1a1a1a;
+  --color-accent: #ff6b6b;
+  --color-muted: #525252;
+  --color-surface: #adadad;
+  --color-border: #9e9e9e;
 
-  --color-success: #16a34a;
-  --color-warning: #ca8a04;
-  --color-danger: #dc2626;
-  --color-info: #2563eb;
+  --color-success: #00c853;
+  --color-warning: #e6a800;
+  --color-danger: #b91c1c;
+  --color-info: #1e88e5;
 }
 ```
 

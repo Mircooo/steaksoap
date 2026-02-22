@@ -22,9 +22,9 @@ Everything this project uses, and why.
 |---|---|---|
 | Font (sans) | Space Grotesk | Google Fonts / local |
 | Font (mono) | JetBrains Mono | Google Fonts / local |
-| Accent color | #D4FF00 (Neon Lime) | Same in dark & light |
+| Accent color | #FF6B6B (Coral Red) | Same in dark & light |
 | Dark background | #0A0A0A (Void) | @theme in index.css |
-| Light background | #D8D8D0 (Paper) | @theme in index.css |
+| Light background | #B8B8B8 (Concrete) | @theme in index.css |
 | Button shape | Capsule (rounded-full) | Button.tsx |
 | Transitions | 0.5s interactions, 1.5s theme switch | index.css |
 

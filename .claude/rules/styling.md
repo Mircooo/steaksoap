@@ -37,7 +37,7 @@ Follow this order in className strings:
 - Use semantic token names (bg-bg, text-fg) not raw colors
 
 ## Accent color rule
-The accent color (#D4FF00 "Neon Lime") is IDENTICAL in dark and light mode.
+The accent color (#FF6B6B "Coral Red") is IDENTICAL in dark and light mode.
 NEVER change the accent between modes. NEVER suggest a "more readable" alternative
 for light mode. The brand identity depends on this consistency.
 If contrast is a concern on light backgrounds, adjust the BACKGROUND or add

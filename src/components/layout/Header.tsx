@@ -41,34 +41,34 @@ interface HeaderProps {
   className?: string;
 }
 
-/** Floating bar header — unified pill, classe2 style. */
+/** Floating header — classe2 style: bare logo + separate pill. */
 export const Header = ({ className }: HeaderProps) => {
   const scrolled = useScrolled();
 
   return (
     <nav
       aria-label="Main navigation"
-      className={cn('fixed top-5 right-0 left-0 z-50 mx-auto max-w-5xl px-6', className)}
+      className={cn('fixed top-0 right-0 left-0 z-50', 'px-6 py-4 md:px-8 md:py-5', className)}
     >
-      <div
-        className={cn(
-          'flex items-center justify-between rounded-full border border-white/8 px-5 py-2 transition-all duration-500',
-          scrolled ? 'bg-surface/80 backdrop-blur-xl' : 'bg-surface/60 backdrop-blur-xl',
-        )}
-      >
-        {/* Logo */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
+        {/* Logo — bare text, no box, no background */}
         <a
           href="/"
-          className="text-accent hover:text-accent/80 focus-visible:ring-accent font-mono text-base font-semibold transition-colors duration-300 focus-visible:ring-2 focus-visible:outline-none"
+          className="text-fg hover:text-fg/70 focus-visible:ring-accent font-mono text-sm font-medium transition-colors duration-300 focus-visible:ring-2 focus-visible:outline-none"
         >
           {siteConfig.name}
         </a>
 
-        {/* Links */}
-        <div className="flex items-center gap-2">
+        {/* Pill nav — separate from logo */}
+        <div
+          className={cn(
+            'flex items-center rounded-full border border-white/8 transition-all duration-500',
+            scrolled ? 'bg-white/8 backdrop-blur-xl' : 'bg-white/5 backdrop-blur-xl',
+          )}
+        >
           <a
             href="/playground"
-            className="text-fg/70 hover:text-fg flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1 font-mono text-xs transition-all duration-300 hover:border-white/20"
+            className="text-muted hover:text-fg flex items-center gap-1.5 border-r border-white/8 px-4 py-2 text-sm transition-colors duration-300"
           >
             <Blocks size={14} strokeWidth={1.5} />
             <span className="hidden sm:inline">Playground</span>
@@ -77,12 +77,14 @@ export const Header = ({ className }: HeaderProps) => {
             href="https://github.com/Mircooo/steaksoap"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-fg/70 hover:text-fg flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1 font-mono text-xs transition-all duration-300 hover:border-white/20"
+            className="text-muted hover:text-fg flex items-center gap-1.5 border-r border-white/8 px-4 py-2 text-sm transition-colors duration-300"
           >
             <GitHubIcon size={14} />
             <span className="hidden sm:inline">GitHub</span>
           </a>
-          <ThemeToggle className="ml-1 rounded-full p-1.5 hover:bg-white/5" />
+          <div className="px-2 py-1">
+            <ThemeToggle className="rounded-full p-1.5 hover:bg-white/5" />
+          </div>
         </div>
       </div>
     </nav>

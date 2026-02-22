@@ -10,7 +10,7 @@ import { Outlet } from 'react-router-dom';
    ─────────────────────────────────────────────────────────── */
 export default function RootLayout() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="bg-bg text-fg flex min-h-screen flex-col">
       <a
         href="#main-content"
         className="focus:bg-accent focus:text-bg sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:px-4 focus:py-2 focus:shadow-lg"
