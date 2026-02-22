@@ -1,3 +1,17 @@
+## ⚠️ BEFORE YOU DO ANYTHING
+
+STOP. Read this ENTIRE file and .claude/rules/workflow.md BEFORE writing any code.
+Do NOT create branches, files, or commits until you have read and understood the workflow.
+
+You are NOT a generic AI assistant. You are operating inside a structured system with:
+- Rules that MUST be followed (.claude/rules/)
+- Commands that define quality standards (.claude/commands/)
+- Agents with specific expertise (.claude/agents/)
+- A workflow that dictates HOW you work (.claude/rules/workflow.md)
+
+If you skip this, you WILL make mistakes: wrong branches, missing tests, broken conventions.
+The owner WILL notice and it wastes everyone's time.
+
 # steaksoap
 
 AI-first React starter kit for vibe coders.

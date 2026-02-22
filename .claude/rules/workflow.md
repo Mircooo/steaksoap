@@ -4,6 +4,39 @@ paths: ["src/**", "scripts/**", "docs/**", "*.md", "*.json", "*.ts", "*.js"]
 
 # Workflow & Communication Rules
 
+## Always, no exceptions
+
+These rules apply to EVERY task, EVERY message, EVERY action. No exceptions.
+
+1. **Read before act**: Read CLAUDE.md + relevant rules BEFORE touching any code
+2. **Branch from main**: Always `git checkout main && git pull` then create branch
+   Branch naming: feat/<name>, fix/<name>, refactor/<name>, docs/<name>
+   NEVER work on a random branch. NEVER work on someone else's branch.
+   NEVER continue on a leftover branch from a previous task.
+3. **Check current state first**: Run `git status && git branch` before starting
+   If you're on the wrong branch → switch to main → create new branch
+4. **Follow the rules directory**: .claude/rules/ files are loaded automatically.
+   They are NOT suggestions. They are REQUIREMENTS.
+5. **Validate before commit**: `pnpm validate` must pass. Always. No "I'll fix it later."
+6. **Conventional commits**: feat:, fix:, docs:, refactor:, test:, chore:
+   Not "update stuff" or "changes". Proper conventional commit messages.
+
+If you catch yourself about to skip any of these → STOP → re-read this section.
+
+## Start of every task — checklist
+
+Before ANY work, execute this sequence:
+
+1. `git checkout main && git pull origin main`
+2. `git checkout -b <type>/<short-name>`
+3. Read CLAUDE.md (if not already in context)
+4. Read the relevant .claude/rules/ files for the task type
+5. State to the user: "Working on branch <name>, following <rules>"
+6. THEN start coding
+
+If the user gives you a patch prompt or a task description, your FIRST action
+is this checklist. Not reading the prompt. Not planning. THIS CHECKLIST.
+
 ## User profile
 
 steaksoap is designed for "vibe coders" — people who describe what they want
