@@ -27,9 +27,11 @@ function getInitialTheme(): Theme {
   return getSystemTheme();
 }
 
-/** Apply theme to document root. */
+/** Apply theme to document root with cinematic transition. */
 function applyTheme(theme: Theme) {
-  document.documentElement.setAttribute('data-theme', theme);
+  const root = document.documentElement;
+  root.classList.add('transition-theme');
+  root.setAttribute('data-theme', theme);
 }
 
 /** Provides light/dark theme state with localStorage persistence and system preference detection. */

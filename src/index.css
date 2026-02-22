@@ -59,6 +59,17 @@
   --z-cursor: 9999;
 }
 
+/* ─── Transition presets ─────────────────────────────────── */
+.transition-theme {
+  transition:
+    background-color 1.5s ease,
+    color 1.5s ease,
+    border-color 1.5s ease;
+}
+.transition-smooth {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* ─── Global styles ────────────────────────────────────────── */
 
 /* a11y: cursor-hidden is showcase-only, removed by pnpm setup */
