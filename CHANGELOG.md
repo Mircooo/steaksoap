@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.5.0](https://github.com/Mircooo/steaksoap/compare/v1.4.0...v1.5.0) (2026-02-22)
+
+### ✨ Features
+
+* **agents:** update designer with classe2 style dna ([788f14c](https://github.com/Mircooo/steaksoap/commit/788f14c06d7afdabe014b49212c3cbfce297c90d))
+* **badge:** classe2-style tags with accent default and outline variant ([78b93cf](https://github.com/Mircooo/steaksoap/commit/78b93cf3cfd6bc1a068db16773d215c80f3bcffc))
+* **button:** capsule style with backdrop-blur and icon size ([6f8503f](https://github.com/Mircooo/steaksoap/commit/6f8503f4ea285f3ccb738d1212825f244845ea74))
+* **card:** smooth transitions and optional hover scale ([2e48eb8](https://github.com/Mircooo/steaksoap/commit/2e48eb81e91db1f98e75288a4402900b0cfb50e9))
+* **commands:** add /spec command for plan-before-code workflow ([a880fe2](https://github.com/Mircooo/steaksoap/commit/a880fe2bee1746dd50c4312eac48cf59db4b569d))
+* **context:** add visual identity decisions to decisions.md ([9b65abe](https://github.com/Mircooo/steaksoap/commit/9b65abe96217c5bf46b5324d1373b6bae4eef055))
+* **fonts:** add space grotesk as default sans-serif ([63eca0b](https://github.com/Mircooo/steaksoap/commit/63eca0b68a86af035c99388cac2ddbe05b8712cb))
+* **playground:** devkit-style component showcase at /playground ([38cca2c](https://github.com/Mircooo/steaksoap/commit/38cca2cf3833caccc76d53a877687393a8d14d96))
+* **rules:** add extension registry check to proactive guidance ([b0155c4](https://github.com/Mircooo/steaksoap/commit/b0155c4ea3b8ddd09d0b818703de67dfa71d7ca8))
+* **template:** rich post-setup landing page with hero and features ([02c0e56](https://github.com/Mircooo/steaksoap/commit/02c0e560bafd8cf6958e21fd3eab520d9b3eef92))
+* **tokens:** align design tokens with classe2 visual identity ([55c64ee](https://github.com/Mircooo/steaksoap/commit/55c64ee8094ba445e967c290a18184ce90be5a51)), closes [#e0e0e0](https://github.com/Mircooo/steaksoap/issues/e0e0e0) [#f0f0f0](https://github.com/Mircooo/steaksoap/issues/f0f0f0) [#fafafa](https://github.com/Mircooo/steaksoap/issues/fafafa) [#f4f4f0](https://github.com/Mircooo/steaksoap/issues/f4f4f0) [#4d7c0f](https://github.com/Mircooo/steaksoap/issues/4d7c0f) [#d4ff00](https://github.com/Mircooo/steaksoap/issues/d4ff00)
+* **transitions:** add slow cinematic transitions for theme switch ([add7d61](https://github.com/Mircooo/steaksoap/commit/add7d615e10cf13e1b1f2b82eb8d91f024b6aa9e))
+
+### 🐛 Bug Fixes
+
+* **setup:** auto-install dependencies before setup ([be61705](https://github.com/Mircooo/steaksoap/commit/be61705ab07cd9da13024359e946947c40a93d56))
+
+### 📚 Documentation
+
+* **commands:** add usage examples for all command sections ([5463697](https://github.com/Mircooo/steaksoap/commit/5463697a6b08b6bdb01ec2d53d4405fb4d50d3f1))
+* **design:** add design_system.md with visual reference ([8587928](https://github.com/Mircooo/steaksoap/commit/8587928667118a62673bcb842624891311717e5b))
+
 ## [1.4.0](https://github.com/Mircooo/steaksoap/compare/v1.3.0...v1.4.0) (2026-02-22)
 
 ### ✨ Features
