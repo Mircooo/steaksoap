@@ -212,3 +212,38 @@ Try asking Gemini: '[specific question]'"
 - If a task is repetitive: do first one carefully, suggest Haiku for the rest
 - Don't generate docs the user didn't ask for
 - Don't re-read files already read this session
+
+## Execution modes
+
+The user can choose how much control they want during a session.
+
+### Checkpoint mode (default)
+Ask confirmation before each major action.
+Use this when: the user is learning, reviewing, or working on something sensitive.
+
+### Trust mode
+When the user says "go", "fonce", "trust mode", "fais tout", "do everything",
+"je te fais confiance", or any similar phrase:
+- Execute the ENTIRE plan without asking for confirmation at each step
+- Still follow ALL rules, ALL conventions, ALL quality standards
+- Run `pnpm validate` after each commit — if it fails, FIX it before continuing
+- At the END, provide a single summary of everything that was done:
+  ```
+  DONE — Here's what I did:
+  1. [action] → [result]
+  2. [action] → [result]
+  ...
+  All commits passed pnpm validate. ✅
+  ```
+
+### When to STOP even in trust mode
+- `pnpm validate` fails and the fix isn't obvious → ask
+- A decision could break existing functionality → ask
+- Deleting files that aren't in the plan → ask
+- Installing a package not mentioned in the plan → ask
+- Anything irreversible that wasn't explicitly requested → ask
+
+### Switching modes
+The user can switch at any time:
+- "trust mode" / "go" / "fonce" → switch to trust mode
+- "checkpoint" / "stop and ask" / "attends" → switch back to checkpoint mode
