@@ -41,6 +41,7 @@
     "test:watch": "vitest",
     "validate": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "preinstall": "npx only-allow pnpm",
+    "postinstall": "node scripts/setup-bootstrap.js --check",
     "prepare": "husky",
     "setup": "node scripts/setup-bootstrap.js",
     "setup:update": "node scripts/setup.js --update",
