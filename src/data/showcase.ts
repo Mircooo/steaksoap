@@ -86,3 +86,37 @@ export const quickStartLines: QuickStartLine[] = [
   { prompt: '$', command: 'cd my-project && pnpm install && pnpm setup' },
   { prompt: '$', command: 'pnpm dev' },
 ];
+
+/* ─── Extensions ──────────────────────────────────────────── */
+
+export interface ExtensionCard {
+  name: string;
+  category: string;
+  url: string;
+}
+
+/** Top 12 extensions displayed in the grid */
+export const featuredExtensions: ExtensionCard[] = [
+  { name: 'Clerk', category: 'Auth', url: 'https://clerk.com' },
+  { name: 'Stripe', category: 'Payments', url: 'https://stripe.com' },
+  { name: 'Three.js', category: '3D', url: 'https://threejs.org' },
+  { name: 'Motion', category: 'Animation', url: 'https://motion.dev' },
+  { name: 'TanStack Query', category: 'Data', url: 'https://tanstack.com/query' },
+  { name: 'Zustand', category: 'State', url: 'https://zustand.docs.pmnd.rs' },
+  { name: 'Zod', category: 'Validation', url: 'https://zod.dev' },
+  { name: 'react-i18next', category: 'Intl', url: 'https://react.i18next.com' },
+  { name: 'MDX Blog', category: 'Content', url: 'https://mdxjs.com' },
+  { name: 'Resend', category: 'Email', url: 'https://resend.com' },
+  { name: 'Plausible', category: 'Analytics', url: 'https://plausible.io' },
+  { name: 'React Hook Form', category: 'Forms', url: 'https://react-hook-form.com' },
+];
+
+/** Remaining extensions listed as text */
+export const moreExtensions = [
+  'Playwright',
+  'Storybook',
+  'Umami',
+  'OG Images',
+  'Structured Data',
+  'date-fns',
+];

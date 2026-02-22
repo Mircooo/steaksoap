@@ -35,15 +35,40 @@ function useScrolled(threshold = 20) {
   return scrolled;
 }
 
+/* ─── MorphingLogo — organic blob + text ─────────────────── */
+
+function MorphingLogo({ isActive }: { isActive: boolean }) {
+  return (
+    <a href="/" className="group flex items-center gap-3 focus-visible:outline-none">
+      <div
+        className={cn(
+          'bg-accent h-5 w-5 transition-all duration-700 ease-in-out md:h-6 md:w-6',
+          isActive
+            ? 'scale-125 shadow-[0_0_20px_rgba(255,107,107,0.7)]'
+            : 'shadow-[0_0_12px_rgba(255,107,107,0.4)]',
+        )}
+        style={{
+          animation: `morph ${isActive ? '1s' : '4s'} ease-in-out infinite`,
+          borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%',
+        }}
+      />
+      <span className="text-accent text-base leading-relaxed font-bold tracking-tighter opacity-95 md:text-xl">
+        {siteConfig.name}
+      </span>
+    </a>
+  );
+}
+
 /* ─── Header ─────────────────────────────────────────────── */
 
 interface HeaderProps {
   className?: string;
 }
 
-/** Floating header — classe2 style: bare logo + separate pill. */
+/** Floating header — classe2 style: morphing logo + separate pill. */
 export const Header = ({ className }: HeaderProps) => {
   const scrolled = useScrolled();
+  const [githubHovered, setGithubHovered] = useState(false);
 
   return (
     <nav
@@ -51,24 +76,21 @@ export const Header = ({ className }: HeaderProps) => {
       className={cn('fixed top-0 right-0 left-0 z-50', 'px-6 py-4 md:px-8 md:py-5', className)}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-        {/* Logo — bare text, no box, no background */}
-        <a
-          href="/"
-          className="text-fg hover:text-accent focus-visible:ring-accent font-mono text-sm font-medium transition-colors duration-300 focus-visible:ring-2 focus-visible:outline-none"
-        >
-          {siteConfig.name}
-        </a>
+        {/* Logo — morphing blob + text, no box, no background */}
+        <MorphingLogo isActive={githubHovered} />
 
         {/* Pill nav — separate from logo */}
         <div
           className={cn(
-            'border-accent/10 flex items-center rounded-full border transition-all duration-500',
-            scrolled ? 'bg-accent/8 backdrop-blur-xl' : 'bg-accent/5 backdrop-blur-xl',
+            'flex items-center rounded-full border transition-all duration-500',
+            scrolled
+              ? 'border-border bg-surface/60 backdrop-blur-xl'
+              : 'border-border/50 bg-surface/30 backdrop-blur-xl',
           )}
         >
           <a
             href="/playground"
-            className="text-muted hover:text-accent border-accent/10 flex items-center gap-1.5 border-r px-4 py-2 text-sm transition-colors duration-300"
+            className="text-muted hover:text-accent border-border/50 flex items-center gap-1.5 border-r px-4 py-2 text-sm transition-colors duration-300"
           >
             <Blocks size={14} strokeWidth={1.5} />
             <span className="hidden sm:inline">Playground</span>
@@ -77,7 +99,9 @@ export const Header = ({ className }: HeaderProps) => {
             href="https://github.com/Mircooo/steaksoap"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-accent border-accent/10 flex items-center gap-1.5 border-r px-4 py-2 text-sm transition-colors duration-300"
+            className="text-muted hover:text-accent border-border/50 flex items-center gap-1.5 border-r px-4 py-2 text-sm transition-colors duration-300"
+            onMouseEnter={() => setGithubHovered(true)}
+            onMouseLeave={() => setGithubHovered(false)}
           >
             <GitHubIcon size={14} />
             <span className="hidden sm:inline">GitHub</span>

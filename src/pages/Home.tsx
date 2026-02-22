@@ -1,12 +1,18 @@
 import { SeoHead } from '@components/features/SeoHead';
-import Noise from '@components/ui/Noise';
-import { featuredCommands, features, quickStartLines } from '@data/showcase';
+import {
+  featuredCommands,
+  featuredExtensions,
+  features,
+  moreExtensions,
+  quickStartLines,
+} from '@data/showcase';
 import { useInView } from '@hooks/useInView';
 import { cn } from '@utils/cn';
 import { FlaskConical, GitBranch, Shield, Smartphone, Terminal, Zap } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 import type { Feature } from '../data/showcase';
+import { DynamicParticles } from '../features/particles/DynamicParticles';
 
 /* ─── Icon resolver ────────────────────────────────────────────── */
 
@@ -75,12 +81,12 @@ export default function Home() {
     <>
       <SeoHead
         title="steaksoap"
-        description="The AI-native React system for solo builders. 22 commands, 10 rules, 18 extensions."
+        description="The AI-native React system for solo builders. 22 commands, 11 rules, 18 extensions."
       />
 
       {/* ── HERO (100vh) ───────────────────────────────────── */}
       <section className="bg-bg text-fg relative -mt-20 flex h-screen flex-col overflow-hidden">
-        <Noise />
+        <DynamicParticles />
 
         <div className="relative z-10 flex flex-1 flex-col px-6 pt-20 md:px-8">
           {/* Center content */}
@@ -99,10 +105,24 @@ export default function Home() {
               </p>
             </FadeIn>
 
+            {/* Stats bar */}
             <FadeIn delay={250}>
-              <p className="text-muted/60 mt-2 font-mono text-xs md:text-sm">
-                22 commands · 10 rules · 18 extensions
-              </p>
+              <div className="mt-4 flex items-center gap-6 font-mono text-sm tracking-wide md:gap-8">
+                <span>
+                  <span className="text-accent font-bold">22</span>{' '}
+                  <span className="text-muted">commands</span>
+                </span>
+                <span className="text-muted/30">·</span>
+                <span>
+                  <span className="text-accent font-bold">11</span>{' '}
+                  <span className="text-muted">rules</span>
+                </span>
+                <span className="text-muted/30">·</span>
+                <span>
+                  <span className="text-accent font-bold">18</span>{' '}
+                  <span className="text-muted">extensions</span>
+                </span>
+              </div>
             </FadeIn>
 
             <FadeIn delay={400} className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -110,7 +130,7 @@ export default function Home() {
                 href="https://github.com/Mircooo/steaksoap"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-accent text-bg border-accent/50 hover:border-accent inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 font-mono text-sm font-medium transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,107,107,0.15)] active:scale-[0.98]"
+                className="bg-accent text-bg border-accent/50 hover:border-accent inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 font-mono text-sm font-medium transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,107,107,0.4)] hover:brightness-90 active:scale-[0.97]"
               >
                 View on GitHub
                 <span aria-hidden="true">&rarr;</span>
@@ -128,14 +148,17 @@ export default function Home() {
 
           {/* Footer micro */}
           <div className="flex items-end justify-between pb-6">
-            <span className="text-muted/30 font-mono text-[10px]">v{__APP_VERSION__}</span>
-            <span className="text-muted/30 font-mono text-[10px]">
+            <span className="text-fg/60 flex items-center gap-1.5 font-mono text-[10px]">
+              <span className="bg-success inline-block h-1.5 w-1.5 rounded-full shadow-[0_0_6px_rgba(106,255,138,0.6)]" />
+              v{__APP_VERSION__}
+            </span>
+            <span className="text-fg/60 font-mono text-[10px]">
               MIT · by{' '}
               <a
                 href="https://github.com/Mircooo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-muted/50 transition-colors duration-300"
+                className="hover:text-accent transition-colors duration-300"
               >
                 Mircooo
               </a>
@@ -215,11 +238,60 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── EXTENSIONS ─────────────────────────────────────── */}
+      <section className="bg-bg text-fg px-6 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-6xl">
+          <FadeIn>
+            <SectionLabel number="03" title="extensions" />
+          </FadeIn>
+
+          <FadeIn delay={50}>
+            <p className="text-muted mb-12 max-w-lg text-base leading-relaxed">
+              Need auth? Payments? 3D? One command to install.
+            </p>
+          </FadeIn>
+
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {featuredExtensions.map((ext, i) => (
+              <FadeIn key={ext.name} delay={i * 60}>
+                <a
+                  href={ext.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group hover:border-accent/15 border-accent/6 block rounded-lg border bg-transparent p-4 transition-all duration-300"
+                >
+                  <span className="text-fg group-hover:text-accent font-mono text-sm transition-colors duration-300">
+                    {ext.name}
+                  </span>
+                  <span className="text-muted mt-1 block text-[10px] tracking-wider uppercase">
+                    {ext.category}
+                  </span>
+                </a>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn delay={800}>
+            <p className="text-muted mt-6 text-sm">
+              + {moreExtensions.join(', ')}{' '}
+              <a
+                href="https://github.com/Mircooo/steaksoap"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent/70 hover:text-accent font-mono transition-colors duration-300"
+              >
+                Browse all &rarr;
+              </a>
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ── GET STARTED ────────────────────────────────────── */}
       <section className="bg-bg text-fg px-6 py-20 md:px-8 md:py-28">
         <div className="mx-auto max-w-6xl">
           <FadeIn>
-            <SectionLabel number="03" title="get started" />
+            <SectionLabel number="04" title="get started" />
           </FadeIn>
 
           <FadeIn delay={100}>
@@ -238,7 +310,7 @@ export default function Home() {
               href="https://github.com/Mircooo/steaksoap"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-accent text-bg border-accent/50 hover:border-accent inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 font-mono text-sm font-medium transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,107,107,0.15)] active:scale-[0.98]"
+              className="bg-accent text-bg border-accent/50 hover:border-accent inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 font-mono text-sm font-medium transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,107,107,0.4)] hover:brightness-90 active:scale-[0.97]"
             >
               View on GitHub
               <span aria-hidden="true">&rarr;</span>

@@ -41,6 +41,26 @@
   --color-info: #1e88e5;
 }
 
+/* ─── Custom scrollbar — thin coral accent ────────────────── */
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 107, 0.5);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 107, 0.7);
+}
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 107, 107, 0.5) transparent;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    APP TOKENS — CSS variables for direct use (not Tailwind utils)
    ═══════════════════════════════════════════════════════════════ */
