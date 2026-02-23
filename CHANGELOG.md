@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.6.1](https://github.com/mitambuch/steaksoap/compare/v2.6.0...v2.6.1) (2026-02-23)
+
+### ✨ Features
+
+* **site:** hero stats boxes with glassy effect and tech stack pills ([a1e3d01](https://github.com/mitambuch/steaksoap/commit/a1e3d014e8ff9921bb9d57df2c01a3d1a55bf2c7))
+
 ## [2.6.0](https://github.com/mitambuch/steaksoap/compare/v2.5.0...v2.6.0) (2026-02-23)
 
 ### ✨ Features
