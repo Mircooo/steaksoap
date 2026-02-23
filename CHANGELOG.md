@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.7.0](https://github.com/mitambuch/steaksoap/compare/v2.6.2...v2.7.0) (2026-02-23)
+
+### ✨ Features
+
+* **home:** add open source hero badge and why free section ([18e5550](https://github.com/mitambuch/steaksoap/commit/18e555037ec710f26035a243b1bfe279c2f27da5))
+* **onboarding:** add git bash slides and fix mobile buttons ([595c67f](https://github.com/mitambuch/steaksoap/commit/595c67fbad22247ff46f20fccca913de2d5bac0b))
+* **playground:** add 10 ui components and 10 assembled modules ([#9](https://github.com/mitambuch/steaksoap/issues/9)) ([4fd0c2a](https://github.com/mitambuch/steaksoap/commit/4fd0c2ad48f48b53f205df137f65bc7dbcfd3a3c))
+* **site:** add electric violet shimmer effect for wizard cta buttons ([c082893](https://github.com/mitambuch/steaksoap/commit/c082893a1481fc941bcd08cfb0d81f69f7cbeada))
+* **site:** add steaksoap logo box in why free section and increase hero spacing ([cbf8df2](https://github.com/mitambuch/steaksoap/commit/cbf8df2c67c975b8c97fcfbc47748f5fa275e865))
+* **site:** redesign why-free section, onboarding github flow, pricing humor ([05e0ad3](https://github.com/mitambuch/steaksoap/commit/05e0ad39102ec3cd5e989efd2a101ef08b69ceb1))
+
+### 🐛 Bug Fixes
+
+* **onboarding:** center slide content and add hover states to all buttons ([421f552](https://github.com/mitambuch/steaksoap/commit/421f552097a0bfa7db99871b66636a3e9a0689e3))
+* **onboarding:** center slide content as unified block, eliminate empty space gap ([bc02750](https://github.com/mitambuch/steaksoap/commit/bc02750d5330b9f34b29582286545f2dbc83acc5))
+* **onboarding:** reduce quit confirm box height to fit content ([dc61ae6](https://github.com/mitambuch/steaksoap/commit/dc61ae68471e3e898d1890f994d5ae2d4f747d9e))
+* **playground:** add padding to empty states cards ([7de4a1e](https://github.com/mitambuch/steaksoap/commit/7de4a1e974408ea40169517a0826e970501d7b09))
+
 ## [2.6.2](https://github.com/mitambuch/steaksoap/compare/v2.6.1...v2.6.2) (2026-02-23)
 
 ### ✨ Features
