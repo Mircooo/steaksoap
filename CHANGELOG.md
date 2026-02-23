@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.1.0](https://github.com/Mircooo/steaksoap/compare/v2.0.2...v2.1.0) (2026-02-23)
+
+### ✨ Features
+
+* **branding:** add steaksoap blob as favicon (svg + png) ([b8747cb](https://github.com/Mircooo/steaksoap/commit/b8747cbf39ac6725cad91d4f567a778ebdccf6db))
+
+### 🐛 Bug Fixes
+
+* **commands:** replace [@services](https://github.com/services) references with existing [@lib](https://github.com/lib) alias ([731d0a7](https://github.com/Mircooo/steaksoap/commit/731d0a7d883fd76599b4a0efc78c034303275092))
+* **router:** move page transition to outlet level to prevent layout remount ([c531d41](https://github.com/Mircooo/steaksoap/commit/c531d41683308f834253f0a8950a41a6c2eeb587))
+* **seo:** use pathname for canonical url instead of hardcoded base ([7e32b6d](https://github.com/Mircooo/steaksoap/commit/7e32b6da172eaea531f00334570ef8a91b99c516))
+* **ui:** dark overlay background, dark text on accent buttons ([c4dc18a](https://github.com/Mircooo/steaksoap/commit/c4dc18a4f2c280b0074dcc8f09df52b2e57ea7cb)), closes [#0a0a0a](https://github.com/Mircooo/steaksoap/issues/0a0a0a) [#0a0a0a](https://github.com/Mircooo/steaksoap/issues/0a0a0a) [#b0b0a8](https://github.com/Mircooo/steaksoap/issues/b0b0a8)
+
 ## [2.0.2](https://github.com/Mircooo/steaksoap/compare/v2.0.1...v2.0.2) (2026-02-23)
 
 ### 🐛 Bug Fixes
