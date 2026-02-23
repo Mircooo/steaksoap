@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.0](https://github.com/Mircooo/steaksoap/compare/v2.1.3...v2.2.0) (2026-02-23)
+
+### ✨ Features
+
+* **home:** revamp get started section and add home nav link ([386cc88](https://github.com/Mircooo/steaksoap/commit/386cc8838fc5fe5e20c1647eae1179376e4e3ab5))
+
 ## [2.1.3](https://github.com/Mircooo/steaksoap/compare/v2.1.2...v2.1.3) (2026-02-23)
 
 ### 🐛 Bug Fixes
