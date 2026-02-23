@@ -161,9 +161,9 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setShowWizard(true)}
-                className="text-muted hover:text-accent decoration-accent/30 mt-6 block font-mono text-xs underline underline-offset-4 transition-colors"
+                className="border-accent/20 bg-accent/5 text-accent hover:bg-accent/10 mt-6 inline-flex items-center gap-2 rounded-full border px-5 py-2 font-mono text-xs transition-all"
               >
-                New to coding? Follow our guided setup &rarr;
+                {'\u{1F680}'} New to coding? Start the guided setup
               </button>
             </FadeIn>
           </div>
@@ -378,9 +378,9 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setShowWizard(true)}
-                className="text-muted hover:text-accent mt-6 font-mono text-sm transition-colors"
+                className="border-accent/20 bg-accent/5 text-accent hover:bg-accent/10 mt-6 inline-flex items-center gap-2 rounded-full border px-5 py-2 font-mono text-xs transition-all"
               >
-                First time? We&apos;ll walk you through it &rarr;
+                {'\u{1F680}'} First time? We&apos;ll walk you through it
               </button>
             </FadeIn>
 
