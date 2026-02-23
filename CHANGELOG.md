@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.5.0](https://github.com/mitambuch/steaksoap/compare/v2.4.1...v2.5.0) (2026-02-23)
+
+### ✨ Features
+
+* **onboarding:** add slide-in animation and reduced-motion support ([cba33c7](https://github.com/mitambuch/steaksoap/commit/cba33c7024f97670b6cd279b80d9d809f37868d3))
+* **site:** add wizard trigger in hero section ([053ba33](https://github.com/mitambuch/steaksoap/commit/053ba3301ae7c91fe90bede8841d872018e83d9a))
+
+### ♻️  Refactoring
+
+* **onboarding:** remove troubleshoot and verify check components ([b24a65b](https://github.com/mitambuch/steaksoap/commit/b24a65b888a5e6d3b2d586b44a891a50e0b75f46))
+* **onboarding:** rewrite steps.ts with explain/action/verify slides ([ed12b79](https://github.com/mitambuch/steaksoap/commit/ed12b79a4b402a58325f228c2fc3212bd40a25c7))
+* **onboarding:** rewrite wizard as fixed-size carousel ([3b5ea5e](https://github.com/mitambuch/steaksoap/commit/3b5ea5ea9d16b64854f50e5eb5504cc44c69dd1e))
+
 ## [2.4.1](https://github.com/mitambuch/steaksoap/compare/v2.4.0...v2.4.1) (2026-02-23)
 
 ### ♻️  Refactoring
