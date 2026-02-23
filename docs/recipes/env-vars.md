@@ -14,10 +14,14 @@ Check `src/config/env.ts` for the full list. Current defaults:
 
 ## Adding a new env var
 
+> **Security**: Variables prefixed with `VITE_` are embedded in the client bundle
+> and visible to anyone. NEVER put secrets (API keys, tokens, passwords) in `VITE_` variables.
+> Secrets must stay server-side (edge functions, API routes, backend).
+
 1. **Add to `.env.example`** with a placeholder:
 
 ```
-VITE_MY_API_KEY=your-api-key-here
+VITE_API_BASE_URL=https://api.example.com
 ```
 
 2. **Add to `src/config/env.ts`** with a fallback:
@@ -25,7 +29,7 @@ VITE_MY_API_KEY=your-api-key-here
 ```ts
 export const env = {
   // ... existing vars
-  MY_API_KEY: import.meta.env.VITE_MY_API_KEY || '',
+  API_BASE_URL: import.meta.env.VITE_API_BASE_URL || '',
 };
 ```
 
@@ -34,8 +38,8 @@ export const env = {
 ```ts
 import { env } from '@config/env';
 
-if (env.MY_API_KEY) {
-  // Use the API key
+if (env.API_BASE_URL) {
+  // Use the API base URL
 }
 ```
 
