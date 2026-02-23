@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.3](https://github.com/mitambuch/steaksoap/compare/v2.2.2...v2.2.3) (2026-02-23)
+
+### 🐛 Bug Fixes
+
+* **home:** center get started section content visually ([4d73814](https://github.com/mitambuch/steaksoap/commit/4d7381434600d1181bbed27af19beca5caf2ad02))
+
 ## [2.2.2](https://github.com/mitambuch/steaksoap/compare/v2.2.1...v2.2.2) (2026-02-23)
 
 ### 🐛 Bug Fixes
