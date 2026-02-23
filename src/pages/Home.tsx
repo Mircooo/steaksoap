@@ -14,6 +14,7 @@ import {
   Shield,
   ShieldCheck,
   Smartphone,
+  Sparkles,
   Terminal,
   Zap,
 } from 'lucide-react';
@@ -180,9 +181,10 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setShowWizard(true)}
-                className="border-accent/20 bg-accent/5 text-accent hover:bg-accent/10 order-first inline-flex items-center justify-center gap-2 rounded-full border px-5 py-2.5 font-mono text-xs transition-all sm:order-last"
+                className="btn-electric order-first inline-flex items-center justify-center gap-2 rounded-full border px-5 py-2.5 font-mono text-xs transition-all sm:order-last"
               >
-                {'\u{1F680}'} New to coding? Start the guided setup
+                <Sparkles size={14} aria-hidden="true" />
+                New to coding? Start the guided setup
               </button>
 
               <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
@@ -472,9 +474,10 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setShowWizard(true)}
-                className="border-accent/20 bg-accent/5 text-accent hover:bg-accent/10 mt-6 inline-flex items-center gap-2 rounded-full border px-5 py-2 font-mono text-xs transition-all"
+                className="btn-electric mt-6 inline-flex items-center gap-2 rounded-full border px-5 py-2 font-mono text-xs transition-all"
               >
-                {'\u{1F680}'} First time? We&apos;ll walk you through it
+                <Sparkles size={14} aria-hidden="true" />
+                First time? We&apos;ll walk you through it
               </button>
             </FadeIn>
 
