@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.1.2](https://github.com/Mircooo/steaksoap/compare/v2.1.1...v2.1.2) (2026-02-23)
+
+### 🐛 Bug Fixes
+
+* **ui:** hero title wrap, light mode borders, github button text color ([925997b](https://github.com/Mircooo/steaksoap/commit/925997b98c30400dd1ded86ef569cbadb9378257)), closes [#b0b0a8](https://github.com/Mircooo/steaksoap/issues/b0b0a8) [#0a0a0a](https://github.com/Mircooo/steaksoap/issues/0a0a0a)
+
 ## [2.1.1](https://github.com/Mircooo/steaksoap/compare/v2.1.0...v2.1.1) (2026-02-23)
 
 ### 🐛 Bug Fixes
