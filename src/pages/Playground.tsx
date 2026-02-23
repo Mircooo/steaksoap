@@ -1058,7 +1058,7 @@ export default function Playground() {
           {/* 22 — Empty states */}
           <Section number="22" title="empty states">
             <div className="grid gap-4 md:grid-cols-3">
-              <Card padding="none">
+              <Card padding="md">
                 <EmptyState
                   icon={<SearchX size={40} strokeWidth={1} />}
                   title="No results found"
@@ -1070,7 +1070,7 @@ export default function Playground() {
                   }
                 />
               </Card>
-              <Card padding="none">
+              <Card padding="md">
                 <EmptyState
                   icon={<Inbox size={40} strokeWidth={1} />}
                   title="No items yet"
@@ -1078,7 +1078,7 @@ export default function Playground() {
                   action={<Button size="sm">Create first item</Button>}
                 />
               </Card>
-              <Card padding="none">
+              <Card padding="md">
                 <EmptyState
                   icon={<FileX size={40} strokeWidth={1} />}
                   title="Something went wrong"
