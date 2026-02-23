@@ -8,12 +8,11 @@
 // CHANGE DURATION: Edit DEFAULT_DURATION in src/hooks/useToast.ts
 // ═══════════════════════════════════════════════════
 
+import type { ToastData } from '@hooks/useToast';
+import { useToast } from '@hooks/useToast';
 import { cn } from '@utils/cn';
 import { AlertTriangle, Check, Info, X } from 'lucide-react';
 import type { ReactNode } from 'react';
-
-import type { ToastData } from '../../hooks/useToast';
-import { useToast } from '../../hooks/useToast';
 
 const variantStyles: Record<ToastData['variant'], string> = {
   success: 'border-success/30 bg-success/10 text-success',
