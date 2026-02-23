@@ -85,6 +85,17 @@
   animation: wizard-slide-in 0.25s ease-out;
 }
 
+/* ─── Electric shimmer — CTA highlight sweep ─────────────── */
+
+@keyframes electric-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
 /* ─── Reduced motion — disable ALL animations globally ────── */
 
 @media (prefers-reduced-motion: reduce) {
