@@ -1,22 +1,32 @@
 import { cleanup, render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import Playground from '../Playground';
 
 afterEach(cleanup);
 
+// WHY: SeoHead uses useLocation() — pages need a router context in tests
+function renderPlayground() {
+  return render(
+    <MemoryRouter>
+      <Playground />
+    </MemoryRouter>,
+  );
+}
+
 describe('Playground', () => {
   it('renders without crashing', () => {
-    expect(() => render(<Playground />)).not.toThrow();
+    expect(() => renderPlayground()).not.toThrow();
   });
 
   it('renders the devkit heading', () => {
-    render(<Playground />);
+    renderPlayground();
     expect(screen.getByText('devkit')).toBeInTheDocument();
   });
 
   it('renders component sections', () => {
-    render(<Playground />);
+    renderPlayground();
     // Should have at least one button rendered
     expect(screen.getAllByRole('button').length).toBeGreaterThan(0);
   });
