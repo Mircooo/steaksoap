@@ -1,5 +1,5 @@
 // WHY: Neural flow particle system — creates the living background on the Home page.
-// 140 particles drift organically, connect to each other and to the cursor.
+// Desktop: 140 particles with cursor interaction. Mobile: 50 particles, drift only.
 // Physics values (friction 0.96, spring 0.03, radius 150) were tuned visually — don't change.
 
 import { useMediaQuery } from '@hooks/useMediaQuery';
@@ -92,18 +92,21 @@ function updateParticle(
 
 /* ─── DynamicParticles ────────────────────────────────────── */
 
-const PARTICLE_COUNT = 140;
+// WHY: Desktop gets full particle count + cursor interaction.
+// Mobile gets 50 particles for performance, no cursor events.
+const DESKTOP_PARTICLE_COUNT = 140;
+const MOBILE_PARTICLE_COUNT = 50;
 const CONNECTION_DIST = 80;
 const CURSOR_DIST = 180;
 
 export function DynamicParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef<MousePosition>({ x: -1000, y: -1000 });
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const isMobile = !useMediaQuery('(min-width: 768px)');
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   useEffect(() => {
-    if (!isDesktop || prefersReducedMotion) return;
+    if (prefersReducedMotion) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -115,6 +118,8 @@ export function DynamicParticles() {
     // WHY: devicePixelRatio scales the canvas buffer for sharp rendering on Retina/HiDPI screens
     let logicalWidth = window.innerWidth;
     let logicalHeight = window.innerHeight;
+
+    const particleCount = isMobile ? MOBILE_PARTICLE_COUNT : DESKTOP_PARTICLE_COUNT;
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -132,7 +137,13 @@ export function DynamicParticles() {
     };
 
     resize();
-    const particles = Array.from({ length: PARTICLE_COUNT }, () =>
+
+    // WHY: On mobile, force cursor off-screen so mouse repulsion never triggers
+    if (isMobile) {
+      mouseRef.current = { x: -9999, y: -9999 };
+    }
+
+    const particles = Array.from({ length: particleCount }, () =>
       createParticle(logicalWidth, logicalHeight),
     );
 
@@ -173,18 +184,20 @@ export function DynamicParticles() {
           }
         }
 
-        // Cursor-to-particle connections
-        const cdx = mouse.x - pi.x;
-        const cdy = mouse.y - pi.y;
-        const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
-        if (cdist < CURSOR_DIST) {
-          const opacity = 0.45 * (1 - cdist / CURSOR_DIST) * pi.alpha;
-          ctx.strokeStyle = `rgba(255, 107, 107, ${opacity})`;
-          ctx.lineWidth = 0.8;
-          ctx.beginPath();
-          ctx.moveTo(pi.x, pi.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.stroke();
+        // WHY: Skip cursor-to-particle connections on mobile — no cursor to connect to
+        if (!isMobile) {
+          const cdx = mouse.x - pi.x;
+          const cdy = mouse.y - pi.y;
+          const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
+          if (cdist < CURSOR_DIST) {
+            const opacity = 0.45 * (1 - cdist / CURSOR_DIST) * pi.alpha;
+            ctx.strokeStyle = `rgba(255, 107, 107, ${opacity})`;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(pi.x, pi.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+          }
         }
       }
 
@@ -192,18 +205,23 @@ export function DynamicParticles() {
     };
 
     window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', onMouseMove);
+    // WHY: No mouse listeners on mobile — particles just drift naturally
+    if (!isMobile) {
+      window.addEventListener('mousemove', onMouseMove);
+    }
     animate();
 
     return () => {
       window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', onMouseMove);
+      if (!isMobile) {
+        window.removeEventListener('mousemove', onMouseMove);
+      }
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isDesktop, prefersReducedMotion]);
+  }, [isMobile, prefersReducedMotion]);
 
-  // Mobile or reduced motion: no particles
-  if (!isDesktop || prefersReducedMotion) return null;
+  // Reduced motion: no particles at all
+  if (prefersReducedMotion) return null;
 
   return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-1" />;
 }
