@@ -154,34 +154,35 @@ export default function Home() {
               </div>
             </FadeIn>
 
-            <FadeIn delay={450} className="mt-6 flex flex-col gap-2 sm:flex-row sm:gap-4 md:mt-10">
-              <a
-                href="https://github.com/mitambuch/steaksoap"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-accent border-fg/20 hover:border-accent inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 font-mono text-sm font-medium text-[#0a0a0a] transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,107,107,0.4)] hover:brightness-90 active:scale-[0.97]"
-              >
-                View on GitHub
-                <span aria-hidden="true">&rarr;</span>
-              </a>
-              <button
-                type="button"
-                onClick={() => scrollTo('features')}
-                className="text-fg border-border hover:border-accent/20 hover:bg-accent/5 inline-flex items-center justify-center gap-2 rounded-full border bg-transparent px-6 py-3 font-mono text-sm backdrop-blur-md transition-all duration-500 active:scale-[0.98]"
-              >
-                Get started
-                <span aria-hidden="true">&darr;</span>
-              </button>
-            </FadeIn>
-
-            <FadeIn delay={550}>
+            <FadeIn delay={450} className="mt-6 flex flex-col gap-3 sm:gap-4">
+              {/* WHY: order-first on mobile so novices see the wizard CTA first */}
               <button
                 type="button"
                 onClick={() => setShowWizard(true)}
-                className="border-accent/20 bg-accent/5 text-accent hover:bg-accent/10 mt-6 inline-flex items-center gap-2 rounded-full border px-5 py-2 font-mono text-xs transition-all"
+                className="border-accent/20 bg-accent/5 text-accent hover:bg-accent/10 order-first inline-flex items-center justify-center gap-2 rounded-full border px-5 py-2.5 font-mono text-xs transition-all sm:order-last"
               >
                 {'\u{1F680}'} New to coding? Start the guided setup
               </button>
+
+              <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
+                <a
+                  href="https://github.com/mitambuch/steaksoap"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-accent border-fg/20 hover:border-accent inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 font-mono text-sm font-medium text-[#0a0a0a] transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,107,107,0.4)] hover:brightness-90 active:scale-[0.97]"
+                >
+                  View on GitHub
+                  <span aria-hidden="true">&rarr;</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => scrollTo('features')}
+                  className="text-fg border-border hover:border-accent/20 hover:bg-accent/5 inline-flex items-center justify-center gap-2 rounded-full border bg-transparent px-6 py-3 font-mono text-sm backdrop-blur-md transition-all duration-500 active:scale-[0.98]"
+                >
+                  Get started
+                  <span aria-hidden="true">&darr;</span>
+                </button>
+              </div>
             </FadeIn>
           </div>
 
