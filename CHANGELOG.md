@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/Mircooo/steaksoap/compare/v2.1.0...v2.1.1) (2026-02-23)
+
+### 🐛 Bug Fixes
+
+* **branding:** transparent favicon svg with morph animation + apple-touch-icon ([80815e1](https://github.com/Mircooo/steaksoap/commit/80815e167d777d03ea110bac552200ada4a495e9))
+* **layout:** push header logo left, nav right, cap at 2440px ([f21f28d](https://github.com/Mircooo/steaksoap/commit/f21f28d85aa5ba6b83ddbb0ba78439c404ac83fd))
+
 ## [2.1.0](https://github.com/Mircooo/steaksoap/compare/v2.0.2...v2.1.0) (2026-02-23)
 
 ### ✨ Features
