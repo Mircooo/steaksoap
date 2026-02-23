@@ -1,22 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════
    WIZARD SLIDES — data for the guided setup carousel.
    Each slide is ONE screen that fits in the fixed-size modal.
-   Slides are grouped so the dot indicators stay manageable (11 dots).
+   All content is designed to be read in one glance — no scroll.
+   Slides are grouped so the dot indicators stay manageable (9 dots).
    ═══════════════════════════════════════════════════════════════ */
 
 export interface WizardSlide {
   id: string;
-  type: 'welcome' | 'explain' | 'action' | 'verify' | 'done';
+  type: 'welcome' | 'intro' | 'action' | 'verify' | 'done';
 
   /** Which dot group this slide belongs to */
   group: string;
 
   /** Main heading */
   title: string;
-  /** 2-3 sentences max — must fit in one glance */
+  /** 2-3 sentences max — must fit in one glance. Use \n for visual paragraphs. */
   body: string;
 
-  /** Large emoji for 'explain' slides */
+  /** Large emoji for visual slides */
   emoji?: string;
 
   /** For 'action' slides */
@@ -42,300 +43,357 @@ export interface WizardSlide {
 // WHY: isMac is computed once at module level — navigator.platform is static
 const isMac = typeof navigator !== 'undefined' && navigator.platform.toLowerCase().includes('mac');
 
+// WHY: __PLATFORM_SHORTCUT__ is replaced at render time by the component
+// This keeps platform logic out of the data layer
+export const PLATFORM_SHORTCUT_PLACEHOLDER = '__PLATFORM_SHORTCUT__';
+
 export const wizardSlides: WizardSlide[] = [
   /* ── 0. Welcome ──────────────────────────────────────────── */
   {
     id: 'welcome',
     type: 'welcome',
     group: 'welcome',
-    title: 'Welcome to steaksoap',
+    title: '',
     body: '',
   },
 
   /* ── 1-2. VS Code ────────────────────────────────────────── */
   {
-    id: 'vscode-explain',
-    type: 'explain',
+    id: 'vscode-intro',
+    type: 'intro',
     group: 'vscode',
     emoji: '\u{1F4BB}',
-    title: 'What is VS Code?',
-    body: "VS Code is a free app made by Microsoft. It's where you'll write and manage your project. Think of it like Google Docs, but for code.",
+    title: 'You need a code editor',
+    body: "To work on your project, you need an app to see and edit your files. Think of it like Google Docs, but for websites.\n\nWe use VS Code \u2014 it's free, made by Microsoft, and used by almost every developer on earth. There are others (Cursor, Zed, Sublime) but VS Code is the standard.",
   },
   {
     id: 'vscode-install',
     type: 'action',
     group: 'vscode',
+    emoji: '\u2B07\uFE0F',
     title: 'Download VS Code',
-    body: "Click the button below. It'll open the download page. Pick your system (Windows/Mac) and install it like any normal app.",
+    body: 'Click the button, download the installer, and run it like any normal app.',
     actionType: 'link',
     actionLabel: 'Download VS Code',
     actionValue: 'https://code.visualstudio.com',
-    hint: "Once installed, open it. You should see a dark window with a Welcome tab. That's it!",
-    celebration: 'Your workspace is ready',
+    hint: 'Once installed, open it. You\'ll see a dark window with a "Welcome" tab. That means it works!',
+    celebration: 'Your workspace is ready \u2728',
   },
 
   /* ── 3-5. Node.js ────────────────────────────────────────── */
   {
-    id: 'node-explain',
-    type: 'explain',
+    id: 'node-intro',
+    type: 'intro',
     group: 'node',
     emoji: '\u26A1',
-    title: 'What is Node.js?',
-    body: "Node.js is the engine that makes your project run. Your computer doesn't understand web code by default \u2014 Node teaches it how. You install it once and forget about it.",
+    title: 'You need a runtime engine',
+    body: "Your computer doesn't understand web code by default. Node.js is the engine that teaches it how.\n\nYou install it once and forget about it \u2014 it runs in the background. Every web project needs it.",
   },
   {
     id: 'node-install',
     type: 'action',
     group: 'node',
+    emoji: '\u2B07\uFE0F',
     title: 'Download Node.js',
-    body: 'Click the big green button on the Node website. It says "LTS" which just means "stable version". Install it and click Next through everything.',
+    body: 'Download the LTS version (that means "stable"). Install it and click Next through everything.',
     actionType: 'link',
     actionLabel: 'Download Node.js',
     actionValue: 'https://nodejs.org',
-    hint: 'IMPORTANT: After installing, close VS Code completely and reopen it. The terminal needs to restart to find Node.',
+    hint: 'IMPORTANT: after installing, close VS Code completely and reopen it. The terminal needs to restart to find Node.',
   },
   {
     id: 'node-verify',
     type: 'verify',
     group: 'node',
-    title: 'Did it work?',
-    body: `Open VS Code, press ${isMac ? 'Cmd' : 'Ctrl'}+\` to open the terminal, and paste this:`,
+    emoji: '\u2705',
+    title: "Let's check",
+    body: 'Open the terminal in VS Code and paste this command:',
     command: 'node --version',
-    expected: 'You should see a number like v20.x.x or v22.x.x',
+    expected: 'A number like v20.x.x or v22.x.x \u2014 any number is good!',
     failHint:
-      'Nothing? Close ALL VS Code windows, wait 5 seconds, reopen. If that fails: restart your computer.',
-    celebration: "Node works! You're past the hardest part",
+      'If it says "not recognized": close ALL VS Code windows, wait 5 seconds, reopen. Still nothing? Restart your computer.',
+    celebration: "Node works! You're past the hardest part \u{1F389}",
   },
 
   /* ── 6-7. Terminal ───────────────────────────────────────── */
   {
-    id: 'terminal-explain',
-    type: 'explain',
+    id: 'terminal-intro',
+    type: 'intro',
     group: 'terminal',
     emoji: '\u2328\uFE0F',
-    title: 'What is the terminal?',
-    body: "The terminal is a text chat with your computer. You type a command, it does something. It's the dark panel at the bottom of VS Code. All the next steps happen here.",
+    title: 'Meet the terminal',
+    body: "The terminal is a text chat with your computer. You type a command, press Enter, it does something.\n\nIt's the dark panel at the bottom of VS Code. Don't worry \u2014 we'll tell you exactly what to type every time.",
   },
   {
     id: 'terminal-open',
     type: 'action',
     group: 'terminal',
+    emoji: '\u{1F446}',
     title: 'Open the terminal',
-    body: 'In VS Code, go to View \u2192 Terminal in the top menu. A dark panel will appear at the bottom.',
+    body: "In VS Code, go to the menu: View \u2192 Terminal.\n\nA dark panel will appear at the bottom with a blinking cursor. That's your terminal!",
     actionType: 'copy',
-    actionLabel: 'Keyboard shortcut',
-    actionValue: `${isMac ? 'Cmd' : 'Ctrl'} + \``,
-    hint: "You should see a dark panel with a blinking cursor at the bottom of VS Code. You're in!",
-    celebration: 'This is where the magic happens',
+    actionLabel: 'Shortcut',
+    actionValue: PLATFORM_SHORTCUT_PLACEHOLDER,
+    hint: 'You\'ll see "PowerShell" or "bash" in the terminal header \u2014 that\'s normal. Both work fine.',
+    celebration: 'This is where the magic happens \u26A1',
   },
 
   /* ── 8-10. pnpm ──────────────────────────────────────────── */
   {
-    id: 'pnpm-explain',
-    type: 'explain',
+    id: 'pnpm-intro',
+    type: 'intro',
     group: 'pnpm',
     emoji: '\u{1F4E6}',
-    title: 'What is pnpm?',
-    body: 'Your project uses code written by other people (libraries). pnpm downloads and manages all of them for you. Think of it like an app store for code.',
+    title: 'You need a package manager',
+    body: 'Your project uses code written by other developers (called "packages"). pnpm downloads and organizes them for you.\n\nThink of it like an app store for code libraries. You install pnpm once, and it handles the rest.',
   },
   {
     id: 'pnpm-install',
     type: 'action',
     group: 'pnpm',
+    emoji: '\u{1F4CB}',
     title: 'Install pnpm',
-    body: 'Paste this in the terminal and press Enter:',
+    body: 'Copy this command and paste it in the terminal. Press Enter and wait.',
     actionType: 'copy',
     actionLabel: 'Copy command',
     actionValue: 'npm install -g pnpm',
-    hint: 'Wait until the cursor comes back. Then close and reopen VS Code (same as before \u2014 it needs a restart).',
+    hint: "When it's done, the cursor comes back. Then close VS Code and reopen it \u2014 same as before.",
   },
   {
     id: 'pnpm-verify',
     type: 'verify',
     group: 'pnpm',
-    title: 'Check pnpm',
-    body: 'Open the terminal again and paste:',
+    emoji: '\u2705',
+    title: 'Quick check',
+    body: 'Paste this in the terminal:',
     command: 'pnpm --version',
-    expected: 'You should see a number like 10.x.x',
+    expected: 'A number like 10.x.x',
     failHint:
-      'If it says "pnpm is not recognized": close VS Code, reopen, try again. Still nothing? Restart your computer.',
-    celebration: 'Almost there, keep going',
+      'If it says "not recognized": close VS Code, reopen, try again. Still nothing? Restart your computer.',
+    celebration: 'Package manager ready \u{1F4AA}',
   },
 
   /* ── 11-13. Git ──────────────────────────────────────────── */
   {
-    id: 'git-explain',
-    type: 'explain',
+    id: 'git-intro',
+    type: 'intro',
     group: 'git',
     emoji: '\u{1F504}',
-    title: 'What is Git?',
-    body: "Git saves snapshots of your work. If you break something, you can go back to when it worked. It's also how you download projects from GitHub.",
+    title: 'You need version control',
+    body: "Git saves snapshots of your project. If you break something, you can go back to when it worked.\n\nIt's also how you download projects from GitHub (that's where steaksoap lives). Every dev uses Git \u2014 it's been around forever.",
   },
   {
     id: 'git-install',
     type: 'action',
     group: 'git',
+    emoji: '\u2B07\uFE0F',
     title: 'Download Git',
-    body: "Download the installer and run it. Keep ALL default options \u2014 don't change anything during setup.",
+    body: "Download and install it. During the setup, keep ALL default options \u2014 don't change anything.",
     actionType: 'link',
     actionLabel: 'Download Git',
     actionValue: 'https://git-scm.com',
-    hint: 'After installing: close VS Code, reopen. You know the drill by now',
+    hint: 'After installing: close VS Code, reopen. You know the drill by now \u{1F604}',
   },
   {
     id: 'git-verify',
     type: 'verify',
     group: 'git',
+    emoji: '\u2705',
     title: 'Check Git',
     body: 'Terminal, paste:',
     command: 'git --version',
     expected: 'Something like git version 2.x.x',
-    failHint: 'Same fix as always: close VS Code, reopen. If still nothing: restart computer.',
-    celebration: 'All tools installed! Now the fun part',
+    failHint: 'Same fix as always: close VS Code, reopen. Or restart your computer.',
+    celebration: 'All tools installed! Now the fun part \u{1F680}',
   },
 
   /* ── 14-16. Clone + open project ─────────────────────────── */
   {
-    id: 'clone-explain',
-    type: 'explain',
+    id: 'project-intro',
+    type: 'intro',
     group: 'project',
     emoji: '\u{1F4E5}',
-    title: 'Get steaksoap',
-    body: "Now we're going to download steaksoap to your computer. This creates a folder with all the files you need to start building your project.",
+    title: 'Time to get steaksoap',
+    body: "Now we're going to download steaksoap to your computer. It creates a folder with all the files you need.\n\nAfter this step, you'll have a real project on your machine that you can customize and make your own.",
   },
   {
     id: 'clone-action',
     type: 'action',
     group: 'project',
+    emoji: '\u{1F4CB}',
     title: 'Clone the project',
-    body: 'Paste this in the terminal:',
+    body: 'Paste this in the terminal and press Enter:',
     actionType: 'copy',
     actionLabel: 'Copy command',
-    actionValue: 'git clone https://github.com/mitambuch/steaksoap.git my-project',
-    hint: 'Wait for "done" to appear. Then paste the next command to enter the folder.',
+    actionValue: 'git clone https://github.com/Mircooo/steaksoap.git my-project',
+    hint: 'Wait until you see "done" in the terminal. It downloads fast!',
   },
   {
-    id: 'open-project',
+    id: 'open-action',
     type: 'action',
     group: 'project',
+    emoji: '\u{1F4C2}',
     title: 'Open your project',
-    body: 'In VS Code, go to File \u2192 Open Folder and select the "my-project" folder. Or type this in the terminal:',
+    body: 'In VS Code: File \u2192 Open Folder \u2192 find "my-project" in your user folder.\n\nOr paste this in the terminal:',
     actionType: 'copy',
     actionLabel: 'Copy command',
     actionValue: 'cd my-project',
-    hint: 'If VS Code asks "Do you trust the authors?" \u2014 click Yes. If it suggests extensions \u2014 click Install All.',
+    hint: 'If VS Code asks "Do you trust the authors?" click Yes.\nIf it suggests extensions, click "Install All" \u2014 that\'s a good thing!',
   },
 
   /* ── 17-19. Install + setup ──────────────────────────────── */
   {
-    id: 'deps-explain',
-    type: 'explain',
+    id: 'setup-intro',
+    type: 'intro',
     group: 'setup',
     emoji: '\u{1F527}',
-    title: 'One last download',
-    body: 'Your project needs a bunch of small tools and libraries to work. This command downloads all of them in one go. Takes about a minute.',
+    title: 'Almost there!',
+    body: 'Two more commands and your project is alive.\n\nFirst, we download all the libraries your project needs (takes ~1 minute). Then we run a quick wizard to give your project a name.',
   },
   {
     id: 'deps-action',
     type: 'action',
     group: 'setup',
-    title: 'Install everything',
-    body: 'Make sure your terminal says "my-project" somewhere. Then paste:',
+    emoji: '\u{1F4CB}',
+    title: 'Install dependencies',
+    body: 'Make sure the terminal says "my-project" somewhere. Then paste:',
     actionType: 'copy',
     actionLabel: 'Copy command',
     actionValue: 'pnpm install',
-    hint: "A lot of text will fly by. That's normal. Wait until the cursor comes back.",
+    hint: "A lot of text will fly by \u2014 that's normal! Wait until the cursor comes back.",
   },
   {
     id: 'setup-action',
     type: 'action',
     group: 'setup',
-    title: 'Make it yours',
-    body: 'This asks your project name and sets everything up. Just answer the questions:',
+    emoji: '\u270F\uFE0F',
+    title: 'Name your project',
+    body: 'This little wizard asks your project name and configures everything:',
     actionType: 'copy',
     actionLabel: 'Copy command',
     actionValue: 'pnpm setup',
-    hint: "It'll ask a few things. Don't stress \u2014 there are no wrong answers and you can change everything later.",
-    celebration: 'Your project has a name now!',
+    hint: 'Just answer the questions. No wrong answers \u2014 you can change everything later.',
+    celebration: 'Your project has a name! \u{1F3A8}',
   },
 
   /* ── 20-21. Launch ───────────────────────────────────────── */
   {
-    id: 'launch-explain',
-    type: 'explain',
+    id: 'launch-intro',
+    type: 'intro',
     group: 'launch',
     emoji: '\u{1F680}',
     title: 'Ready for liftoff',
-    body: 'This is it. One last command and your website is running on your computer. For real.',
+    body: "This is it. One command and your website is running on your computer. For real.\n\nYou're about to see your site in the browser. Exciting, right?",
   },
   {
     id: 'launch-action',
     type: 'action',
     group: 'launch',
+    emoji: '\u{1F3AC}',
     title: 'Start your project',
-    body: 'Paste this and watch the magic:',
+    body: 'Paste this and watch the magic happen:',
     actionType: 'copy',
     actionLabel: 'Copy command',
     actionValue: 'pnpm dev',
-    hint: 'Open your browser and go to localhost:5173 \u2014 you should see your site!',
-    celebration: 'YOUR SITE IS RUNNING',
+    hint: 'Open your browser at localhost:5173 \u2014 you should see YOUR site! \u{1F389}',
+    celebration: 'YOUR SITE IS RUNNING! Take a screenshot \u2014 you earned it \u{1F4F8}',
   },
 
-  /* ── 22-23. GitHub (optional) ────────────────────────────── */
+  /* ── 22. Extras : intro ──────────────────────────────────── */
   {
-    id: 'github-explain',
-    type: 'explain',
+    id: 'extras-intro',
+    type: 'intro',
+    group: 'extras',
+    emoji: '\u{1F381}',
+    title: 'Bonus round',
+    body: 'Your project is running! Everything below is optional.\n\nThese tools will help you save your work online, publish your site, and build faster with AI. You can set them up now or come back later.',
+    optional: true,
+  },
+
+  /* ── 23-24. GitHub (optional) ────────────────────────────── */
+  {
+    id: 'github-intro',
+    type: 'intro',
     group: 'extras',
     emoji: '\u2601\uFE0F',
-    title: 'Save your work online',
-    body: "GitHub is like Google Drive but for code. It's free and it backs up your project. You'll also need it to put your site on the internet later.",
+    title: 'What is GitHub?',
+    body: "GitHub is like Google Drive, but for code. It stores your project in the cloud so you never lose it.\n\nIt's free, and you'll need it if you want to put your site on the internet later. Almost every developer has a GitHub account.",
     optional: true,
   },
   {
     id: 'github-action',
     type: 'action',
     group: 'extras',
+    emoji: '\u270D\uFE0F',
     title: 'Create a GitHub account',
-    body: 'Sign up with your email. Skip this if you already have one.',
+    body: 'Sign up with your email. It takes 2 minutes.',
     actionType: 'link',
-    actionLabel: 'Sign up for free',
+    actionLabel: 'Create free account',
     actionValue: 'https://github.com/signup',
     optional: true,
+    hint: 'Already have one? Just skip to the next step.',
   },
 
-  /* ── 24. Vercel (optional) ───────────────────────────────── */
+  /* ── 25-26. Vercel (optional) ────────────────────────────── */
+  {
+    id: 'vercel-intro',
+    type: 'intro',
+    group: 'extras',
+    emoji: '\u{1F310}',
+    title: 'What is Vercel?',
+    body: 'Vercel puts your site on the internet for free. You connect your GitHub account, and every time you save your work, your live site updates automatically.\n\nIt\'s like pressing "Publish" on a blog, but for your entire website.',
+    optional: true,
+  },
   {
     id: 'vercel-action',
     type: 'action',
     group: 'extras',
-    title: 'Put your site on the internet',
-    body: 'Vercel hosts your site for free. Create an account and connect your GitHub. You can do this anytime later.',
+    emoji: '\u270D\uFE0F',
+    title: 'Create a Vercel account',
+    body: 'Sign up and connect your GitHub when asked.',
     actionType: 'link',
     actionLabel: 'Create Vercel account',
     actionValue: 'https://vercel.com/signup',
     optional: true,
+    hint: 'You can always do this later. Your site works locally for now.',
   },
 
-  /* ── 25. Claude Code (optional) ──────────────────────────── */
+  /* ── 27-28. Claude Code (optional) ───────────────────────── */
+  {
+    id: 'claude-intro',
+    type: 'intro',
+    group: 'extras',
+    emoji: '\u{1F916}',
+    title: 'What is Claude Code?',
+    body: "Claude Code is an AI that lives in your terminal. It knows steaksoap inside out \u2014 all 22 commands, all the rules.\n\nInstead of writing code yourself, you describe what you want and Claude builds it. It's like having a senior developer sitting next to you.",
+    optional: true,
+  },
   {
     id: 'claude-action',
     type: 'action',
     group: 'extras',
-    title: 'Add your AI assistant',
-    body: 'Claude Code is the AI that knows steaksoap inside out. Tell it what you want to build, and it builds it.',
+    emoji: '\u2B07\uFE0F',
+    title: 'Install Claude Code',
+    body: 'Follow the instructions on the page. Once installed, open a terminal in your project and type: claude',
     actionType: 'link',
     actionLabel: 'Install Claude Code',
     actionValue: 'https://claude.ai/code',
     optional: true,
-    hint: 'Once installed, open a terminal in your project and type: claude',
+    hint: 'Then try typing: /spec "a contact form" \u2014 and watch it plan your first feature.',
+    celebration: 'You have an AI co-builder now \u{1F91D}',
   },
 
-  /* ── 26. Done! ───────────────────────────────────────────── */
+  /* ── 29. Done! ───────────────────────────────────────────── */
   {
     id: 'done',
     type: 'done',
     group: 'done',
-    title: 'You did it!',
-    body: 'Your development environment is ready. You have everything you need to start building.',
+    title: '',
+    body: '',
   },
 ];
+
+/** Platform-aware shortcut for the terminal slide */
+export function getPlatformShortcut(): string {
+  return isMac ? 'Cmd + `' : 'Ctrl + `';
+}
