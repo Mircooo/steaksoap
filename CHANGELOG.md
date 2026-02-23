@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.0.1](https://github.com/Mircooo/steaksoap/compare/v2.0.0...v2.0.1) (2026-02-23)
+
+### 🐛 Bug Fixes
+
+* **config:** create missing src/types dir for path alias ([041aed7](https://github.com/Mircooo/steaksoap/commit/041aed7771e14af2cb7cb4735bf049bcea287d6b))
+* **docs:** replace dangerous vite api key example with safe alternative ([c36b40c](https://github.com/Mircooo/steaksoap/commit/c36b40c7a05a10707fbc053b16ffbf9d8b8dc844))
+* **header:** replace anchor tags with router link for internal nav ([f2d8980](https://github.com/Mircooo/steaksoap/commit/f2d89804cfddd57dc8b11739e47d777f690ce7ee))
+* **plugin:** update command and rule counts in plugin.json ([c40bced](https://github.com/Mircooo/steaksoap/commit/c40bced13c2e8b0678eea882b1b0dc18692003b6))
+* **theme:** protect localstorage access for safari private mode ([16a4ca4](https://github.com/Mircooo/steaksoap/commit/16a4ca480b4ce63042875a78672b9b33f8567d07))
+
+### 🔧 Chores
+
+* **ci:** add dependabot for automated dependency updates ([8f55246](https://github.com/Mircooo/steaksoap/commit/8f55246eed6ff3df2aed868da361530f936163e8))
+* **deps:** remove dependabot config ([004cd78](https://github.com/Mircooo/steaksoap/commit/004cd78742b3a83166e684ba2e60b65622da3c64))
+
 ## [2.0.0](https://github.com/Mircooo/steaksoap/compare/v1.9.0...v2.0.0) (2026-02-22)
 
 ### ✨ Features
