@@ -223,7 +223,7 @@ export function SetupWizard({ onClose }: SetupWizardProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="wizard-title"
-        className="bg-bg border-border relative z-10 flex h-[520px] max-h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border shadow-2xl"
+        className="bg-bg border-border relative z-10 flex h-[620px] max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border shadow-2xl"
       >
         {/* ── QUIT CONFIRMATION — replaces content when active ── */}
         {showQuitConfirm ? (
