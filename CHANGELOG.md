@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.6.0](https://github.com/mitambuch/steaksoap/compare/v2.5.0...v2.6.0) (2026-02-23)
+
+### ✨ Features
+
+* **site:** visible wizard buttons in hero and get started sections ([a7cf98e](https://github.com/mitambuch/steaksoap/commit/a7cf98e084b3021eb2590bb10cad91fdc51f80ae))
+
+### ♻️  Refactoring
+
+* **onboarding:** rewrite steps.ts with intro/action/verify slides and warm copy ([77b3615](https://github.com/mitambuch/steaksoap/commit/77b36156cf26fd6ee49818a4e5c0e0b8088a0855))
+* **onboarding:** rewrite wizard with centered slides and styled quit confirm ([11f8656](https://github.com/mitambuch/steaksoap/commit/11f86563293dba68b7e17aef100c18c70d726c69))
+
 ## [2.5.0](https://github.com/mitambuch/steaksoap/compare/v2.4.1...v2.5.0) (2026-02-23)
 
 ### ✨ Features
