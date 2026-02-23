@@ -7,6 +7,7 @@
    ═══════════════════════════════════════════════════════════════ */
 
 import { siteConfig } from '@config/site';
+import { useLocation } from 'react-router-dom';
 
 interface SeoHeadProps {
   title?: string;
@@ -23,8 +24,9 @@ export function SeoHead({
   canonicalUrl,
   noIndex = false,
 }: SeoHeadProps) {
+  const { pathname } = useLocation();
   const fullTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.name;
-  const pageUrl = canonicalUrl ?? siteConfig.url;
+  const pageUrl = canonicalUrl ?? `${siteConfig.url}${pathname}`;
 
   return (
     <>
