@@ -113,11 +113,8 @@ Fixing is NOT enough. You must also:
 4. Document: commit with clear explanation of the fix + the new rule
 
 ## Performance standards
-- Lighthouse: 90+ on all 4 categories
-- No package > 50kb without justification
-- Images: WebP/AVIF by default via Cloudinary
-- Lazy loading on everything below the fold
-- No unused CSS/JS in the final bundle
+See `performance.md` for detailed rules.
+Quick ref: Lighthouse 90+ all categories. No package >50kb unjustified.
 
 ## Non-negotiable rules
 

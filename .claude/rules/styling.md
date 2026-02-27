@@ -10,11 +10,9 @@ paths: ["src/**/*.css", "src/**/*.tsx", "src/styles/**"]
 - NEVER hardcode colors — always use token-based classes
 - NEVER use @apply (defeats the purpose of utility classes)
 
-## Responsive design — mobile-first
-- Default styles = mobile (320px)
-- sm: = 640px, md: = 768px, lg: = 1024px, xl: = 1280px
-- Always stack on mobile, go horizontal on md+
-- Touch targets: minimum 44×44px on mobile
+## Responsive design
+See `responsive.md` for the full responsive rules.
+Quick ref: mobile default → sm: → md: → lg: → xl:
 
 ## Class ordering in JSX
 Follow this order in className strings:
