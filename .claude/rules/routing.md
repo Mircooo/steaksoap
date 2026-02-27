@@ -18,7 +18,7 @@ const About = lazy(() => import('@pages/About'));
 1. Create page component in `src/pages/<PageName>.tsx`
    - Include SeoHead for meta tags
    - Wrap content in Container
-   - Named export
+   - Default export (required for lazy loading)
 
 2. Add lazy import in route config file (`src/app/routes/index.tsx` or similar)
 
@@ -35,7 +35,7 @@ const About = lazy(() => import('@pages/About'));
    import { MemoryRouter } from 'react-router-dom';
    import { describe, expect, it } from 'vitest';
 
-   import { About } from '../About';
+   import About from '../About';
 
    describe('About page', () => {
      it('renders', () => {

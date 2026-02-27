@@ -12,6 +12,12 @@ You are NOT a generic AI assistant. You are operating inside a structured system
 If you skip this, you WILL make mistakes: wrong branches, missing tests, broken conventions.
 The owner WILL notice and it wastes everyone's time.
 
+### ⛔ THE #1 RULE
+**NEVER commit directly to main. NEVER. Not even "just a small fix".**
+Before ANY code change: `git checkout main && git pull && git checkout -b <type>/<scope>`
+If you find yourself on main with uncommitted changes → stash → create branch → apply stash.
+This rule has ZERO exceptions. If you violate it, the entire session is compromised.
+
 ## 🚀 Fresh Clone?
 
 If this project still has the default steaksoap identity (check: does
@@ -51,21 +57,15 @@ src/
 ├── utils/          — cn() and helpers
 
 ## Code Rules (brief)
-- TypeScript strict — no `any`, no `as` casts, no non-null assertions
-- Functional components only, named exports, PascalCase files
-- Mobile-first responsive: base → sm: → md: → lg:
+These are loaded automatically from `.claude/rules/` — details there, summary here:
+- TypeScript strict — no `any`, no `as`, no `!`
+- Named exports, PascalCase files, mobile-first responsive
+- `cn()` for className, design tokens only, tests beside source
 - Path aliases: @components, @hooks, @pages, @utils, @config, @features
-- Tests beside source: Button.tsx → Button.test.tsx
-- Tailwind tokens only — never hardcode colors (use @theme variables)
-- cn() for all className merging
 
 ## Workflow
-1. Create branch from main: feat/<name> or fix/<name>
-2. Implement — follow rules in .claude/rules/ (loaded automatically)
-3. Run `pnpm validate` — must pass before committing
-4. Commit with Conventional Commits: feat:, fix:, docs:, refactor:, test:, chore:
-5. Batch commits — don't release after every commit
-6. Push → PR → merge → release when meaningful set of changes is ready
+See `.claude/rules/workflow.md` for the full workflow (branching, validation, commits).
+The essential rule: **NEVER commit to main. ALWAYS branch first. No exceptions.**
 
 ## Communication Style
 - Start with ACTION (what you're doing), then WHERE (which files), then WHY

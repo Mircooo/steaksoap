@@ -113,11 +113,8 @@ Fixing is NOT enough. You must also:
 4. Document: commit with clear explanation of the fix + the new rule
 
 ## Performance standards
-- Lighthouse: 90+ on all 4 categories
-- No package > 50kb without justification
-- Images: WebP/AVIF by default via Cloudinary
-- Lazy loading on everything below the fold
-- No unused CSS/JS in the final bundle
+See `performance.md` for detailed rules.
+Quick ref: Lighthouse 90+ all categories. No package >50kb unjustified.
 
 ## Non-negotiable rules
 
@@ -258,9 +255,9 @@ The user can choose how much control they want during a session.
 Ask confirmation before each major action.
 Use this when: the user is learning, reviewing, or working on something sensitive.
 
-### Trust mode
-When the user says "go", "fonce", "trust mode", "fais tout", "do everything",
-"je te fais confiance", or any similar phrase:
+### Batch mode
+When the user says "go", "fonce", "batch mode", "trust mode", "fais tout",
+"do everything", "je te fais confiance", or any similar phrase:
 - Execute the ENTIRE plan without asking for confirmation at each step
 - Still follow ALL rules, ALL conventions, ALL quality standards
 - Run `pnpm validate` after each commit — if it fails, FIX it before continuing
@@ -273,7 +270,7 @@ When the user says "go", "fonce", "trust mode", "fais tout", "do everything",
   All commits passed pnpm validate. ✅
   ```
 
-### When to STOP even in trust mode
+### When to STOP even in batch mode
 - `pnpm validate` fails and the fix isn't obvious → ask
 - A decision could break existing functionality → ask
 - Deleting files that aren't in the plan → ask
@@ -282,5 +279,5 @@ When the user says "go", "fonce", "trust mode", "fais tout", "do everything",
 
 ### Switching modes
 The user can switch at any time:
-- "trust mode" / "go" / "fonce" → switch to trust mode
+- "batch mode" / "trust mode" / "go" / "fonce" → switch to batch mode
 - "checkpoint" / "stop and ask" / "attends" → switch back to checkpoint mode

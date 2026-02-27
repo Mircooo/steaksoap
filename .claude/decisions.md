@@ -21,7 +21,7 @@ This file tracks key technical decisions. Read this before any architecture choi
 - **Light mode bg is warm gray**: not near-white. Matches classe2 aesthetic.
 - **Lucide React as default dep**: every project needs icons, tree-shakable.
 - **Toast/Tabs/Spinner in core**: most commonly needed UI patterns.
-- **Trust mode**: autonomous execution on "fonce" or "go". Stops on validation failure.
+- **Batch mode**: autonomous execution on "fonce" or "go". Stops on validation failure. Previously called "trust mode".
 - **Smart model switching**: Opus for complex, Haiku for mechanical tasks.
 - **Auto-invocation**: rules enforce command patterns without slash commands.
 - **/audit merged into /lighthouse**: /audit was a subset, removed.

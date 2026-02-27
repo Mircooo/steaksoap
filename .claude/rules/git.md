@@ -5,10 +5,9 @@ paths: [".github/**", "scripts/release.js", "CHANGELOG.md"]
 # Git & Release Rules
 
 ## Branching
-- ALWAYS create a feature branch from main
-- Naming: feat/<descriptive-name>, fix/<descriptive-name>, docs/<name>, chore/<name>
-- Never commit directly to main
-- Delete branch after merge
+See workflow.md "Always, no exceptions" point 2 for the branching procedure.
+Quick ref: `git checkout main && git pull` → `git checkout -b <type>/<scope>`.
+Never commit directly to main. Delete branch after merge.
 
 ## Commits — Conventional Commits (enforced by commitlint)
 Format: `type(scope): description`
