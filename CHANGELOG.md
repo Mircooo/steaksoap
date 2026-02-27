@@ -1,5 +1,44 @@
 # Changelog
 
+## [3.0.0](https://github.com/mitambuch/steaksoap/compare/v2.7.0...v3.0.0) (2026-02-27)
+
+### ✨ Features
+
+* **commands:** add /init for full project identity customization ([11d8280](https://github.com/mitambuch/steaksoap/commit/11d8280a1242ed33e3f70cf0ee8cb6d54a0aaa26))
+* **lint:** enforce import boundaries between ui, features, and pages ([fcbf1ad](https://github.com/mitambuch/steaksoap/commit/fcbf1ada5f453c10814383630f853cc78020dcc8))
+* **pages:** move original showcase to /steaksoap route with nav entry ([09ba1de](https://github.com/mitambuch/steaksoap/commit/09ba1de22e0e3c3836740fda9c917fb27f41b931))
+* **pages:** move welcome guide to /welcome, restore showcase at / ([9cc4c93](https://github.com/mitambuch/steaksoap/commit/9cc4c9326176264c0d98e6550d31a3747e6ba63a))
+* **pages:** replace Home with Welcome page and setup instructions ([1122821](https://github.com/mitambuch/steaksoap/commit/1122821909287f3660bddfc6c0efbef6f84eabaa))
+* **setup:** add /init prompt in post-setup next steps ([af40d06](https://github.com/mitambuch/steaksoap/commit/af40d06116135f77a457ee7f8020abc415d9acc0))
+* **setup:** add Steaksoap page preservation logic and conditional cleanup ([8b8345d](https://github.com/mitambuch/steaksoap/commit/8b8345dc31477ff974d1b4843e3a95b1b50aa386))
+* **testing:** add coverage reporting with v8 provider and base thresholds ([c355047](https://github.com/mitambuch/steaksoap/commit/c3550475dd1293da2521c4358a72946bb7c8084e))
+
+### 🐛 Bug Fixes
+
+* **commitlint:** allow uppercase in commit subject ([a727eaa](https://github.com/mitambuch/steaksoap/commit/a727eaa43155cc5f4a987070b02a085cd922e69a))
+* **rules:** routing.md now correctly requires default export for pages ([d7f09e5](https://github.com/mitambuch/steaksoap/commit/d7f09e5736da178d951837257d8b923ab225f2a8))
+
+### ♻️  Refactoring
+
+* **rules:** eliminate redundancies across CLAUDE.md, workflow.md, git.md, styling.md ([7a32419](https://github.com/mitambuch/steaksoap/commit/7a324197744cd48571acd8dbcb594ffe5f1f71dd))
+* **rules:** rename trust mode to batch mode for clarity ([4fb56a8](https://github.com/mitambuch/steaksoap/commit/4fb56a8f0b2532f6cbfaa5e4c486a7be3d21cf9d))
+
+### 📚 Documentation
+
+* **claude:** add fresh clone detection with /init guidance ([7bd0d63](https://github.com/mitambuch/steaksoap/commit/7bd0d63bf5e53ed5b06a7ee57555c31160ff545e))
+* **claude:** reinforce never-commit-to-main as the [#1](https://github.com/mitambuch/steaksoap/issues/1) rule ([c30e27a](https://github.com/mitambuch/steaksoap/commit/c30e27a5b75250f8da461ae41b87b598bd95fc51))
+* **readme:** update getting started with setup + /init flow ([4f51a2e](https://github.com/mitambuch/steaksoap/commit/4f51a2e590c3560248b1b3b1409525d8df7c3f3a))
+* **rules:** protect Playground and Steaksoap pages from deletion ([4586438](https://github.com/mitambuch/steaksoap/commit/45864388cecf8a169991feb2873879d51f942fe0))
+
+### 🔧 Chores
+
+* **lint:** enforce zero warnings with --max-warnings 0 ([5f2b304](https://github.com/mitambuch/steaksoap/commit/5f2b3049e7771d4422f62d4fbdda6f09d9577ca6))
+* **security:** add dependency review to block vulnerable new deps ([7191add](https://github.com/mitambuch/steaksoap/commit/7191add22f55941ecdaa2010eb7748196a6f39e2))
+
+### ✅ Tests
+
+* **resilience:** remove hardcoded steaksoap references from tests ([3564d6c](https://github.com/mitambuch/steaksoap/commit/3564d6c437d509fbdcc7aef7fe25e7507f338c0c))
+
 ## [2.7.0](https://github.com/mitambuch/steaksoap/compare/v2.6.2...v2.7.0) (2026-02-23)
 
 ### ✨ Features
