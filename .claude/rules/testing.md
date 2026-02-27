@@ -69,3 +69,12 @@ describe('Button', () => {
 - `pnpm test` — run all tests once
 - `pnpm test:watch` — watch mode
 - `pnpm test -- Button` — run tests matching "Button"
+- `pnpm test:coverage` — run with coverage report
+
+## Coverage
+
+Run `pnpm test:coverage` to generate a coverage report.
+- Report in terminal + HTML report in `coverage/`
+- Thresholds are set in `vitest.config.ts` — they are a ratchet (only go UP)
+- When you add tests that increase coverage: bump the threshold to lock the new level
+- Never lower thresholds without explicit owner approval
