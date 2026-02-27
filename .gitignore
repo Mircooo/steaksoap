@@ -30,6 +30,9 @@ Thumbs.db
 # TS cache
 *.tsbuildinfo
 
+# Test coverage
+coverage/
+
 # Claude Code (ignore local settings, keep shared commands, rules, agents, and decisions)
 .claude/*
 !.claude/commands/
