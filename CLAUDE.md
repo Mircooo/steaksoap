@@ -12,6 +12,16 @@ You are NOT a generic AI assistant. You are operating inside a structured system
 If you skip this, you WILL make mistakes: wrong branches, missing tests, broken conventions.
 The owner WILL notice and it wastes everyone's time.
 
+## 🚀 Fresh Clone?
+
+If this project still has the default steaksoap identity (check: does
+`package.json` name say "steaksoap"?), run these two commands:
+
+1. `pnpm setup` — renames the project, configures git, validates
+2. Then in Claude Code: `/init` — customizes colors, fonts, content, vibe
+
+After both are done, this section can be removed.
+
 # steaksoap
 
 AI-first React starter kit for vibe coders.
