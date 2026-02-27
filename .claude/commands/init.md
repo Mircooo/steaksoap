@@ -1,0 +1,181 @@
+# /init — Project Identity Setup
+
+Transform this steaksoap template into YOUR project.
+
+## When to use
+Run this ONCE after cloning, AFTER `pnpm setup` (which handles the technical setup).
+/init handles the CREATIVE setup: colors, fonts, vibe, content.
+
+## Protected — do NOT touch these during /init
+- `/playground` page → KEEP, it reflects new tokens automatically
+- `/steaksoap` page → KEEP as reference
+- All slash commands in `.claude/commands/`
+- All rules in `.claude/rules/`
+- All agents in `.claude/agents/`
+
+## Step 1 — Interview (ask ONE question at a time, wait for each answer)
+
+1. **Project name**
+   "What's the name of your project?"
+   → Used in: site.ts name, SeoHead, README h1, CLAUDE.md header
+
+2. **Description**
+   "Describe your project in 1-2 sentences."
+   → Used in: site.ts description, meta description, README, CLAUDE.md
+
+3. **Who is it for?**
+   "Who is this for? (portfolio, client site, SaaS, agency, blog...)"
+   → Used in: CLAUDE.md context, tone guidance
+
+4. **Vibe/aesthetic**
+   "What vibe? (minimal, bold, playful, corporate, brutalist, dark, warm...)"
+   → Used in: font suggestions, spacing decisions, animation choices
+
+5. **Accent color**
+   "Pick an accent color. Hex code, color name, or 'keep current' (#ff6b6b)."
+   → If the user gives a name like "blue" or "warm orange", pick an appropriate hex.
+   → Show the chosen color and ask confirmation.
+   → MUST check contrast ratio against both dark bg (#0a0a0a) and light bg (#b0b0a8).
+   → Minimum contrast ratio: 4.5:1 for text, 3:1 for large text.
+   → If contrast fails, suggest an adjusted version and explain why.
+
+6. **Dark, light, or both?**
+   "Dark mode, light mode, or both? (currently: both)"
+   → If "dark only": can simplify by removing [data-theme='light'] block
+   → If "light only": swap the default
+   → If "both": keep current structure
+
+7. **Font preference**
+   "Font preference? (modern sans, monospace, serif, or keep Space Grotesk + JetBrains Mono)"
+   → If Google Font: update both `src/styles/fonts.css` AND `index.html` preload
+   → Update `@theme { --font-family-sans: ... }` in `src/index.css`
+   → Update `@theme { --font-family-mono: ... }` if mono changes too
+
+## Step 2 — Apply changes (in this EXACT order)
+
+### 2.1 — CSS tokens in `src/index.css`
+
+Edit the `@theme { }` block (lines 11-27 approximately):
+- `--color-accent` → new accent color
+- Generate `--color-success`, `--color-warning` that harmonize (or keep defaults)
+- If vibe is "warm", adjust `--color-surface` and `--color-border` slightly warmer
+
+Edit the `[data-theme='light']` block (lines 30-42 approximately):
+- `--color-accent` → same accent in light mode (or adjusted for contrast)
+- Verify ALL contrast ratios:
+  - `--color-fg` (#1a1a1a) on `--color-bg` → must be ≥ 4.5:1
+  - `--color-accent` on `--color-bg` → must be ≥ 4.5:1
+  - `--color-muted` on `--color-bg` → must be ≥ 4.5:1
+
+Also update the scrollbar colors (lines 48-60) to use the new accent:
+```css
+::-webkit-scrollbar-thumb {
+  background: rgba(NEW_R, NEW_G, NEW_B, 0.5);
+}
+```
+
+### 2.2 — Fonts (if changed)
+
+In `src/styles/fonts.css`: update the @import or @font-face
+In `index.html`: update the Google Fonts `<link>` href
+In `src/index.css` `@theme`: update `--font-family-sans` and/or `--font-family-mono`
+
+### 2.3 — Site config: `src/config/site.ts`
+
+Update:
+- `description` field with user's description
+- The `name` is read from `env.APP_NAME` which comes from `.env.local` (set by pnpm setup)
+  → If pnpm setup was NOT run, tell user to run it first or set VITE_APP_NAME in .env.local
+
+### 2.4 — SEO / index.html
+
+In `index.html`:
+- Update `<title>` tag (line 11)
+- Update `<meta name="description">` (line 12)
+- Update the FOUC script localStorage key: `'steaksoap-theme'` → keep as-is
+  (localStorage keys don't need to match project name, changing breaks existing users)
+
+### 2.5 — CLAUDE.md
+
+Rewrite the header and context:
+- Replace `# steaksoap` with `# [project name]`
+- Replace the one-liner "AI-first React starter kit for vibe coders" with user's description
+- Add in a new "## Project Context" section:
+  ```
+  This project is a [user's description]. It has a [vibe] aesthetic.
+  Built for: [who is it for].
+  ```
+- Keep ALL rules, commands, workflow, architecture sections INTACT
+- Keep the "Protected Pages" section INTACT
+
+### 2.6 — README.md
+
+Replace the marketing sections at the top:
+- `# steaksoap` → `# [project name]`
+- Update description paragraph
+- Keep ALL technical sections (Stack, Commands, Architecture)
+- Keep the Getting Started section
+
+### 2.7 — Welcome page: `src/pages/Home.tsx`
+
+Update text content:
+- "welcome to steaksoap" → "welcome to [project name]"
+- The example prompt in step 03 should reflect the user's actual project
+
+### 2.8 — Footer cleanup consideration
+
+The Footer (`src/components/layout/Footer.tsx`) has hardcoded links:
+- `https://github.com/mitambuch/steaksoap/releases`
+- `https://github.com/mitambuch/steaksoap`
+- `Setup guide` button (dispatches 'open-setup-wizard' event)
+
+ASK the user: "The footer has links to the steaksoap GitHub repo and a setup
+wizard button. Want me to: (a) replace with your repo URL, (b) remove external
+links and keep just the credit, or (c) leave as-is for now?"
+
+Same question for the Header GitHub link (`src/components/layout/Header.tsx` line 108).
+
+### 2.9 — Favicon
+
+ASK: "Want me to keep the steaksoap favicon or would you like to change it later?
+(You can always replace the files in /public/ manually.)"
+
+If they want to change: explain which files to replace:
+- `public/favicon.svg` (vector, used by modern browsers)
+- `public/favicon-32.png` (32x32 fallback)
+- `public/apple-touch-icon.png` (180x180 for iOS)
+
+## Step 3 — Validate
+
+```bash
+pnpm validate
+```
+
+Open browser and check:
+- `localhost:5173` → Welcome page with new project name
+- `localhost:5173/playground` → Components with new colors
+- `localhost:5173/steaksoap` → Original showcase (untouched)
+- Toggle dark/light mode → both work with new tokens
+
+## Step 4 — Summary
+
+Print:
+```
+✅ Project identity set up as "[name]"
+
+Changed:
+  → src/index.css: accent color, [fonts if changed]
+  → src/config/site.ts: description
+  → index.html: title, meta description
+  → CLAUDE.md: project context
+  → README.md: project identity
+  → src/pages/Home.tsx: welcome text
+  [→ src/styles/fonts.css + index.html: font if changed]
+  [→ Footer.tsx / Header.tsx: links if changed]
+
+Next steps:
+  → Describe your homepage and I'll build it
+  → Use /new-page to add pages
+  → Use /theme to tweak colors later
+  → Visit /playground to see your design system
+```
