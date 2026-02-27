@@ -351,12 +351,14 @@ async function runInit() {
   clack.note(
     [
       'pnpm dev          → Start dev server',
-      'pnpm validate     → Run all checks',
-      'pnpm release      → Create a release',
       '',
-      'CLAUDE.md         → AI agent instructions',
-      'src/pages/        → Add your pages here',
-      'src/components/   → Reusable UI components',
+      'Then open Claude Code and type /init',
+      'Claude will customize colors, fonts, and content for your project.',
+      '',
+      'Other useful commands:',
+      '  pnpm validate   → Run all checks',
+      '  pnpm release    → Create a release',
+      '  /help           → See all Claude Code commands',
     ].join('\n'),
     'Next steps',
   );
