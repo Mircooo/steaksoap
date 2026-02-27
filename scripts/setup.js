@@ -19,6 +19,7 @@ import {
   existsSync,
   readFileSync,
   rmSync,
+  statSync,
   writeFileSync,
 } from 'node:fs';
 import { resolve } from 'node:path';
@@ -84,7 +85,7 @@ async function runInit() {
     }
   }
 
-  let projectName, displayName, createRepo, keepPlayground;
+  let projectName, displayName, createRepo, keepPlayground, keepSteaksoap;
 
   if (isAutoYes) {
     // ─── Non-interactive mode ───────────────────────────
@@ -92,6 +93,7 @@ async function runInit() {
     displayName = defaultSlug;
     createRepo = false;
     keepPlayground = false;
+    keepSteaksoap = true;
     clack.log.info(`Using defaults: ${projectName}`);
   } else {
     // ─── Interactive wizard (3 questions) ───────────────
@@ -147,6 +149,15 @@ async function runInit() {
       initialValue: false,
     });
     if (clack.isCancel(keepPlayground)) {
+      clack.cancel('Setup cancelled.');
+      process.exit(0);
+    }
+
+    keepSteaksoap = await clack.confirm({
+      message: 'Keep the Steaksoap showcase page? (original template at /steaksoap)',
+      initialValue: true,
+    });
+    if (clack.isCancel(keepSteaksoap)) {
       clack.cancel('Setup cancelled.');
       process.exit(0);
     }
@@ -241,26 +252,35 @@ async function runInit() {
     copyFileSync(templateHome, resolve(root, 'src/pages/Home.tsx'));
   }
 
-  // Remove showcase-only files (always removed)
+  // Remove files no longer needed post-setup
   const filesToRemove = [
-    'src/data/showcase.ts',
-    'src/components/ui/FeatureCard.tsx',
-    'src/components/ui/CodeBlock.tsx',
-    'src/components/ui/TechBadge.tsx',
-    'src/components/ui/Noise.tsx',
-    'src/components/ui/Section.tsx',
-    'src/hooks/useInView.ts',
+    // Always removed (not needed post-setup)
+    'src/features/counter',
   ];
-  for (const file of filesToRemove) {
-    const p = resolve(root, file);
-    if (existsSync(p)) rmSync(p);
+
+  // Showcase-dependent files — only remove if Steaksoap page is also removed
+  if (!keepSteaksoap) {
+    filesToRemove.push(
+      'src/data/showcase.ts',
+      'src/components/ui/FeatureCard.tsx',
+      'src/components/ui/CodeBlock.tsx',
+      'src/components/ui/TechBadge.tsx',
+      'src/components/ui/Noise.tsx',
+      'src/components/ui/Section.tsx',
+      'src/hooks/useInView.ts',
+    );
   }
 
-  // Remove demo feature directories
-  const dirsToRemove = ['src/features/counter'];
-  for (const dir of dirsToRemove) {
-    const p = resolve(root, dir);
-    if (existsSync(p)) rmSync(p, { recursive: true });
+  for (const file of filesToRemove) {
+    const p = resolve(root, file);
+    if (existsSync(p)) {
+      const stat = statSync(p);
+      if (stat.isDirectory()) {
+        rmSync(p, { recursive: true });
+      } else {
+        rmSync(p);
+      }
+    }
   }
 
   // Remove cursor-hidden CSS utility (showcase-only, a11y concern)
@@ -311,6 +331,46 @@ async function runInit() {
         '\n',
       );
       writeFileSync(siteConfigPath, siteTs);
+    }
+  }
+
+  // Remove Steaksoap page and route (unless user chose to keep it)
+  if (!keepSteaksoap) {
+    const steaksoapPath = resolve(root, 'src/pages/Steaksoap.tsx');
+    if (existsSync(steaksoapPath)) rmSync(steaksoapPath);
+
+    // Remove Steaksoap route and import from routes/index.tsx
+    const routesPath = PATHS.routesConfig;
+    if (existsSync(routesPath)) {
+      let routes = readFileSync(routesPath, 'utf-8');
+      routes = routes.replace(
+        /const Steaksoap = lazy\(\(\) => import\('@pages\/Steaksoap'\)\);\n/,
+        '',
+      );
+      routes = routes.replace(
+        /\s*<Route path=\{ROUTES\.STEAKSOAP\} element=\{<Steaksoap \/>\} \/>\n/,
+        '\n',
+      );
+      writeFileSync(routesPath, routes);
+    }
+
+    // Remove STEAKSOAP from route constants
+    const routeConstsPath = PATHS.routes;
+    if (existsSync(routeConstsPath)) {
+      let consts = readFileSync(routeConstsPath, 'utf-8');
+      consts = consts.replace(/\s*STEAKSOAP:\s*'\/steaksoap',?\n/, '\n');
+      writeFileSync(routeConstsPath, consts);
+    }
+
+    // Remove Steaksoap nav item from site config
+    const steaksoapSiteConfigPath = PATHS.siteConfig;
+    if (existsSync(steaksoapSiteConfigPath)) {
+      let siteTs = readFileSync(steaksoapSiteConfigPath, 'utf-8');
+      siteTs = siteTs.replace(
+        /\s*\{\s*label:\s*'Steaksoap',\s*href:\s*ROUTES\.STEAKSOAP\s*\},?\n/,
+        '\n',
+      );
+      writeFileSync(steaksoapSiteConfigPath, siteTs);
     }
   }
 
